@@ -63,6 +63,14 @@ export function Hero({ locale }: { locale: Locale }) {
           aria-hidden="true"
           className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(9_22_38/0.58)_0%,rgb(9_22_38/0.28)_46%,rgb(9_22_38/0)_82%)] lg:block"
         />
+        {/* Below `lg` the column runs full width and its eyebrow climbs into
+            the sunset, where a light blue on a light cloud has nothing to sit
+            against. A short cap over the top quarter only — gone before the
+            headline, so the band keeps its new lightness everywhere it shows. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(9_22_38/0.42)_0%,rgb(9_22_38/0)_26%)] lg:hidden"
+        />
         {/* The blue bloom the rest of the dark surfaces carry. */}
         <div
           aria-hidden="true"
