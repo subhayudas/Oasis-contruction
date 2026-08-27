@@ -18,7 +18,7 @@ export function SelectedWork({ locale }: { locale: Locale }) {
   const transformation = beforeAfters[0];
 
   return (
-    <section className="s-sand u-section border-t border-[var(--line)]">
+    <section className="s-sand u-section">
       <div className="u-wrap">
         <SectionHeading
           eyebrow={t.workSection.eyebrow}

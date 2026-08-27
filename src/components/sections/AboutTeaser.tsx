@@ -11,7 +11,7 @@ export function AboutTeaser({ locale }: { locale: Locale }) {
   const scene = sceneById('scene-cordeau-sable');
 
   return (
-    <section className="s-ink on-ink border-t border-[var(--line)]">
+    <section className="s-ink on-ink">
       <div className="grain-overlay">
         <div className="u-wrap u-section">
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">

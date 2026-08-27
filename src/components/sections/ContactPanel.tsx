@@ -18,7 +18,7 @@ export function ContactPanel({ locale }: { locale: Locale }) {
   const area = locale === 'fr' ? 'Laval et Rive-Nord' : 'Laval and the North Shore';
 
   return (
-    <section id="soumission" className="s-ink on-ink border-t border-[var(--line)]">
+    <section id="soumission" className="s-ink on-ink">
       <div className="grain-overlay">
         <div className="u-wrap u-section">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">

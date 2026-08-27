@@ -66,7 +66,7 @@ export default async function LocaleLayout({
 
         <Header locale={locale} />
 
-        <main id="main" tabIndex={-1} className="pb-[5.25rem] md:pb-0">
+        <main id="main" tabIndex={-1}>
           {children}
         </main>
 

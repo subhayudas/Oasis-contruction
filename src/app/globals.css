@@ -1146,7 +1146,11 @@
   }
 
   [data-scrolled='true'] .glass-bar::after {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.94) 0%, rgb(255 255 255 / 0.84) 100%);
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.94) 0%,
+      rgb(255 255 255 / 0.84) 100%
+    );
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 1),
       inset 0 -1px 0 rgb(var(--blue) / 0.22),
@@ -1591,6 +1595,77 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  /* Everything that arrives by moving simply arrives. */
+  .rise,
+  .panel-in,
+  .drawer-root[data-open='true'] .drawer-item,
+  .img-fade,
+  .img-fade.is-loaded {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal.is-in .u-tick,
+  .rise .u-tick,
+  .check-draw path {
+    animation: none;
+  }
+
+  .check-draw path {
+    stroke-dashoffset: 0;
+  }
+
+  .step-rule::before,
+  .step-rule.is-in::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .s-sample:hover::after,
+  .s-sample:focus-within::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .s-sample:hover .s-chip,
+  .s-sample:focus-within .s-chip,
+  .link-rule:hover > svg {
+    transform: none;
+  }
+
+  /* The handle keeps its centring transform and loses only the press states. */
+  .ba-handle,
+  .ba-frame:has(.ba-range:hover) .ba-handle,
+  .ba-frame:has(.ba-range:active) .ba-handle {
+    transform: translate(-50%, -50%);
+  }
+
+  /* The comparator hint is a movement with no still equivalent, so it is not
+     replayed at speed — it simply never runs. */
+  .ba-frame.is-hinting {
+    animation: none;
+  }
+
+  /* The thumb bar is a call to action, not decoration: with motion off it
+     stays put rather than snapping in and out of the screen. */
+  [data-hero-cta='visible'] [data-mobile-contact-bar] {
+    transform: none;
+  }
+
+  .drawer-panel {
+    transition: none;
+  }
+
+  .drawer-root {
+    transition: none;
+  }
+
+  .flow-water,
+  .flow-dash {
+    animation: none;
   }
 }
 

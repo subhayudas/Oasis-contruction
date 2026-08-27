@@ -98,7 +98,7 @@ export function AboutPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[] 
       </section>
 
       {/* -------------------------------------------------------------- approach */}
-      <section className="s-sand u-section border-t border-[var(--line)]">
+      <section className="s-sand u-section">
         <div className="u-wrap">
           <h2 className="u-h2 reveal text-[clamp(1.6rem,2.8vw,2.25rem)]">
             {t.aboutPage.approachTitle}
@@ -136,7 +136,7 @@ export function AboutPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[] 
       </section>
 
       {/* -------------------------------------------------------------- services */}
-      <section className="u-section border-t border-[var(--line)]">
+      <section className="u-section">
         <div className="u-wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="reveal lg:col-span-4">
             <h2 className="u-h2 text-[clamp(1.6rem,2.8vw,2.25rem)]">

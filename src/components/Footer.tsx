@@ -21,7 +21,7 @@ export function Footer({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <footer className="s-ink on-ink relative">
+    <footer className="s-ink on-ink relative pb-[5.25rem] md:pb-0">
       <div className="grain-overlay">
         <div className="u-wrap py-14 lg:py-18">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">

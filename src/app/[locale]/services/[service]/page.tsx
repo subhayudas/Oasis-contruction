@@ -166,7 +166,7 @@ export default async function ServicePage({
       </section>
 
       {/* ------------------------------------------- includes / surfaces / note */}
-      <section className="s-sand u-section border-t border-[var(--line)]">
+      <section className="s-sand u-section">
         <div className="u-wrap grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="reveal lg:col-span-5">
             <h2 className="u-h3 text-[1.25rem]">{copy.includesTitle}</h2>
@@ -210,7 +210,7 @@ export default async function ServicePage({
 
       {/* ------------------------------------------------------------- diagram */}
       {service.diagram ? (
-        <section className="u-section-tight border-t border-[var(--line)]">
+        <section className="u-section-tight">
           <div className="u-wrap">
             <figure className="reveal s-plaque overflow-hidden p-6 sm:p-8">
               <div className="relative z-10 overflow-x-auto">
@@ -227,7 +227,7 @@ export default async function ServicePage({
       ) : null}
 
       {/* -------------------------------------------------------------- process */}
-      <section className="u-section border-t border-[var(--line)]">
+      <section className="u-section">
         <div className="u-wrap">
           <h2 className="u-h2 text-[clamp(1.6rem,2.6vw,2.125rem)]">
             {t.servicePage.processTitle}
@@ -237,7 +237,7 @@ export default async function ServicePage({
       </section>
 
       {/* ------------------------------------------------------- local + related */}
-      <section className="u-section-tight border-t border-[var(--line)]">
+      <section className="u-section-tight">
         <div className="u-wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="reveal lg:col-span-7">
             <h2 className="u-h3 text-[1.25rem]">{copy.localTitle}</h2>
@@ -284,7 +284,7 @@ export default async function ServicePage({
       </section>
 
       {/* ------------------------------------------------------------- quote CTA */}
-      <section id="soumission" className="s-ink on-ink border-t border-[var(--line)]">
+      <section id="soumission" className="s-ink on-ink">
         <div className="grain-overlay">
           <div className="u-wrap u-section grid gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">

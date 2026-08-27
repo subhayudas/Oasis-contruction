@@ -131,7 +131,7 @@ export default async function ServicesIndexPage({
         </div>
       </section>
 
-      <section className="s-sand u-section border-t border-[var(--line)]">
+      <section className="s-sand u-section">
         <div className="u-wrap grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <Eyebrow>{t.processSection.eyebrow}</Eyebrow>

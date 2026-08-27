@@ -115,7 +115,7 @@ export function ProjectsPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb
       </section>
 
       {/* -------------------------------------------------------------- gallery */}
-      <section className="s-sand u-section border-t border-[var(--line)]">
+      <section className="s-sand u-section">
         <div className="u-wrap">
           <h2 className="u-h2 text-[clamp(1.6rem,2.8vw,2.25rem)]">
             {t.projectsPage.galleryTitle}

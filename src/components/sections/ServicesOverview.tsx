@@ -23,7 +23,7 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
   return (
-    <section className="u-section border-t border-[var(--line)]">
+    <section className="u-section">
       <div className="u-wrap">
         <SectionHeading
           eyebrow={t.servicesSection.eyebrow}

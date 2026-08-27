@@ -54,10 +54,13 @@ export function Hero({ locale }: { locale: Locale }) {
             dusk photograph stays a photograph and the band belongs to the
             white pages under it: one up from the base to carry the type, one
             in from the left so the headline never fights the lit doorway on
-            the right. */}
+            the right. The base stop is fully opaque rather than 0.86: the
+            band under the hero opens on exactly this navy, so the dark runs
+            through the join and drains into the paper instead of stopping
+            at an edge. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(9_22_38/0.86)_0%,rgb(9_22_38/0.66)_30%,rgb(9_22_38/0.3)_62%,rgb(9_22_38/0.16)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(9_22_38/1)_0%,rgb(9_22_38/0.88)_9%,rgb(9_22_38/0.66)_30%,rgb(9_22_38/0.3)_62%,rgb(9_22_38/0.16)_100%)]"
         />
         <div
           aria-hidden="true"
