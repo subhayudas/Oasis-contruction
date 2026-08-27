@@ -191,10 +191,10 @@ export function QuoteForm({
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className={`s-plaque !border-l-green-deep border-l-2 px-6 py-7 ${className}`}
+        className={`panel-in s-plaque !border-l-green-deep border-l-2 px-6 py-7 ${className}`}
       >
         <p className="relative z-10 flex items-center gap-2.5">
-          <IconCheck className="text-green-deep h-5 w-5 shrink-0" />
+          <IconCheck className="check-draw text-green-deep h-5 w-5 shrink-0" />
           <span className="u-h3">{labels.successTitle}</span>
         </p>
         <p className="u-body relative z-10 mt-3 text-[0.9375rem]">{labels.successBody}</p>
@@ -245,7 +245,7 @@ export function QuoteForm({
           ref={summaryRef}
           tabIndex={-1}
           role="alert"
-          className="s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
+          className="panel-in s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
         >
           <p className="relative z-10 flex items-center gap-2.5 text-[0.9375rem] font-[550]">
             <IconAlert className="h-4.5 w-4.5 shrink-0 text-[#b42318]" />
@@ -268,7 +268,7 @@ export function QuoteForm({
           ref={statusRef}
           tabIndex={-1}
           role="alert"
-          className="s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
+          className="panel-in s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
         >
           <p className="relative z-10 text-[0.9375rem] font-[550]">
             {status.code === 'rate_limited' ? labels.rateLimitTitle : labels.failureTitle}
@@ -534,7 +534,17 @@ export function QuoteForm({
           disabled={status.kind === 'submitting'}
           className="btn btn-stone rounded-sm disabled:cursor-progress disabled:opacity-70"
         >
-          {status.kind === 'submitting' ? labels.submitting : labels.submit}
+          {status.kind === 'submitting' ? (
+            <>
+              {/* A form that has gone quiet is indistinguishable from one that
+                  has failed. The spinner is decoration for the eye only — the
+                  label already carries the state for a screen reader. */}
+              <span className="spinner" aria-hidden="true" />
+              {labels.submitting}
+            </>
+          ) : (
+            labels.submit
+          )}
         </button>
         <a href={phone.href} className="link-rule text-[0.875rem]">
           {phone.display}

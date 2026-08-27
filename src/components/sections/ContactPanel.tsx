@@ -22,7 +22,7 @@ export function ContactPanel({ locale }: { locale: Locale }) {
       <div className="grain-overlay">
         <div className="u-wrap u-section">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="reveal lg:col-span-5">
+            <div className="reveal reveal-l lg:col-span-5">
               <Eyebrow tone="teal">{t.contactPanel.eyebrow}</Eyebrow>
               <span className="u-tick mt-3.5" aria-hidden="true" />
               <h2 className="u-h2 text-paper mt-5">{t.contactPanel.title}</h2>
@@ -84,7 +84,10 @@ export function ContactPanel({ locale }: { locale: Locale }) {
             </div>
 
             {/* The form sits on paper, mounted on the dark band like a printed card. */}
-            <div className="reveal lg:col-span-7">
+            <div
+              className="reveal reveal-r lg:col-span-7"
+              style={{ ['--reveal-delay' as string]: '90ms' }}
+            >
               <div className="s-plaque clip-notch-sm p-6 sm:p-8">
                 <div className="relative z-10">
                   <QuoteForm

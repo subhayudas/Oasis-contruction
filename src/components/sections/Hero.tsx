@@ -66,13 +66,13 @@ export function Hero({ locale }: { locale: Locale }) {
           aria-hidden="true"
           className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(9_22_38/0.58)_0%,rgb(9_22_38/0.28)_46%,rgb(9_22_38/0)_82%)] lg:block"
         />
-        {/* Below `lg` the column runs full width and its eyebrow climbs into
-            the sunset, where a light blue on a light cloud has nothing to sit
-            against. A short cap over the top quarter only — gone before the
-            headline, so the band keeps its new lightness everywhere it shows. */}
+        {/* Below `lg` there is no left scrim to lean on and the column runs the
+            full width of a portrait crop, so the type sits straight over the
+            lit windows. This veil stands in for the left one at those sizes,
+            heaviest at the eyebrow and spent by the buttons. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(9_22_38/0.42)_0%,rgb(9_22_38/0)_26%)] lg:hidden"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(9_22_38/0.44)_0%,rgb(9_22_38/0.3)_20%,rgb(9_22_38/0.16)_55%,rgb(9_22_38/0)_80%)] lg:hidden"
         />
         {/* The blue bloom the rest of the dark surfaces carry. */}
         <div
@@ -83,20 +83,42 @@ export function Hero({ locale }: { locale: Locale }) {
 
       {/* ---------------------------------------------------------- editorial */}
       <div className="u-wrap flex min-h-[clamp(30rem,80svh,46rem)] flex-col justify-end pt-16 pb-10 lg:min-h-[clamp(34rem,86svh,50rem)] lg:pt-28 lg:pb-14">
+        {/* The hero is painted before any observer could run, so its entrance
+            is pure CSS and staged in reading order: label, headline, promise,
+            detail, action. The headline starts almost immediately — it is the
+            thing the largest paint is measured on, and nothing is gained by
+            holding it back. */}
         <div className="max-w-3xl">
-          <p className="u-label text-teal">{t.hero.eyebrow}</p>
-          <span className="u-tick mt-3.5" aria-hidden="true" />
+          <p className="rise u-label text-teal">{t.hero.eyebrow}</p>
+          <span className="rise u-tick mt-3.5" aria-hidden="true" />
 
-          <h1 className="u-display text-paper mt-7">{t.hero.title}</h1>
-          <p className="u-accent text-teal mt-4 text-[clamp(1.6rem,3.4vw,2.6rem)]">
+          <h1
+            className="rise u-display text-paper mt-7"
+            style={{ ['--rise-delay' as string]: '60ms' }}
+          >
+            {t.hero.title}
+          </h1>
+          <p
+            className="rise u-accent text-teal mt-4 text-[clamp(1.6rem,3.4vw,2.6rem)]"
+            style={{ ['--rise-delay' as string]: '170ms' }}
+          >
             {t.hero.accent}
           </p>
 
-          <p className="text-dust mt-7 max-w-xl text-[1.0625rem] leading-[1.68] sm:text-[1.1875rem]">
+          <p
+            className="rise text-dust mt-7 max-w-xl text-[1.0625rem] leading-[1.68] sm:text-[1.1875rem]"
+            style={{ ['--rise-delay' as string]: '250ms' }}
+          >
             {t.hero.lede}
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          {/* Doubles as the thumb-bar sentinel: while these two buttons are on
+              screen the pinned mobile bar would only be repeating them. */}
+          <div
+            data-sentinel="hero-cta"
+            className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+            style={{ ['--rise-delay' as string]: '330ms' }}
+          >
             <Link href={pagePath(locale, 'contact')} className="btn btn-brass rounded-sm">
               {t.common.quote}
             </Link>
@@ -107,7 +129,10 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
 
         {/* The three facts, ruled straight onto the photograph. */}
-        <dl className="mt-12 grid gap-px border-t border-[var(--line-dark)] sm:grid-cols-3 lg:mt-14">
+        <dl
+          className="rise mt-12 grid gap-px border-t border-[var(--line-dark)] sm:grid-cols-3 lg:mt-14"
+          style={{ ['--rise-delay' as string]: '420ms' }}
+        >
           {facts.map(({ label, value, icon: Icon, href }, index) => (
             <div
               key={label}

@@ -73,7 +73,12 @@
        line — each ground rises out of the one above it over this distance.
        Kept shorter than the smallest section padding so a ramp never reaches
        a line of type. */
-    --seam: clamp(3rem, 5.5vw, 5rem);
+    --seam: clamp(3.25rem, 6.2vw, 6rem);
+
+    /* The navy the dark bands bottom out at — the last stop of the surface
+       gradient below. Named because the ramps have to open on exactly it to
+       be continuous with the band they are leaving. */
+    --ink-floor: #091626;
 
     /* The dark band's paint, named once so the band and the ramp that
        introduces it are literally the same gradient rather than two that
@@ -81,7 +86,7 @@
     --ink-surface:
       radial-gradient(120% 130% at 10% -14%, rgb(35 79 138 / 0.55) 0%, transparent 58%),
       radial-gradient(90% 100% at 96% 108%, rgb(15 86 196 / 0.32) 0%, transparent 60%),
-      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, #091626 100%);
+      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, var(--ink-floor) 100%);
 
     /* One shadow colour for the whole site, so every drop shadow reads as
        the same navy light source rather than a pile of unrelated greys. */
@@ -486,49 +491,78 @@
      under any given seam is not the same white twice.
      ============================================================== */
 
-  /* A dark band arriving under a light one repaints its whole surface onto a
-     pseudo-element that overhangs the join, then masks that in. Repainting
-     the surface rather than butting a matching strip against it is what
-     keeps the blooms continuous: there is only ever one gradient, and the
-     mask decides how much of it has arrived. */
-  main > .s-ink:not(:first-child) {
+  /* Every dark band carries a ramp at its top edge unless it opens the page.
+     The footer is one of these bands: it is not a sibling of the sections,
+     so which of the two ramps it wants is settled by asking whether the last
+     thing in `main` was dark. */
+  main > .s-ink:not(:first-child),
+  main + footer.s-ink {
     position: relative;
     z-index: 0;
-    background: none;
   }
 
-  main > .s-ink:not(:first-child)::before {
+  main > .s-ink:not(:first-child)::before,
+  main + footer.s-ink::before {
     content: '';
     position: absolute;
     z-index: -1;
-    inset: calc(var(--seam) * -1) 0 0;
+    inset-inline: 0;
     pointer-events: none;
+  }
+
+  /* --- arriving out of a light section ---------------------------------
+     The band repaints its whole surface onto a pseudo-element that overhangs
+     the join, and masks that in. Repainting the surface rather than butting a
+     matching strip against it is what keeps the blooms continuous: there is
+     only ever one gradient, and the mask decides how much of it has arrived. */
+  main > .s-ink:not(:first-child):not(.s-ink + .s-ink),
+  main:not(:has(> :last-child.s-ink)) + footer.s-ink {
+    background: none;
+  }
+
+  main > .s-ink:not(:first-child):not(.s-ink + .s-ink)::before,
+  main:not(:has(> :last-child.s-ink)) + footer.s-ink::before {
+    inset-block: calc(var(--seam) * -1) 0;
     background: var(--ink-surface);
-    /* Weighted late: the dark holds off, then commits. A straight ramp
-       spends half its length in the grey between white and navy, which is
-       the one colour this palette does not own. */
+    /* A smoothstep, not a straight ramp. Both ends have to leave without
+       being seen leaving — a linear fade announces itself at the two points
+       where its slope changes, which is exactly the pair of lines this is
+       here to get rid of. */
     --seam-mask: linear-gradient(
       to bottom,
       rgb(0 0 0 / 0) 0,
-      rgb(0 0 0 / 0.05) calc(var(--seam) * 0.24),
-      rgb(0 0 0 / 0.2) calc(var(--seam) * 0.48),
-      rgb(0 0 0 / 0.5) calc(var(--seam) * 0.7),
-      rgb(0 0 0 / 0.83) calc(var(--seam) * 0.88),
+      rgb(0 0 0 / 0.06) calc(var(--seam) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--seam) * 0.3),
+      rgb(0 0 0 / 0.43) calc(var(--seam) * 0.45),
+      rgb(0 0 0 / 0.65) calc(var(--seam) * 0.6),
+      rgb(0 0 0 / 0.84) calc(var(--seam) * 0.75),
+      rgb(0 0 0 / 0.97) calc(var(--seam) * 0.9),
       rgb(0 0 0 / 1) var(--seam)
     );
     -webkit-mask-image: var(--seam-mask);
     mask-image: var(--seam-mask);
   }
 
-  /* Two dark bands running together are one surface. There is no join to
-     soften, so the band paints on itself again and the ramp is called off.
-     Must stay after the rule above — same specificity, later wins. */
-  main > .s-ink + .s-ink {
-    background: var(--ink-surface);
-  }
-
-  main > .s-ink + .s-ink::before {
-    content: none;
+  /* --- arriving out of another dark band -------------------------------
+     Two bands running together are meant to read as one surface, but each
+     starts its gradient over, so the darkest row of one lands against the
+     lightest row of the next. Nothing needs to fade in here — the join just
+     needs the floor colour carried across it and let go of. */
+  main > .s-ink + .s-ink::before,
+  main:has(> :last-child.s-ink) + footer.s-ink::before {
+    inset-block: 0 auto;
+    height: var(--seam);
+    background: linear-gradient(
+      to bottom,
+      var(--ink-floor) 0,
+      rgb(9 22 38 / 0.97) 10%,
+      rgb(9 22 38 / 0.84) 25%,
+      rgb(9 22 38 / 0.65) 40%,
+      rgb(9 22 38 / 0.43) 55%,
+      rgb(9 22 38 / 0.22) 70%,
+      rgb(9 22 38 / 0.06) 85%,
+      rgb(9 22 38 / 0) 100%
+    );
   }
 
   /* Light ground under a dark band: the dark does not stop at the section
@@ -547,19 +581,28 @@
     height: var(--seam);
     pointer-events: none;
     background:
-      /* a last breath of the blue light, so the midtones stay in the
-         palette instead of falling to neutral grey */
-      linear-gradient(to bottom, rgb(var(--blue) / 0.1) 0, rgb(var(--blue) / 0) 74%),
+      /* A breath of the blue light through the middle of the fall, so the
+         midtones stay in the palette instead of settling into neutral grey.
+         It has to be nothing at 0%: the first row of pixels is the join, and
+         anything laid over the navy there would be the line again. */
       linear-gradient(
         to bottom,
-        rgb(9 22 38 / 1) 0,
-        rgb(9 22 38 / 0.85) 12%,
-        rgb(9 22 38 / 0.54) 32%,
-        rgb(9 22 38 / 0.27) 54%,
-        rgb(9 22 38 / 0.1) 74%,
-        rgb(9 22 38 / 0.025) 89%,
-        rgb(9 22 38 / 0) 100%
-      );
+        rgb(var(--blue) / 0) 0,
+        rgb(var(--blue) / 0.09) 34%,
+        rgb(var(--blue) / 0) 82%
+      ),
+      /* The same smoothstep as the mask above, run the other way. */
+        linear-gradient(
+          to bottom,
+          rgb(9 22 38 / 1) 0,
+          rgb(9 22 38 / 0.97) 10%,
+          rgb(9 22 38 / 0.84) 25%,
+          rgb(9 22 38 / 0.65) 40%,
+          rgb(9 22 38 / 0.43) 55%,
+          rgb(9 22 38 / 0.22) 70%,
+          rgb(9 22 38 / 0.06) 85%,
+          rgb(9 22 38 / 0) 100%
+        );
   }
 
   /* Metadata plaque: a frosted card standing off the page on its own shadow.
@@ -1111,6 +1154,13 @@
     animation-delay: calc(var(--reveal-delay, 0ms) + 90ms);
   }
 
+  /* In the hero the tick is itself one of the staged elements, so it takes
+     its place in that sequence rather than the reveal one. */
+  .rise.u-tick {
+    animation: tick-draw 520ms var(--ease-material) both;
+    animation-delay: calc(var(--rise-delay, 0ms) + 90ms);
+  }
+
   @keyframes tick-draw {
     from {
       transform: scaleX(0);
@@ -1610,6 +1660,7 @@
 
   .reveal.is-in .u-tick,
   .rise .u-tick,
+  .rise.u-tick,
   .check-draw path {
     animation: none;
   }
@@ -1679,11 +1730,13 @@
   /* Seams have nothing to blend into on paper — there is no page ground for
      a ramp to dissolve towards — so the bands print on their own surface. */
   main > .s-ink::before,
-  main > .s-ink + :not(.s-ink)::before {
+  main > .s-ink + :not(.s-ink)::before,
+  main + footer.s-ink::before {
     display: none;
   }
 
-  main > .s-ink {
+  main > .s-ink,
+  main + footer.s-ink {
     background: var(--ink-surface);
   }
 }

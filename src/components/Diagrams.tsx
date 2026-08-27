@@ -267,10 +267,14 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
         {t.slope}
       </text>
 
-      {/* Water arrows */}
+      {/* Water arrows. The one place on the site where movement carries
+          information rather than emphasis: the drawing says water lands here
+          and leaves there, and the motion says it in the order it happens. */}
       {[110, 170, 230].map((x, i) => (
         <path
           key={x}
+          className="flow-water"
+          style={{ animationDelay: `${i * 320}ms` }}
           d={`M${x} ${52 + i * 2} v22 m0 0 l-5 -6 m5 6 l5 -6`}
           stroke="var(--color-teal)"
           strokeWidth="1.6"
@@ -327,13 +331,23 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
         <path key={dx} d={`M${410 + dx} 213 v-4`} stroke="var(--color-ink)" strokeWidth="1.5" />
       ))}
 
-      {/* Outlet */}
+      {/* Outlet. The dashes march toward the arrowhead, which is the whole
+          point of the drawing: the trench is not a hole, it is a route. */}
       <path
-        d="M436 228 H560 m0 0 l-11 -6 m11 6 l-11 6"
+        className="flow-dash"
+        d="M436 228 H560"
         stroke="var(--color-ink)"
         strokeWidth="1.5"
         fill="none"
         strokeDasharray="6 5"
+      />
+      {/* The head stays solid: a dashed arrow that marches is a flow, a
+          dashed arrowhead is just a shimmer. */}
+      <path
+        d="M560 228 l-11 -6 m11 6 l-11 6"
+        stroke="var(--color-ink)"
+        strokeWidth="1.5"
+        fill="none"
       />
       <text x="470" y="216" fill="var(--color-ink)" style={labelStyle}>
         {t.outlet}

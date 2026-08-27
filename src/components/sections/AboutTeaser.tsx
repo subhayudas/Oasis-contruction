@@ -15,7 +15,10 @@ export function AboutTeaser({ locale }: { locale: Locale }) {
       <div className="grain-overlay">
         <div className="u-wrap u-section">
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-            <figure className="reveal order-last lg:order-first lg:col-span-5">
+            {/* The picture arrives from the side it lives on and the text from
+                the other, so the pair reads as one spread rather than two
+                blocks that happened to rise together. */}
+            <figure className="reveal reveal-l order-last lg:order-first lg:col-span-5">
               <div className="frame frame-keyline clip-notch-sm shadow-[0_40px_60px_-46px_rgba(0,0,0,0.9)]">
                 <Picture
                   alt={scene?.alt[locale] ?? ''}
@@ -32,7 +35,10 @@ export function AboutTeaser({ locale }: { locale: Locale }) {
               </figcaption>
             </figure>
 
-            <div className="reveal lg:col-span-7 lg:pl-4">
+            <div
+              className="reveal reveal-r lg:col-span-7 lg:pl-4"
+              style={{ ['--reveal-delay' as string]: '90ms' }}
+            >
               <Eyebrow tone="teal">{t.aboutTeaser.eyebrow}</Eyebrow>
               <span className="u-tick mt-3.5" aria-hidden="true" />
               <h2 className="u-h2 text-paper mt-5">{t.aboutTeaser.title}</h2>

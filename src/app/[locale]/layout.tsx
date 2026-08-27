@@ -64,6 +64,15 @@ export default async function LocaleLayout({
           {t.common.skipToContent}
         </a>
 
+        {/* The page's own scroll state, read once by the observer in
+            <RevealScript> and consumed entirely in CSS: while this is on
+            screen the header is still sitting on unscrolled page. */}
+        <div
+          aria-hidden="true"
+          data-sentinel="top"
+          className="pointer-events-none absolute top-0 left-0 h-2 w-px"
+        />
+
         <Header locale={locale} />
 
         <main id="main" tabIndex={-1}>

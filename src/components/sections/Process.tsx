@@ -22,7 +22,7 @@ export function ProcessSteps({
       {steps.map((step, index) => (
         <li
           key={step.step}
-          className={`reveal relative border-t pt-6 sm:pt-7 ${
+          className={`reveal step-rule relative border-t pt-6 sm:pt-7 ${
             dark ? 'border-[var(--line-dark)]' : 'border-[var(--line-strong)]'
           } ${index > 0 ? 'lg:pl-7' : ''} ${
             index > 0

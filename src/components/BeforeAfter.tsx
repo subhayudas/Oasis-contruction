@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { Picture } from './Picture';
 import type { Source } from '@/lib/images';
@@ -25,15 +25,59 @@ type Props = {
  * and announces its position. The wipe follows the pointer with no transition,
  * so there is nothing to disable under prefers-reduced-motion, and both
  * photographs stay fully described in their alt text whatever the position.
+ *
+ * Sitting still at the halfway mark, though, it reads as a photograph with a
+ * line drawn on it. So the first time it comes into view it wipes once in each
+ * direction and settles back — the only way to say "this drags" without
+ * printing an instruction over the picture. The hint runs once per mount, is
+ * cancelled the moment the reader touches the control, and never starts at all
+ * for a reader who has asked for less motion.
  */
 export function BeforeAfter({ before, after, labels, sizes, className = '' }: Props) {
   const [position, setPosition] = useState(50);
+  const frameRef = useRef<HTMLDivElement>(null);
   const id = useId();
+
+  /* The hint drives `--pos` straight from CSS rather than through state: the
+     wipe is a compositor-friendly property animation, and React re-renders
+     nothing while it plays. */
+  const stopHint = useCallback(() => {
+    frameRef.current?.classList.remove('is-hinting');
+  }, []);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.disconnect();
+          frame.classList.add('is-hinting');
+          // Photographs inside the frame fade in with animations of their
+          // own, and those bubble — only the frame's own end matters here.
+          frame.addEventListener('animationend', function done(event) {
+            if (event.target !== frame) return;
+            frame.removeEventListener('animationend', done);
+            frame.classList.remove('is-hinting');
+          });
+        }
+      },
+      { threshold: 0.6 },
+    );
+
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <figure className={className}>
       <div
-        className="frame frame-keyline relative isolate select-none"
+        ref={frameRef}
+        className="frame frame-keyline ba-frame relative isolate select-none"
         style={{ ['--pos' as string]: `${position}%` }}
       >
         {/* Base layer: the finished result. */}
@@ -63,7 +107,7 @@ export function BeforeAfter({ before, after, labels, sizes, className = '' }: Pr
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(255,255,255,0.9)] bg-gradient-to-b from-white to-[#dbe8f9] shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-2px_0_rgba(31,111,235,0.22),0_2px_4px_rgba(12,26,43,0.35),0_10px_18px_-10px_rgba(12,26,43,0.7)]"
+          className="ba-handle pointer-events-none absolute top-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.9)] bg-gradient-to-b from-white to-[#dbe8f9] shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-2px_0_rgba(31,111,235,0.22),0_2px_4px_rgba(12,26,43,0.35),0_10px_18px_-10px_rgba(12,26,43,0.7)]"
           style={{ left: 'var(--pos)' }}
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor">
@@ -88,7 +132,12 @@ export function BeforeAfter({ before, after, labels, sizes, className = '' }: Pr
           max={100}
           step={1}
           value={position}
-          onChange={(event) => setPosition(Number(event.target.value))}
+          onChange={(event) => {
+            stopHint();
+            setPosition(Number(event.target.value));
+          }}
+          onPointerDown={stopHint}
+          onFocus={stopHint}
           aria-valuetext={`${labels.valueText} : ${100 - position} %`}
           className="ba-range absolute inset-0 z-20 h-full w-full"
         />
