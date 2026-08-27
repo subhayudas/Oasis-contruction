@@ -1,0 +1,6 @@
+.next
+node_modules
+public/images
+public/brand
+assets
+src/content/image-manifest.json

@@ -1,0 +1,1444 @@
+{
+  "logo": {
+    "origin": "logo.jpeg (intake PDF, Logo) — circular mark isolated from the black JPEG corners",
+    "variants": {
+      "mark": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "path": "/brand/oasis-logo",
+        "sizes": [
+          {
+            "w": 192,
+            "h": 192
+          },
+          {
+            "w": 512,
+            "h": 512
+          },
+          {
+            "w": 1024,
+            "h": 1024
+          }
+        ]
+      }
+    }
+  },
+  "allee-pave-uni-entree": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (3).jpeg (intake PDF, Photo 2)",
+    "variants": {
+      "wide": {
+        "ratio": "16x10",
+        "aspect": 1.6,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 600
+          },
+          {
+            "w": 1280,
+            "h": 800
+          },
+          {
+            "w": 1600,
+            "h": 1000
+          }
+        ],
+        "path": "/images/allee-pave-uni-entree-wide"
+      },
+      "portrait": {
+        "ratio": "3x4",
+        "aspect": 0.75,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 747
+          },
+          {
+            "w": 760,
+            "h": 1013
+          },
+          {
+            "w": 1040,
+            "h": 1387
+          },
+          {
+            "w": 1400,
+            "h": 1867
+          }
+        ],
+        "path": "/images/allee-pave-uni-entree-portrait"
+      },
+      "mobile": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 600
+          },
+          {
+            "w": 720,
+            "h": 900
+          },
+          {
+            "w": 960,
+            "h": 1200
+          }
+        ],
+        "path": "/images/allee-pave-uni-entree-mobile"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/allee-pave-uni-entree-square"
+      }
+    }
+  },
+  "palier-pave-uni-entree": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (2).jpeg (intake PDF, Photo 1)",
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/palier-pave-uni-entree-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/palier-pave-uni-entree-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/palier-pave-uni-entree-square"
+      }
+    }
+  },
+  "escalier-pierre-talus": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (4).jpeg (intake PDF, Photo 4)",
+    "variants": {
+      "wide": {
+        "ratio": "4x3",
+        "aspect": 1.333333,
+        "sizes": [
+          {
+            "w": 760,
+            "h": 570
+          },
+          {
+            "w": 1040,
+            "h": 780
+          },
+          {
+            "w": 1280,
+            "h": 960
+          }
+        ],
+        "path": "/images/escalier-pierre-talus-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/escalier-pierre-talus-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/escalier-pierre-talus-square"
+      }
+    }
+  },
+  "allee-pierre-naturelle": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (5).jpeg (intake PDF, Photo 5)",
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/allee-pierre-naturelle-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/allee-pierre-naturelle-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/allee-pierre-naturelle-square"
+      }
+    }
+  },
+  "muret-stationnement-pave": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (7).jpeg (intake PDF, Photo 7)",
+    "variants": {
+      "wide": {
+        "ratio": "16x10",
+        "aspect": 1.6,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 600
+          },
+          {
+            "w": 1280,
+            "h": 800
+          },
+          {
+            "w": 1600,
+            "h": 1000
+          }
+        ],
+        "path": "/images/muret-stationnement-pave-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/muret-stationnement-pave-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/muret-stationnement-pave-square"
+      }
+    }
+  },
+  "allee-pave-bordure-jardin": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (9).jpeg (intake PDF, Photo 9)",
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/allee-pave-bordure-jardin-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/allee-pave-bordure-jardin-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/allee-pave-bordure-jardin-square"
+      }
+    }
+  },
+  "dalles-beton-cour-laterale": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (10).jpeg (intake PDF, Photo 10)",
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1440,
+            "h": 960
+          }
+        ],
+        "path": "/images/dalles-beton-cour-laterale-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/dalles-beton-cour-laterale-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/dalles-beton-cour-laterale-square"
+      }
+    }
+  },
+  "contour-piscine-beton": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46.jpeg (intake PDF, Photo 8)",
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/contour-piscine-beton-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/contour-piscine-beton-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/contour-piscine-beton-square"
+      }
+    }
+  },
+  "avant-apres-entree-avant": {
+    "origin": "Intake PDF, Photo 3 (left half of the client's combined before/after frame)",
+    "variants": {
+      "still": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/avant-apres-entree-avant-still"
+      }
+    }
+  },
+  "avant-apres-entree-apres": {
+    "origin": "Intake PDF, Photo 3 (right half of the client's combined before/after frame)",
+    "variants": {
+      "still": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/avant-apres-entree-apres-still"
+      }
+    }
+  },
+  "avant-apres-allee-avant": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (11).jpeg (left half of the combined frame)",
+    "variants": {
+      "still": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 600
+          },
+          {
+            "w": 720,
+            "h": 900
+          },
+          {
+            "w": 960,
+            "h": 1200
+          }
+        ],
+        "path": "/images/avant-apres-allee-avant-still"
+      }
+    }
+  },
+  "avant-apres-allee-apres": {
+    "origin": "WhatsApp Image 2026-08-25 at 23.07.46 (11).jpeg (right half of the combined frame)",
+    "variants": {
+      "still": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 600
+          },
+          {
+            "w": 720,
+            "h": 900
+          },
+          {
+            "w": 960,
+            "h": 1200
+          }
+        ],
+        "path": "/images/avant-apres-allee-apres-still"
+      }
+    }
+  },
+  "og": {
+    "origin": "Composed from allee-pave-uni-entree + the isolated logo mark",
+    "variants": {
+      "card": {
+        "ratio": "1200x630",
+        "aspect": 1.904762,
+        "path": "/brand/og",
+        "sizes": [
+          {
+            "w": 1200,
+            "h": 630
+          }
+        ]
+      }
+    }
+  },
+  "scene-entree-crepuscule": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Paver driveway, retaining wall and lit entrance at dusk, suburban Quebec. Source file assets/generated/hero-oasis-driveway-dusk.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "21x9",
+        "aspect": 2.333333,
+        "sizes": [
+          {
+            "w": 1280,
+            "h": 549
+          },
+          {
+            "w": 1920,
+            "h": 823
+          },
+          {
+            "w": 2560,
+            "h": 1097
+          }
+        ],
+        "path": "/images/scene-entree-crepuscule-wide"
+      },
+      "landscape": {
+        "ratio": "16x9",
+        "aspect": 1.777778,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 540
+          },
+          {
+            "w": 1280,
+            "h": 720
+          },
+          {
+            "w": 1600,
+            "h": 900
+          }
+        ],
+        "path": "/images/scene-entree-crepuscule-landscape"
+      },
+      "mobile": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 640,
+            "h": 800
+          },
+          {
+            "w": 900,
+            "h": 1125
+          },
+          {
+            "w": 1200,
+            "h": 1500
+          }
+        ],
+        "path": "/images/scene-entree-crepuscule-mobile"
+      }
+    }
+  },
+  "scene-pave-uni-allee": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Herringbone paver driveway with soldier-course border, golden hour. Source file assets/generated/service-pave-uni-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/scene-pave-uni-allee-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-pave-uni-allee-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-pave-uni-allee-square"
+      }
+    }
+  },
+  "scene-pave-uni-pose": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Paver set by hand on screeded bedding sand, string line and mallet. Source file assets/generated/service-pave-uni-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-pave-uni-pose-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-pave-uni-pose-square"
+      }
+    }
+  },
+  "scene-muret-talus": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Segmental block retaining wall along a driveway with stone steps. Source file assets/generated/service-muret-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/scene-muret-talus-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-muret-talus-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-muret-talus-square"
+      }
+    }
+  },
+  "scene-muret-assise": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Top course of a block wall levelled, drainage stone and geotextile behind. Source file assets/generated/service-muret-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-muret-assise-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-muret-assise-square"
+      }
+    }
+  },
+  "scene-drainage-tranchee": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — French drain trench along a foundation: perforated pipe, stone, geotextile. Source file assets/generated/service-drainage-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/scene-drainage-tranchee-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-drainage-tranchee-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-drainage-tranchee-square"
+      }
+    }
+  },
+  "scene-drainage-drain": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Perforated pipe wrapped in geotextile and bedded in washed stone, catch basin. Source file assets/generated/service-drainage-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-drainage-drain-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-drainage-drain-square"
+      }
+    }
+  },
+  "scene-nettoyage-allee": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Pressure washing a paver driveway, clean/dirty demarcation line. Source file assets/generated/service-nettoyage-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/scene-nettoyage-allee-wide"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-nettoyage-allee-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-nettoyage-allee-square"
+      }
+    }
+  },
+  "scene-nettoyage-jet": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — High-pressure fan striking flagstone joints, clean strip appearing. Source file assets/generated/service-nettoyage-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-nettoyage-jet-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-nettoyage-jet-square"
+      }
+    }
+  },
+  "scene-equipe-chantier": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Two-person crew laying pavers, plate compactor and screed rails, golden hour. Source file assets/generated/about-crew-laying-pavers.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "3x4",
+        "aspect": 0.75,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 747
+          },
+          {
+            "w": 760,
+            "h": 1013
+          },
+          {
+            "w": 1040,
+            "h": 1387
+          }
+        ],
+        "path": "/images/scene-equipe-chantier-portrait"
+      },
+      "wide": {
+        "ratio": "4x3",
+        "aspect": 1.333333,
+        "sizes": [
+          {
+            "w": 760,
+            "h": 570
+          },
+          {
+            "w": 1040,
+            "h": 780
+          },
+          {
+            "w": 1280,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-equipe-chantier-wide"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-equipe-chantier-square"
+      }
+    }
+  },
+  "scene-terrasse-finie": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Large-format slab terrace with a seat wall at golden hour. Source file assets/generated/about-terrasse-finie.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "3x2",
+        "aspect": 1.5,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 640
+          },
+          {
+            "w": 1280,
+            "h": 853
+          },
+          {
+            "w": 1600,
+            "h": 1067
+          }
+        ],
+        "path": "/images/scene-terrasse-finie-wide"
+      },
+      "banner": {
+        "ratio": "21x9",
+        "aspect": 2.333333,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 411
+          },
+          {
+            "w": 1280,
+            "h": 549
+          },
+          {
+            "w": 1600,
+            "h": 686
+          }
+        ],
+        "path": "/images/scene-terrasse-finie-banner"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-terrasse-finie-portrait"
+      }
+    }
+  },
+  "scene-cordeau-sable": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — String line over screeded bedding sand at dusk, screed rail and mallet. Source file assets/generated/craft-cordeau-sable.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-cordeau-sable-portrait"
+      },
+      "wide": {
+        "ratio": "4x3",
+        "aspect": 1.333333,
+        "sizes": [
+          {
+            "w": 760,
+            "h": 570
+          },
+          {
+            "w": 1040,
+            "h": 780
+          },
+          {
+            "w": 1280,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-cordeau-sable-wide"
+      }
+    }
+  },
+  "scene-releve-niveau": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Rotary laser level on a settled paver driveway during a site survey. Source file assets/generated/process-releve-niveau.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "banner": {
+        "ratio": "21x9",
+        "aspect": 2.333333,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 411
+          },
+          {
+            "w": 1280,
+            "h": 549
+          },
+          {
+            "w": 1600,
+            "h": 686
+          }
+        ],
+        "path": "/images/scene-releve-niveau-banner"
+      },
+      "wide": {
+        "ratio": "16x9",
+        "aspect": 1.777778,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 540
+          },
+          {
+            "w": 1280,
+            "h": 720
+          },
+          {
+            "w": 1600,
+            "h": 900
+          }
+        ],
+        "path": "/images/scene-releve-niveau-wide"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-releve-niveau-square"
+      }
+    }
+  },
+  "scene-entree-pierre": {
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Flagstone walkway curving to a covered entrance, planting bed alongside. Source file assets/generated/entree-pierre-naturelle.jpg. Not a photograph of an Oasis Construction project.",
+    "generated": true,
+    "variants": {
+      "wide": {
+        "ratio": "16x9",
+        "aspect": 1.777778,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 540
+          },
+          {
+            "w": 1280,
+            "h": 720
+          },
+          {
+            "w": 1600,
+            "h": 900
+          }
+        ],
+        "path": "/images/scene-entree-pierre-wide"
+      },
+      "banner": {
+        "ratio": "21x9",
+        "aspect": 2.333333,
+        "sizes": [
+          {
+            "w": 960,
+            "h": 411
+          },
+          {
+            "w": 1280,
+            "h": 549
+          },
+          {
+            "w": 1600,
+            "h": 686
+          }
+        ],
+        "path": "/images/scene-entree-pierre-banner"
+      },
+      "portrait": {
+        "ratio": "4x5",
+        "aspect": 0.8,
+        "sizes": [
+          {
+            "w": 560,
+            "h": 700
+          },
+          {
+            "w": 760,
+            "h": 950
+          },
+          {
+            "w": 1040,
+            "h": 1300
+          }
+        ],
+        "path": "/images/scene-entree-pierre-portrait"
+      }
+    }
+  }
+}

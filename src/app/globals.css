@@ -1,0 +1,1084 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Oasis Construction — white-first surfaces, blue accents.
+
+   Three ideas carry the whole system:
+     1. White is the material. Everything is cut from paper-white and lit.
+     2. Blue is the light. Accents, rims and reflected bounce are all blue.
+     3. Depth is drawn, not faked flat — every surface states whether it is
+        raised (gloss on top, shadow below) or recessed (shadow on top).
+
+   The page tooth stays, but only as a whisper: enough to keep large white
+   fields from looking like unprinted screen, never enough to read as a
+   pattern.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces — white primary, cooled by the smallest amount of blue. */
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f9fe;
+  --color-sand: #eaf1fb;
+  --color-limestone: #d7e5f6;
+  --color-stone: #bacfe8;
+
+  /* Text — navy-black rather than warm black, so it belongs to the blue. */
+  --color-ink: #0c1a2b;
+  --color-ink-80: #1b3049;
+  --color-ink-70: #3c5675;
+  --color-ink-50: #546a86;
+
+  /* Secondary marks: the muted steel blue used for eyebrows and register
+     ticks. Named for the role it plays, not the metal it used to be. */
+  --color-bronze: #3f6089;
+  --color-brown: #2d4a6d;
+
+  /* The blue itself. `teal` rides dark grounds, `teal-deep` rides white. */
+  --color-teal: #5aa9ff;
+  --color-teal-deep: #0f56c4;
+  --color-green: #0f7a45;
+  --color-green-deep: #0a6135;
+
+  --color-chalk: #ffffff;
+  --color-dust: #c3d5ea;
+  --color-dust-2: #90a8c6;
+
+  --font-sans:
+    var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, 'Times New Roman', serif;
+
+  --spacing-gutter: clamp(1.25rem, 4vw, 3.5rem);
+
+  --ease-material: cubic-bezier(0.22, 0.71, 0.28, 1);
+}
+
+@layer base {
+  :root {
+    --line: color-mix(in oklab, var(--color-ink) 11%, transparent);
+    --line-strong: color-mix(in oklab, var(--color-ink) 22%, transparent);
+    --line-dark: color-mix(in oklab, var(--color-teal) 22%, transparent);
+    --grain: url('/brand/grain.png');
+    --dur: 260ms;
+
+    /* One shadow colour for the whole site, so every drop shadow reads as
+       the same navy light source rather than a pile of unrelated greys. */
+    --sh: 12 26 43;
+    --blue: 31 111 235;
+
+    /* The glass rim: bright at the top-left corner where the light lands,
+       blue through the middle where the edge refracts, bright again at the
+       bottom-right where it catches bounce. Drawn as a 1px gradient border. */
+    --rim: linear-gradient(
+      145deg,
+      rgb(255 255 255 / 0.98) 0%,
+      rgb(255 255 255 / 0.6) 20%,
+      rgb(var(--blue) / 0.26) 50%,
+      rgb(255 255 255 / 0.5) 76%,
+      rgb(255 255 255 / 0.95) 100%
+    );
+
+    --rim-ink: linear-gradient(
+      145deg,
+      rgb(255 255 255 / 0.34) 0%,
+      rgb(90 169 255 / 0.34) 42%,
+      rgb(255 255 255 / 0.05) 72%,
+      rgb(255 255 255 / 0.24) 100%
+    );
+
+    --glass-blur: 16px;
+  }
+
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* keep anchored headings clear of the sticky header */
+    scroll-padding-top: 6.5rem;
+    background-color: var(--color-paper);
+  }
+
+  body {
+    /* Two very soft blue blooms, fixed to the viewport. They are almost
+       invisible on their own, but they are what the frosted surfaces have
+       to refract — glass over flat white has nothing to say. */
+    background-color: var(--color-paper);
+    background-image:
+      radial-gradient(58rem 40rem at 8% -10%, rgb(var(--blue) / 0.06), transparent 62%),
+      radial-gradient(46rem 34rem at 102% 4%, rgb(90 169 255 / 0.055), transparent 64%),
+      radial-gradient(70rem 48rem at 50% 118%, rgb(var(--blue) / 0.045), transparent 66%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    font-variant-numeric: tabular-nums;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  /* Page tooth. Deliberately near the threshold of visibility: it takes the
+     digital flatness off large white fields and does nothing else. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--grain);
+    background-size: 128px 128px;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-teal-deep);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .on-ink :focus-visible,
+  .on-ink:focus-visible {
+    outline-color: var(--color-teal);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-teal) 40%, transparent);
+    color: var(--color-ink);
+  }
+
+  /* Inputs inherit the page's type rather than the UA's. */
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+@layer components {
+  .u-display {
+    font-family: var(--font-sans);
+    font-weight: 560;
+    font-size: clamp(2.5rem, 7.4vw, 5.25rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+
+  .u-h2 {
+    font-family: var(--font-sans);
+    font-weight: 550;
+    font-size: clamp(1.85rem, 3.6vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+  }
+
+  .u-h3 {
+    font-family: var(--font-sans);
+    font-weight: 560;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .u-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.06;
+  }
+
+  .u-lede {
+    font-size: clamp(1.0625rem, 1.15vw, 1.1875rem);
+    line-height: 1.6;
+    color: var(--color-ink-70);
+    letter-spacing: -0.005em;
+  }
+
+  .u-body {
+    line-height: 1.68;
+    color: var(--color-ink-70);
+  }
+
+  .u-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .u-meta {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--color-ink-50);
+  }
+
+  /* ------------------------------------------------------------------ layout */
+
+  .u-wrap {
+    width: 100%;
+    max-width: 84rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  .u-wrap-narrow {
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  .u-section {
+    padding-block: clamp(3.5rem, 7vw, 6.5rem);
+  }
+
+  .u-section-tight {
+    padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  }
+
+  .u-rule {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  .u-rule-strong {
+    border: 0;
+    border-top: 1px solid var(--line-strong);
+    margin: 0;
+  }
+
+  /* The register mark under an eyebrow — steel blue running into brand blue. */
+  .u-tick {
+    display: block;
+    width: 2.75rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--color-bronze), var(--color-teal-deep));
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.9);
+  }
+
+  /* On navy the two blues of the tick vanish into the ground, so it is redrawn
+     from brand blue into white. */
+  .on-ink .u-tick {
+    background: linear-gradient(90deg, var(--color-teal), rgb(255 255 255 / 0.85));
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.35);
+  }
+
+  /* ==================================================================
+     Glass
+     ------------------------------------------------------------------
+     `.glass-rim` draws a 1px gradient border by masking a gradient down
+     to the border ring. It is the site's edge treatment: every frosted
+     or raised surface below composes it in rather than using a flat
+     border-colour.
+     ================================================================== */
+
+  .glass-rim {
+    position: relative;
+  }
+
+  .glass-rim::before,
+  .s-plaque::before,
+  .s-sample::before,
+  .s-tray::before,
+  .s-chip::before,
+  .glass-bar::before,
+  .glass-panel::before,
+  .switch-well::before,
+  .gate-code::before,
+  .btn-quarry::before,
+  .btn-brass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--rim);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glass-rim-ink::before,
+  .s-tray-ink::before,
+  .glass-panel-ink::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--rim-ink);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Frosted bar — the sticky header. Sits over moving content, so the blur
+     has to do real work; the rim and the hairline underneath give it an
+     edge you can actually see against white. */
+  /* The frost lives on a child layer, never on the bar itself: an element
+     carrying `backdrop-filter` becomes the containing block for every fixed
+     descendant, which would pin the mobile drawer inside the header. */
+  .glass-bar {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .glass-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.86) 0%,
+      rgb(255 255 255 / 0.72) 100%
+    );
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      inset 0 -1px 0 rgb(var(--blue) / 0.1),
+      0 1px 2px rgb(var(--sh) / 0.05),
+      0 14px 30px -26px rgb(var(--sh) / 0.55);
+  }
+
+  /* Frosted panel — dialogs and drawers. These float over whatever the page
+     was showing, often a photograph, so the frost is heavy on purpose: the
+     panel's own content has to stay the most legible thing on screen. What
+     shows through is a ghost, not a competing image. */
+  .glass-panel {
+    position: relative;
+    background: linear-gradient(
+      168deg,
+      rgb(255 255 255 / 0.97) 0%,
+      rgb(246 249 254 / 0.95) 55%,
+      rgb(232 240 251 / 0.96) 100%
+    );
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    backdrop-filter: blur(28px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      inset 1px 0 0 rgb(255 255 255 / 0.9),
+      inset 0 -18px 30px -26px rgb(var(--blue) / 0.3),
+      0 2px 4px rgb(var(--sh) / 0.07),
+      0 40px 70px -34px rgb(var(--sh) / 0.45);
+  }
+
+  .glass-panel-ink {
+    position: relative;
+    background: linear-gradient(168deg, rgb(19 40 66 / 0.86) 0%, rgb(11 26 46 / 0.9) 100%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      0 40px 70px -34px rgb(0 0 0 / 0.7);
+  }
+
+  /* ================================================ surfaces (skeuomorphic) */
+
+  /* The dark band: deep navy with a blue bloom from the upper left, so it
+     reads as a lit solid rather than a flat fill. */
+  .s-ink {
+    position: relative;
+    background:
+      radial-gradient(120% 130% at 10% -14%, rgb(35 79 138 / 0.55) 0%, transparent 58%),
+      radial-gradient(90% 100% at 96% 108%, rgb(15 86 196 / 0.32) 0%, transparent 60%),
+      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, #091626 100%);
+    color: var(--color-paper);
+  }
+
+  .s-sand {
+    background: linear-gradient(178deg, var(--color-paper-2) 0%, var(--color-sand) 100%);
+  }
+
+  /* Metadata plaque: a frosted card standing off the page on its own shadow.
+     Top gloss, blue bounce caught along the bottom inside edge, contact
+     shadow tight under the card and an ambient shadow well beyond it. */
+  .s-plaque {
+    position: relative;
+    background: linear-gradient(
+      172deg,
+      rgb(255 255 255 / 0.97) 0%,
+      rgb(255 255 255 / 0.9) 46%,
+      rgb(232 240 251 / 0.94) 100%
+    );
+    -webkit-backdrop-filter: blur(14px) saturate(165%);
+    backdrop-filter: blur(14px) saturate(165%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.98),
+      inset 0 -16px 26px -22px rgb(var(--blue) / 0.34),
+      0 1px 2px rgb(var(--sh) / 0.07),
+      0 3px 6px -3px rgb(var(--sh) / 0.09),
+      0 24px 40px -26px rgb(var(--sh) / 0.42);
+  }
+
+  .s-plaque::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: var(--grain);
+    background-size: 128px 128px;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+  }
+
+  /* Inset tray: a milled channel in the surface. Shadow along the top edge,
+     highlight along the bottom — the opposite of everything raised. */
+  .s-tray {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgb(219 231 246 / 0.9) 0%,
+      rgb(240 246 253 / 0.86) 62%,
+      rgb(250 252 255 / 0.9) 100%
+    );
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(10px) saturate(150%);
+    box-shadow:
+      inset 0 2px 4px rgb(var(--sh) / 0.16),
+      inset 0 1px 1px rgb(var(--blue) / 0.14),
+      inset 0 -1px 0 rgb(255 255 255 / 0.95),
+      0 1px 0 rgb(255 255 255 / 0.85);
+  }
+
+  .s-tray-ink {
+    position: relative;
+    background: linear-gradient(180deg, #0a1729 0%, #142943 100%);
+    box-shadow:
+      inset 0 2px 5px rgb(0 0 0 / 0.65),
+      inset 0 -1px 0 rgb(255 255 255 / 0.08),
+      0 1px 0 rgb(255 255 255 / 0.06);
+  }
+
+  /* Material sample: the service card. A cut sample lifted off its board —
+     glossed across the top third, blue bounce underneath, and a hover that
+     genuinely raises it rather than just recolouring. */
+  .s-sample {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0) 42%),
+      linear-gradient(
+        166deg,
+        rgb(255 255 255 / 0.92) 0%,
+        rgb(246 249 254 / 0.84) 52%,
+        rgb(230 239 251 / 0.9) 100%
+      );
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.98),
+      inset 0 -20px 30px -24px rgb(var(--blue) / 0.36),
+      0 1px 2px rgb(var(--sh) / 0.06),
+      0 4px 8px -4px rgb(var(--sh) / 0.08),
+      0 28px 46px -30px rgb(var(--sh) / 0.45);
+    transition:
+      transform var(--dur) var(--ease-material),
+      box-shadow var(--dur) var(--ease-material);
+  }
+
+  .s-sample:hover,
+  .s-sample:focus-within {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -24px 34px -24px rgb(var(--blue) / 0.44),
+      0 2px 3px rgb(var(--sh) / 0.08),
+      0 8px 14px -6px rgb(var(--sh) / 0.1),
+      0 40px 62px -32px rgb(var(--sh) / 0.5);
+  }
+
+  /* The material chip inside a sample card: a pressed metal tile, lit from
+     the top-left, with a specular sweep across the upper corner. */
+  .s-chip {
+    position: relative;
+    background:
+      linear-gradient(145deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0) 46%),
+      linear-gradient(180deg, #ffffff 0%, var(--color-limestone) 58%, var(--color-stone) 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 4px rgb(var(--sh) / 0.2),
+      inset 0 0 12px rgb(var(--blue) / 0.12),
+      0 1px 2px rgb(var(--sh) / 0.14),
+      0 6px 12px -8px rgb(var(--sh) / 0.5);
+  }
+
+  /* ------------------------------------------------------------- buttons */
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 2.875rem;
+    padding-inline: 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 550;
+    letter-spacing: -0.005em;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      transform 140ms var(--ease-material),
+      box-shadow 140ms var(--ease-material),
+      background-color var(--dur) var(--ease-material),
+      border-color var(--dur) var(--ease-material),
+      color var(--dur) var(--ease-material);
+  }
+
+  /* Primary: a solid blue key, moulded. Gloss across the top half, a dark
+     lower edge that reads as thickness, then contact + ambient shadow. */
+  .btn-stone {
+    color: #ffffff;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.28) 0%, rgb(255 255 255 / 0) 52%),
+      linear-gradient(178deg, #3d8bf5 0%, #1a66dd 48%, #0d47ad 100%);
+    border: 1px solid #0a3a91;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.55),
+      inset 0 -2px 0 rgb(0 0 0 / 0.28),
+      inset 0 0 0 1px rgb(255 255 255 / 0.1),
+      0 1px 2px rgb(var(--sh) / 0.24),
+      0 10px 18px -10px rgb(13 71 173 / 0.6),
+      0 20px 34px -22px rgb(var(--sh) / 0.6);
+  }
+
+  .btn-stone:hover {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.34) 0%, rgb(255 255 255 / 0) 52%),
+      linear-gradient(178deg, #4d97fa 0%, #2472e8 48%, #0f51c0 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.62),
+      inset 0 -2px 0 rgb(0 0 0 / 0.26),
+      inset 0 0 0 1px rgb(255 255 255 / 0.14),
+      0 1px 2px rgb(var(--sh) / 0.24),
+      0 14px 24px -10px rgb(13 71 173 / 0.66),
+      0 26px 44px -22px rgb(var(--sh) / 0.6);
+  }
+
+  .btn-stone:active {
+    transform: translateY(2px);
+    background: linear-gradient(178deg, #0f51c0 0%, #1a66dd 100%);
+    box-shadow:
+      inset 0 3px 6px rgb(0 0 0 / 0.4),
+      inset 0 -1px 0 rgb(255 255 255 / 0.14),
+      0 1px 2px rgb(var(--sh) / 0.2);
+  }
+
+  /* Secondary: a frosted white key. Same mould, no ink. */
+  .btn-quarry {
+    color: var(--color-ink);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.2) 54%),
+      linear-gradient(178deg, #ffffff 0%, #f2f7fd 52%, #e2ecf9 100%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 0 rgb(var(--blue) / 0.16),
+      0 1px 2px rgb(var(--sh) / 0.09),
+      0 3px 6px -3px rgb(var(--sh) / 0.1),
+      0 16px 26px -16px rgb(var(--sh) / 0.42);
+  }
+
+  .btn-quarry:hover {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0.3) 54%),
+      linear-gradient(178deg, #ffffff 0%, #f7fbff 52%, #dfeaf9 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 0 rgb(var(--blue) / 0.24),
+      0 1px 2px rgb(var(--sh) / 0.09),
+      0 5px 10px -4px rgb(var(--sh) / 0.12),
+      0 22px 34px -16px rgb(var(--sh) / 0.46);
+  }
+
+  .btn-quarry:active {
+    transform: translateY(2px);
+    box-shadow:
+      inset 0 3px 5px rgb(var(--sh) / 0.22),
+      inset 0 -1px 0 rgb(255 255 255 / 0.7);
+  }
+
+  /* On the dark band: a porcelain key, brightest thing in the section. */
+  .btn-brass {
+    color: var(--color-ink);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.9) 0%, rgb(255 255 255 / 0.25) 52%),
+      linear-gradient(178deg, #ffffff 0%, #eef5fe 52%, #d5e6fa 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 0 rgb(var(--blue) / 0.22),
+      0 1px 2px rgb(0 0 0 / 0.35),
+      0 12px 22px -10px rgb(0 0 0 / 0.55),
+      0 0 34px -8px rgb(90 169 255 / 0.35);
+  }
+
+  .btn-brass:hover {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0.35) 52%),
+      linear-gradient(178deg, #ffffff 0%, #f6faff 52%, #e2eefc 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 0 rgb(var(--blue) / 0.3),
+      0 1px 2px rgb(0 0 0 / 0.35),
+      0 16px 30px -10px rgb(0 0 0 / 0.6),
+      0 0 44px -8px rgb(90 169 255 / 0.45);
+  }
+
+  .btn-brass:active {
+    transform: translateY(2px);
+    box-shadow:
+      inset 0 3px 6px rgb(var(--sh) / 0.3),
+      inset 0 -1px 0 rgb(255 255 255 / 0.7);
+  }
+
+  /* Quiet text link with a drawn underline that grows on hover. */
+  .link-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 550;
+    color: var(--color-ink);
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 1px;
+    transition:
+      background-size var(--dur) var(--ease-material),
+      color var(--dur) var(--ease-material);
+  }
+
+  .link-rule:hover {
+    color: var(--color-teal-deep);
+    background-size: 100% 2px;
+  }
+
+  .on-ink .link-rule:hover {
+    color: var(--color-teal);
+  }
+
+  .link-quiet {
+    color: var(--color-ink-70);
+    transition: color var(--dur) var(--ease-material);
+  }
+
+  .link-quiet:hover {
+    color: var(--color-teal-deep);
+  }
+
+  /* --------------------------------------------------------- FR/EN rocker */
+
+  /* A milled well with one key standing proud in it. */
+  .switch-well {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    padding: 2px;
+    border-radius: 3px;
+    background: linear-gradient(
+      180deg,
+      rgb(216 229 245 / 0.92) 0%,
+      rgb(243 248 253 / 0.88) 100%
+    );
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(10px) saturate(150%);
+    box-shadow:
+      inset 0 2px 4px rgb(var(--sh) / 0.2),
+      inset 0 1px 1px rgb(var(--blue) / 0.16),
+      inset 0 -1px 0 rgb(255 255 255 / 0.9),
+      0 1px 0 rgb(255 255 255 / 0.8);
+  }
+
+  .switch-face {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.375rem;
+    padding-inline: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 2px;
+    color: var(--color-ink-50);
+    transition:
+      color var(--dur) var(--ease-material),
+      background-color var(--dur) var(--ease-material);
+  }
+
+  .switch-face:hover {
+    color: var(--color-teal-deep);
+  }
+
+  .switch-face[aria-current='true'] {
+    color: var(--color-teal-deep);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.15) 55%),
+      linear-gradient(178deg, #ffffff 0%, #eaf2fd 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -1px 0 rgb(var(--blue) / 0.2),
+      inset 0 0 0 1px rgb(255 255 255 / 0.7),
+      0 1px 2px rgb(var(--sh) / 0.22),
+      0 4px 8px -5px rgb(var(--sh) / 0.4);
+  }
+
+  /* ------------------------------------------------- language gate (opening) */
+
+  /* The engraved code plate on each choice — the rocker key, standing alone. */
+  .gate-code {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-width: 2.5rem;
+    padding: 0.4375rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border-radius: 3px;
+    color: var(--color-teal-deep);
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.2) 55%),
+      linear-gradient(178deg, #ffffff 0%, #e9f1fd 100%);
+    text-shadow: 0 1px 0 rgb(255 255 255 / 0.9);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 0 rgb(var(--blue) / 0.2),
+      0 1px 2px rgb(var(--sh) / 0.2),
+      0 6px 12px -8px rgb(var(--sh) / 0.5);
+  }
+
+  /* The dialog is only ever mounted when it is about to be shown, so these
+     run once. Reduced motion neutralises them in the block at the bottom. */
+  .gate-veil {
+    animation: gate-veil-in 260ms var(--ease-material) both;
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+
+  .gate-panel {
+    animation: gate-panel-in 320ms var(--ease-material) both;
+  }
+
+  @keyframes gate-veil-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes gate-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.985);
+    }
+  }
+
+  /* ------------------------------------------------------------- imagery */
+
+  /* Chamfered top-right corner — the notched print detail, used sparingly. */
+  .clip-notch {
+    clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%);
+  }
+
+  .clip-notch-sm {
+    clip-path: polygon(0 0, calc(100% - 1.125rem) 0, 100% 1.125rem, 100% 100%, 0 100%);
+  }
+
+  .frame {
+    position: relative;
+    background: var(--color-limestone);
+    overflow: hidden;
+  }
+
+  .frame > img,
+  .frame > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* A glass keyline drawn inside the image edge: a bright rim at the top, a
+     blue-tinted ring around it, so photographs sit under glass like the rest
+     of the surfaces do. */
+  .frame-keyline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.5),
+      inset 0 0 0 1px rgb(var(--blue) / 0.16),
+      inset 0 0 0 2px rgb(255 255 255 / 0.24),
+      inset 0 -30px 44px -34px rgb(var(--sh) / 0.6);
+  }
+
+  /* ------------------------------------------------------------ form bits */
+
+  /* Fields are recessed: they are the one place on the page that goes in
+     rather than out. Pseudo-elements do not render on inputs, so the glass
+     rim here is drawn with rings instead of a masked gradient. */
+  .field {
+    width: 100%;
+    min-height: 2.875rem;
+    padding: 0.625rem 0.8125rem;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #f4f8fe 0%, #ffffff 46%, #ffffff 100%);
+    border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
+    box-shadow:
+      inset 0 2px 4px rgb(var(--sh) / 0.13),
+      inset 0 1px 1px rgb(var(--blue) / 0.12),
+      inset 0 -1px 0 rgb(255 255 255 / 0.95),
+      0 1px 0 rgb(255 255 255 / 0.9);
+    transition:
+      border-color var(--dur) var(--ease-material),
+      box-shadow var(--dur) var(--ease-material);
+  }
+
+  .field::placeholder {
+    color: color-mix(in oklab, var(--color-ink) 40%, transparent);
+  }
+
+  .field:hover {
+    border-color: color-mix(in oklab, var(--color-teal-deep) 34%, transparent);
+  }
+
+  .field:focus {
+    border-color: var(--color-teal-deep);
+    box-shadow:
+      inset 0 2px 4px rgb(var(--sh) / 0.1),
+      inset 0 -1px 0 rgb(255 255 255 / 0.95),
+      0 0 0 3px rgb(var(--blue) / 0.16);
+  }
+
+  .field[aria-invalid='true'] {
+    border-color: #b42318;
+    box-shadow:
+      inset 0 2px 4px rgb(180 35 24 / 0.14),
+      inset 0 -1px 0 rgb(255 255 255 / 0.9);
+  }
+
+  select.field {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--color-teal-deep) 50%),
+      linear-gradient(135deg, var(--color-teal-deep) 50%, transparent 50%),
+      linear-gradient(180deg, #f4f8fe 0%, #ffffff 46%, #ffffff 100%);
+    background-position:
+      calc(100% - 18px) calc(50% + 1px),
+      calc(100% - 13px) calc(50% + 1px),
+      0 0;
+    background-size:
+      5px 5px,
+      5px 5px,
+      100% 100%;
+    background-repeat: no-repeat;
+    padding-right: 2.25rem;
+  }
+
+  /* ---------------------------------------------------------- motion bits */
+
+  /* Reveals only exist where scripting is available, so the page reads fine
+     with JavaScript off. The failsafe animation shows anything the observer
+     never reached, so content can never be stranded invisible. */
+  @media (scripting: enabled) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 300ms var(--ease-material),
+        transform 300ms var(--ease-material);
+      transition-delay: var(--reveal-delay, 0ms);
+      animation: reveal-failsafe 1ms linear 2.5s forwards;
+    }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
+  @keyframes reveal-failsafe {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ------------------------------------------------- before/after comparator */
+
+  .ba-range {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: ew-resize;
+    touch-action: pan-y;
+  }
+
+  .ba-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 44px;
+    height: 220px;
+    background: transparent;
+    border: 0;
+    cursor: ew-resize;
+  }
+
+  .ba-range::-moz-range-thumb {
+    width: 44px;
+    height: 220px;
+    background: transparent;
+    border: 0;
+    cursor: ew-resize;
+  }
+
+  .ba-range::-moz-range-track {
+    background: transparent;
+    border: 0;
+  }
+}
+
+@layer utilities {
+  /* Tooth applied to a section rather than the page. Drawn on a pseudo
+     element so opacity utilities on the host never wash out its content. */
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--grain);
+    background-size: 128px 128px;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+  }
+
+  .grain-overlay > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hides content visually while keeping it available to assistive tech. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion — nothing on this site depends on movement to be understood.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .btn:active,
+  .s-sample:hover,
+  .s-sample:focus-within {
+    transform: none;
+  }
+
+  .gate-veil,
+  .gate-panel {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  body::before,
+  .grain-overlay::before,
+  .s-plaque::after {
+    display: none;
+  }
+}
