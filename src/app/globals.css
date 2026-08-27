@@ -52,6 +52,15 @@
   --ease-material: cubic-bezier(0.22, 0.71, 0.28, 1);
 }
 
+/* The before/after wipe is animated as a real number, not a class swap, so
+   the one-time hint can ease across the photograph. Registering the property
+   is what makes it interpolate rather than jump. */
+@property --pos {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 50%;
+}
+
 @layer base {
   :root {
     --line: color-mix(in oklab, var(--color-ink) 11%, transparent);
@@ -59,6 +68,20 @@
     --line-dark: color-mix(in oklab, var(--color-teal) 22%, transparent);
     --grain: url('/brand/grain.png');
     --dur: 260ms;
+
+    /* How long a surface takes to arrive. Sections no longer meet on a ruled
+       line — each ground rises out of the one above it over this distance.
+       Kept shorter than the smallest section padding so a ramp never reaches
+       a line of type. */
+    --seam: clamp(3rem, 5.5vw, 5rem);
+
+    /* The dark band's paint, named once so the band and the ramp that
+       introduces it are literally the same gradient rather than two that
+       have to be kept in agreement. */
+    --ink-surface:
+      radial-gradient(120% 130% at 10% -14%, rgb(35 79 138 / 0.55) 0%, transparent 58%),
+      radial-gradient(90% 100% at 96% 108%, rgb(15 86 196 / 0.32) 0%, transparent 60%),
+      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, #091626 100%);
 
     /* One shadow colour for the whole site, so every drop shadow reads as
        the same navy light source rather than a pile of unrelated greys. */
@@ -432,15 +455,111 @@
      reads as a lit solid rather than a flat fill. */
   .s-ink {
     position: relative;
-    background:
-      radial-gradient(120% 130% at 10% -14%, rgb(35 79 138 / 0.55) 0%, transparent 58%),
-      radial-gradient(90% 100% at 96% 108%, rgb(15 86 196 / 0.32) 0%, transparent 60%),
-      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, #091626 100%);
+    background: var(--ink-surface);
     color: var(--color-paper);
   }
 
+  /* The tinted band. It has no edges: the tint gathers out of the paper
+     ground at the top and lets go of it again at the bottom, so the section
+     reads as a swell in the page rather than a panel laid on it. */
   .s-sand {
-    background: linear-gradient(178deg, var(--color-paper-2) 0%, var(--color-sand) 100%);
+    background: linear-gradient(
+      178deg,
+      rgb(246 249 254 / 0) 0,
+      var(--color-paper-2) var(--seam),
+      var(--color-sand) calc(100% - var(--seam)),
+      rgb(234 241 251 / 0) 100%
+    );
+  }
+
+  /* ============================================================== seams
+     Sections used to meet on a ruled hairline. They meet on a horizon
+     instead: the arriving ground rises out of the departing one across the
+     padding either side of the join, so you register that the surface has
+     changed without ever seeing where it changed.
+
+     Two rules keep this honest. Every ramp lives inside section padding, so
+     no line of type is ever set on half-mixed ground. And every ramp is
+     fully transparent at one end, so it composites over whatever is really
+     there instead of guessing at a colour to match — which matters here,
+     because the page's blue blooms are fixed to the viewport and the ground
+     under any given seam is not the same white twice.
+     ============================================================== */
+
+  /* A dark band arriving under a light one repaints its whole surface onto a
+     pseudo-element that overhangs the join, then masks that in. Repainting
+     the surface rather than butting a matching strip against it is what
+     keeps the blooms continuous: there is only ever one gradient, and the
+     mask decides how much of it has arrived. */
+  main > .s-ink:not(:first-child) {
+    position: relative;
+    z-index: 0;
+    background: none;
+  }
+
+  main > .s-ink:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: calc(var(--seam) * -1) 0 0;
+    pointer-events: none;
+    background: var(--ink-surface);
+    /* Weighted late: the dark holds off, then commits. A straight ramp
+       spends half its length in the grey between white and navy, which is
+       the one colour this palette does not own. */
+    --seam-mask: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0) 0,
+      rgb(0 0 0 / 0.05) calc(var(--seam) * 0.24),
+      rgb(0 0 0 / 0.2) calc(var(--seam) * 0.48),
+      rgb(0 0 0 / 0.5) calc(var(--seam) * 0.7),
+      rgb(0 0 0 / 0.83) calc(var(--seam) * 0.88),
+      rgb(0 0 0 / 1) var(--seam)
+    );
+    -webkit-mask-image: var(--seam-mask);
+    mask-image: var(--seam-mask);
+  }
+
+  /* Two dark bands running together are one surface. There is no join to
+     soften, so the band paints on itself again and the ramp is called off.
+     Must stay after the rule above — same specificity, later wins. */
+  main > .s-ink + .s-ink {
+    background: var(--ink-surface);
+  }
+
+  main > .s-ink + .s-ink::before {
+    content: none;
+  }
+
+  /* Light ground under a dark band: the dark does not stop at the section
+     edge, it runs past it and drains away into the paper. Drawn in the same
+     navy the band bottoms out at, so the two are continuous at the join. */
+  main > .s-ink + :not(.s-ink) {
+    position: relative;
+    z-index: 0;
+  }
+
+  main > .s-ink + :not(.s-ink)::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto;
+    height: var(--seam);
+    pointer-events: none;
+    background:
+      /* a last breath of the blue light, so the midtones stay in the
+         palette instead of falling to neutral grey */
+      linear-gradient(to bottom, rgb(var(--blue) / 0.1) 0, rgb(var(--blue) / 0) 74%),
+      linear-gradient(
+        to bottom,
+        rgb(9 22 38 / 1) 0,
+        rgb(9 22 38 / 0.85) 12%,
+        rgb(9 22 38 / 0.54) 32%,
+        rgb(9 22 38 / 0.27) 54%,
+        rgb(9 22 38 / 0.1) 74%,
+        rgb(9 22 38 / 0.025) 89%,
+        rgb(9 22 38 / 0) 100%
+      );
   }
 
   /* Metadata plaque: a frosted card standing off the page on its own shadow.
@@ -949,6 +1068,19 @@
       animation: reveal-failsafe 1ms linear 2.5s forwards;
     }
 
+    /* Paired columns converge on each other rather than both rising: the
+       photograph comes in from the side it lives on, so the relationship
+       between the picture and the text it belongs to is stated by the
+       movement itself. Horizontal offsets are safe — the body clips its own
+       overflow — and stay small enough never to read as a slide-in. */
+    .reveal-l {
+      transform: translate3d(-20px, 8px, 0);
+    }
+
+    .reveal-r {
+      transform: translate3d(20px, 8px, 0);
+    }
+
     .reveal.is-in {
       opacity: 1;
       transform: none;
@@ -963,7 +1095,394 @@
     }
   }
 
+  /* The register tick is a mark someone struck onto the page, so it is drawn
+     rather than faded: it grows out of the edge the eyebrow starts from. */
+  .u-tick {
+    transform-origin: left center;
+  }
+
+  .u-tick.mx-auto {
+    transform-origin: center;
+  }
+
+  .reveal.is-in .u-tick,
+  .rise .u-tick {
+    animation: tick-draw 520ms var(--ease-material) both;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 90ms);
+  }
+
+  @keyframes tick-draw {
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+  }
+
+  /* Staged first paint, above the fold. The hero is on screen before any
+     observer could run, so its entrance is pure CSS and ordered the way the
+     copy is meant to be read: label, headline, promise, detail, action. */
+  .rise {
+    animation: rise-in 620ms var(--ease-material) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+    }
+  }
+
+  /* --------------------------------------------------- sticky header state */
+
+  /* Once the page has moved under it the bar has to hold its own edge against
+     photographs and dark bands, so the glass thickens and its shadow lengthens.
+     Nothing about the layout changes — the header keeps its height, so the
+     document never shifts under the reader. */
+  .glass-bar::after {
+    transition:
+      box-shadow var(--dur) var(--ease-material),
+      background-color var(--dur) var(--ease-material);
+  }
+
+  [data-scrolled='true'] .glass-bar::after {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.94) 0%, rgb(255 255 255 / 0.84) 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -1px 0 rgb(var(--blue) / 0.22),
+      0 1px 2px rgb(var(--sh) / 0.08),
+      0 18px 38px -24px rgb(var(--sh) / 0.7);
+  }
+
+  /* ------------------------------------------------------- thumb bar reveal */
+
+  /* The hero already carries both calls to action, so the pinned bar stays
+     out of the way until they leave the screen — then it slides up to take
+     their place. Pages with no hero never set the flag and keep it on. */
+  [data-mobile-contact-bar] {
+    transition: transform 320ms var(--ease-material);
+    will-change: transform;
+  }
+
+  [data-hero-cta='visible'] [data-mobile-contact-bar] {
+    transform: translate3d(0, calc(100% + 4px), 0);
+  }
+
+  /* ----------------------------------------------------------- link arrows */
+
+  /* The trailing arrow leans into the direction it will take you. */
+  .link-rule > svg {
+    transition: transform var(--dur) var(--ease-material);
+  }
+
+  .link-rule:hover > svg {
+    transform: translateX(3px);
+  }
+
+  /* --------------------------------------------------------- sample sheen */
+
+  /* Light travelling across glass: the one gesture the whole surface system
+     is built to justify. It runs once per hover, from the top-right corner
+     down, and never touches the pointer. */
+  .s-sample::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+      104deg,
+      transparent 36%,
+      rgb(255 255 255 / 0.58) 47%,
+      rgb(174 210 255 / 0.34) 53%,
+      transparent 64%
+    );
+    background-size: 280% 100%;
+    background-repeat: no-repeat;
+    background-position: 170% 0;
+    transition: opacity 180ms var(--ease-material);
+  }
+
+  .s-sample:hover::after,
+  .s-sample:focus-within::after {
+    opacity: 1;
+    animation: sample-sheen 880ms var(--ease-material) forwards;
+  }
+
+  @keyframes sample-sheen {
+    from {
+      background-position: 170% 0;
+    }
+    to {
+      background-position: -70% 0;
+    }
+  }
+
+  /* The chip rides above the card, so it lifts further than the card does —
+     the two shadows separating is what sells the card as a real object. */
+  .s-sample .s-chip {
+    transition:
+      transform var(--dur) var(--ease-material),
+      box-shadow var(--dur) var(--ease-material);
+  }
+
+  .s-sample:hover .s-chip,
+  .s-sample:focus-within .s-chip {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 1),
+      inset 0 -2px 4px rgb(var(--sh) / 0.2),
+      inset 0 0 14px rgb(var(--blue) / 0.18),
+      0 2px 3px rgb(var(--sh) / 0.16),
+      0 12px 18px -10px rgb(var(--sh) / 0.55);
+  }
+
+  /* --------------------------------------------------------- process rule */
+
+  /* Four steps in a fixed order. The rule is struck across each one in turn,
+     left to right, so the sequence is read as a sequence and not as four
+     interchangeable cards. */
+  .step-rule::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(90deg, var(--color-teal-deep) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .on-ink .step-rule::before {
+    background: linear-gradient(90deg, var(--color-teal) 0%, transparent 100%);
+  }
+
+  .step-rule.is-in::before {
+    animation: rule-draw 640ms var(--ease-material) forwards;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+  }
+
+  @keyframes rule-draw {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* ------------------------------------------------------- photograph load */
+
+  /* Lazy photographs settle into their frame instead of snapping into it.
+     Only images the browser has not already decoded are touched, so the hero
+     is never held back, and a failsafe shows anything whose load event the
+     script missed. */
+  .img-fade {
+    opacity: 0;
+    animation: reveal-failsafe 1ms linear 3s forwards;
+  }
+
+  .img-fade.is-loaded {
+    animation: img-in 560ms var(--ease-material) forwards;
+  }
+
+  @keyframes img-in {
+    from {
+      opacity: 0;
+      transform: scale(1.014);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* ------------------------------------------------------------- drawer */
+
+  /* The sheet belongs to the right edge: it comes from there and goes back
+     there, so the phone screen keeps a spatial model of where the menu lives.
+     The panel stays in the document and is hidden with `visibility`, which
+     takes it out of the tab order and the accessibility tree for free while
+     still letting it animate on the way out. */
+  .drawer-root {
+    visibility: hidden;
+    transition: visibility 0s linear 340ms;
+  }
+
+  .drawer-root[data-open='true'] {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .drawer-veil {
+    opacity: 0;
+    transition: opacity 280ms var(--ease-material);
+  }
+
+  .drawer-root[data-open='true'] .drawer-veil {
+    opacity: 1;
+  }
+
+  .drawer-panel {
+    transform: translate3d(100%, 0, 0);
+    transition: transform 340ms var(--ease-material);
+    will-change: transform;
+  }
+
+  .drawer-root[data-open='true'] .drawer-panel {
+    transform: none;
+  }
+
+  /* Entries arrive just behind the panel edge, in the order they are read. */
+  .drawer-root[data-open='true'] .drawer-item {
+    animation: drawer-item-in 380ms var(--ease-material) both;
+    animation-delay: calc(120ms + var(--i, 0) * 45ms);
+  }
+
+  @keyframes drawer-item-in {
+    from {
+      opacity: 0;
+      transform: translate3d(16px, 0, 0);
+    }
+  }
+
+  /* ---------------------------------------------------------- form motion */
+
+  /* A form that has gone quiet is indistinguishable from one that has failed,
+     so the button says out loud that it is working. */
+  .spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 2px solid rgb(255 255 255 / 0.35);
+    border-top-color: #ffffff;
+    animation: spin 700ms linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Both outcomes replace content the reader was looking at, so both announce
+     the swap with movement rather than appearing as if they had always been
+     there. */
+  .panel-in {
+    animation: panel-in 360ms var(--ease-material) both;
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -8px, 0);
+    }
+  }
+
+  /* The tick is drawn, once, the moment the message lands. */
+  .check-draw path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: check-draw 520ms var(--ease-material) 140ms forwards;
+  }
+
+  @keyframes check-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* ------------------------------------------------------- diagram motion */
+
+  /* The only movement on the site that carries information rather than
+     emphasis: water falls, the drain runs to its outlet. Both are paused
+     until the figure is actually on screen. */
+  .flow-water {
+    animation: flow-water 2.6s var(--ease-material) infinite;
+  }
+
+  @keyframes flow-water {
+    0% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    28% {
+      opacity: 1;
+    }
+    72% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .flow-dash {
+    animation: flow-dash 1.6s linear infinite;
+  }
+
+  @keyframes flow-dash {
+    to {
+      stroke-dashoffset: -22;
+    }
+  }
+
+  .reveal:not(.is-in) .flow-water,
+  .reveal:not(.is-in) .flow-dash {
+    animation-play-state: paused;
+  }
+
   /* ------------------------------------------------- before/after comparator */
+
+  /* A comparator that sits still at the halfway mark looks like a photograph
+     with a line drawn on it. The first time it comes into view it wipes once,
+     both ways, and settles back — which is the only way to say "this drags"
+     without printing an instruction on top of the picture. It runs once, it
+     never runs if the reader has already grabbed the handle, and the wipe is
+     driven straight off the custom property so React re-renders nothing. */
+  .ba-frame {
+    --pos: 50%;
+  }
+
+  .ba-frame.is-hinting {
+    animation: ba-hint 2.6s var(--ease-material) 1 forwards;
+  }
+
+  @keyframes ba-hint {
+    0% {
+      --pos: 50%;
+    }
+    26% {
+      --pos: 68%;
+    }
+    62% {
+      --pos: 33%;
+    }
+    100% {
+      --pos: 50%;
+    }
+  }
+
+  /* Grabbing the handle should feel like grabbing something. The centring
+     transform is written here rather than composed from utilities so the
+     hover and press states have one transform to own. */
+  .ba-handle {
+    transform: translate(-50%, -50%);
+    transition:
+      transform 160ms var(--ease-material),
+      box-shadow 160ms var(--ease-material);
+  }
+
+  .ba-frame:has(.ba-range:hover) .ba-handle {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .ba-frame:has(.ba-range:active) .ba-handle {
+    transform: translate(-50%, -50%) scale(0.94);
+  }
 
   .ba-range {
     appearance: none;
@@ -1080,5 +1599,16 @@
   .grain-overlay::before,
   .s-plaque::after {
     display: none;
+  }
+
+  /* Seams have nothing to blend into on paper — there is no page ground for
+     a ramp to dissolve towards — so the bands print on their own surface. */
+  main > .s-ink::before,
+  main > .s-ink + :not(.s-ink)::before {
+    display: none;
+  }
+
+  main > .s-ink {
+    background: var(--ink-surface);
   }
 }
