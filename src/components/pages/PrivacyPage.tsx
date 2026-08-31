@@ -1,22 +1,27 @@
-import { Breadcrumbs, type Crumb } from '@/components/Breadcrumbs';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Eyebrow } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
 import { site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
+import { pagePath } from '@/lib/routes';
 
-export function PrivacyPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[] }) {
+export function PrivacyPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
   return (
-    <section className="u-wrap pt-8 pb-4 lg:pt-12">
-      <Breadcrumbs items={crumbs} label={t.common.breadcrumb} />
+    <section className="u-wrap pt-8 pb-24 lg:pt-12 lg:pb-28">
+      <Breadcrumbs
+        label={t.common.breadcrumb}
+        items={[
+          { name: t.common.home, path: pagePath(locale, 'home') },
+          { name: t.footer.privacy, path: pagePath(locale, 'privacy') },
+        ]}
+      />
 
       <div className="mt-10 max-w-3xl">
         <Eyebrow>{t.privacyPage.eyebrow}</Eyebrow>
         <span className="u-tick mt-3.5" aria-hidden="true" />
-        <h1 className="u-display mt-6 text-[clamp(2rem,4.6vw,3.25rem)]">
-          {t.privacyPage.title}
-        </h1>
+        <h1 className="u-display mt-6">{t.privacyPage.title}</h1>
         <p className="u-meta mt-5">
           {t.privacyPage.updated} : {t.privacyPage.updatedValue}
         </p>
@@ -26,7 +31,7 @@ export function PrivacyPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[
             <section key={section.title} className="border-t border-[var(--line)] py-8">
               <div className="grid gap-4 sm:grid-cols-[3rem_1fr] sm:gap-6">
                 <span
-                  className="u-label text-bronze text-[0.625rem] tracking-[0.22em]"
+                  className="u-label text-umber text-[0.625rem] tracking-[0.22em]"
                   aria-hidden="true"
                 >
                   {String(index + 1).padStart(2, '0')}

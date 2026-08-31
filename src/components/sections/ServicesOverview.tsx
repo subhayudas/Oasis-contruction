@@ -11,7 +11,7 @@ import { source } from '@/lib/images';
 import { pagePath, servicePath } from '@/lib/routes';
 
 /**
- * Four cut samples on a board. Each tile is one clickable card with a single
+ * Six cut samples on a board. Each tile is one clickable card with a single
  * link — the whole surface is the target, but only the heading is the anchor,
  * which keeps the accessibility tree clean.
  *
@@ -34,7 +34,7 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
           }
         />
 
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {services.map((service, index) => {
             const copy = service.copy[locale];
             const Icon = serviceIcons[service.key];
@@ -50,7 +50,7 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
                     <div className="frame frame-keyline aspect-square">
                       <Picture
                         alt={scene?.alt[locale] ?? ''}
-                        sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 46vw, 92vw"
+                        sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 46vw, 92vw"
                         sources={[source(service.hero, 'square')]}
                         imgClassName="h-full w-full object-cover transition-transform duration-500 ease-[var(--ease-material)] group-hover:scale-[1.03]"
                         className="block h-full w-full"
@@ -85,8 +85,8 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
                     <p className="u-body mt-3 text-[0.9375rem]">{copy.short}</p>
 
                     <div className="mt-auto flex items-center justify-between gap-3 pt-6">
-                      <span className="u-label text-bronze text-[0.5625rem] tracking-[0.18em]">
-                        {copy.material}
+                      <span className="text-brass-deep text-[0.8125rem] font-[600]">
+                        {t.common.learnMore}
                       </span>
                       <IconArrow
                         className="text-ink-50 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"

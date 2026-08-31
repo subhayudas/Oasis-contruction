@@ -199,6 +199,7 @@ FRAMES: list[Frame] = [
             Variant("wide", "3x2", focus=(0.5, 0.5), widths=(960, 1280, 1600)),
             Variant("banner", "21x9", focus=(0.5, 0.52), widths=(960, 1280, 1600)),
             Variant("portrait", "4x5", focus=(0.5, 0.5), widths=(560, 760, 1040)),
+            Variant("square", "1x1", focus=(0.5, 0.52), widths=(480, 720, 960)),
         ),
     ),
     # --- Craft detail for the dark band on the home page ---------------------
@@ -209,6 +210,7 @@ FRAMES: list[Frame] = [
         variants=(
             Variant("portrait", "4x5", focus=(0.5, 0.5), widths=(560, 760, 1040)),
             Variant("wide", "4x3", focus=(0.5, 0.5), widths=(760, 1040, 1280)),
+            Variant("square", "1x1", focus=(0.5, 0.5), widths=(480, 720, 960)),
         ),
     ),
     # --- Survey / measuring, opens the process section ------------------------
@@ -231,6 +233,7 @@ FRAMES: list[Frame] = [
             Variant("wide", "16x9", focus=(0.5, 0.5), widths=(960, 1280, 1600)),
             Variant("banner", "21x9", focus=(0.5, 0.52), widths=(960, 1280, 1600)),
             Variant("portrait", "4x5", focus=(0.55, 0.5), widths=(560, 760, 1040)),
+            Variant("square", "1x1", focus=(0.52, 0.52), widths=(480, 720, 960)),
         ),
     ),
 ]

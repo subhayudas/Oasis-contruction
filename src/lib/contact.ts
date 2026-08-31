@@ -21,20 +21,28 @@ export type ContactErrorKey =
   | 'phone'
   | 'contact'
   | 'service'
+  | 'subject'
   | 'city'
   | 'message'
   | 'consent'
   | 'fileType'
   | 'fileSize'
-  | 'fileCount';
+  | 'fileCount'
+  | 'fileRequired';
+
+export type ContactSubject = 'quote' | 'question' | 'other';
 
 export type ContactPayload = {
   name: string;
   email: string;
   phone: string;
   service: string;
+  /** Only used by the contact-page form. */
+  subject: string;
   city: string;
   message: string;
+  /** Photo funnel only: how long the problem has been there. */
+  duration: string;
   preferred: PreferredContact;
   consent: boolean;
   locale: string;
@@ -44,7 +52,18 @@ export type ContactPayload = {
   elapsed: number;
 };
 
-export type ContactVariant = 'compact' | 'full';
+/**
+ * The three forms on the site:
+ *
+ *   general  homepage and service pages — name + phone required, the rest optional
+ *   photo    the photo funnel — at least one photograph plus name and phone
+ *   contact  the contact page — a fuller enquiry with a subject
+ */
+export type ContactVariant = 'general' | 'photo' | 'contact';
+
+export function isSubject(value: string): value is ContactSubject {
+  return value === 'quote' || value === 'question' || value === 'other';
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 /** North-American numbers, tolerant of spaces, dots, dashes and brackets. */
@@ -77,23 +96,28 @@ export function validateContact(
   if (payload.name.trim().length < 2) errors.push('name');
   if (email && !isValidEmail(email)) errors.push('email');
   if (phone && !isValidPhone(phone)) errors.push('phone');
-  if (!email && !phone) errors.push('contact');
 
-  if (variant === 'full') {
-    if (!payload.service || !(isServiceKey(payload.service) || payload.service === 'other')) {
-      errors.push('service');
-    }
-    if (payload.city.trim().length < 2) errors.push('city');
+  // The phone number is the field that matters for this business, so every
+  // form requires it outright rather than accepting an email in its place.
+  if (!phone) errors.push('phone');
+
+  if (variant === 'contact') {
+    if (!email) errors.push('email');
+    if (!isSubject(payload.subject)) errors.push('subject');
+    if (payload.message.trim().length < 10) errors.push('message');
   }
 
-  if (payload.message.trim().length < 10) errors.push('message');
+  // The general and photo forms do not require a message: the whole point of
+  // the photo funnel is that the visitor does not have to know what to say.
+
   if (!payload.consent) errors.push('consent');
 
-  return errors;
+  return [...new Set(errors)];
 }
 
-export function validateFiles(files: File[]): ContactErrorKey[] {
+export function validateFiles(files: File[], variant?: ContactVariant): ContactErrorKey[] {
   const errors: ContactErrorKey[] = [];
+  if (variant === 'photo' && files.length === 0) errors.push('fileRequired');
   if (files.length > MAX_FILES) errors.push('fileCount');
   if (files.some((f) => f.size > MAX_FILE_BYTES)) errors.push('fileSize');
   if (files.some((f) => !(ACCEPTED_IMAGE_TYPES as readonly string[]).includes(f.type))) {

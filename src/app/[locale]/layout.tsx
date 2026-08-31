@@ -3,15 +3,19 @@ import { notFound } from 'next/navigation';
 
 import '../globals.css';
 
+import { Analytics, GtmNoScript } from '@/components/Analytics';
+import { AnnouncementBar } from '@/components/AnnouncementBar';
+import { CookieBanner } from '@/components/CookieBanner';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { LanguageGate } from '@/components/LanguageGate';
 import { MobileContactBar } from '@/components/MobileContactBar';
+import { Recaptcha } from '@/components/Recaptcha';
 import { RevealScript } from '@/components/Reveal';
 import { getDictionary } from '@/content/dictionary';
 import { site } from '@/content/site';
 import { geist, instrumentSerif } from '@/lib/fonts';
-import { htmlLang, isLocale, locales, otherLocale } from '@/lib/i18n';
+import { htmlLang, isLocale, locales } from '@/lib/i18n';
+import { pagePath } from '@/lib/routes';
 import { BASE_URL, localBusinessJsonLd, websiteJsonLd } from '@/lib/seo';
 
 export function generateStaticParams() {
@@ -32,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#1a1a1a',
   colorScheme: 'light',
   width: 'device-width',
   initialScale: 1,
@@ -50,16 +54,26 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   const t = getDictionary(locale);
-  // Both headings are rendered, this locale's first, so the dialog is legible
-  // to a visitor who cannot read the language the proxy guessed.
-  const other = getDictionary(otherLocale[locale]);
 
   return (
     <html lang={htmlLang[locale]} className={`${geist.variable} ${instrumentSerif.variable}`}>
+      <head>
+        {/* Runs before the first paint so a visitor who dismissed the
+            announcement never sees it flash in and shove the page down.
+            Deliberately tiny, synchronous and dependency-free — anything
+            slower than this would delay the paint it exists to protect. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('oasis_announcement_dismissed')==='1')document.documentElement.dataset.announcement='hidden'}catch(e){}`,
+          }}
+        />
+      </head>
       <body>
+        <GtmNoScript />
+
         <a
           href="#main"
-          className="sr-only-focusable btn btn-stone absolute top-3 left-3 z-[60] rounded-sm"
+          className="sr-only-focusable btn btn-stone absolute top-3 left-3 z-[70]"
         >
           {t.common.skipToContent}
         </a>
@@ -73,6 +87,13 @@ export default async function LocaleLayout({
           className="pointer-events-none absolute top-0 left-0 h-2 w-px"
         />
 
+        <AnnouncementBar
+          text={t.announcement.text}
+          cta={t.announcement.cta}
+          href={pagePath(locale, 'contact')}
+          dismissLabel={t.announcement.dismiss}
+        />
+
         <Header locale={locale} />
 
         <main id="main" tabIndex={-1}>
@@ -82,15 +103,19 @@ export default async function LocaleLayout({
         <Footer locale={locale} />
         <MobileContactBar locale={locale} />
         <RevealScript />
+        <Analytics />
+        <Recaptcha />
 
-        <LanguageGate
-          locale={locale}
+        <CookieBanner
           labels={{
-            eyebrow: t.languageGate.eyebrow,
-            titles: [t.languageGate.title, other.languageGate.title],
-            note: t.languageGate.note,
-            dismiss: t.languageGate.dismiss,
+            title: t.cookies.title,
+            body: t.cookies.body,
+            accept: t.cookies.accept,
+            refuse: t.cookies.refuse,
+            link: t.cookies.link,
+            label: t.cookies.label,
           }}
+          privacyHref={pagePath(locale, 'privacy')}
         />
 
         <script

@@ -2,7 +2,7 @@
   "name": "oasis-construction",
   "version": "1.0.0",
   "private": true,
-  "description": "Site web bilingue d'Oasis Construction \u2014 am\u00e9nagement ext\u00e9rieur et pav\u00e9 uni, Laval et Rive-Nord.",
+  "description": "Site web bilingue d'Oasis Construction — aménagement extérieur et pavé uni, Laval et Rive-Nord.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +14,9 @@
     "images": "python3 scripts/build-images.py",
     "images:generated": "python3 scripts/build-generated-images.py",
     "test": "node --test tests/**/*.test.mjs",
-    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
+    "placeholders": "node scripts/check-placeholders.mjs",
+    "qa": "node scripts/qa-crawl.mjs"
   },
   "dependencies": {
     "next": "^16.3.3",

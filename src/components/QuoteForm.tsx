@@ -1,13 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
-import { IconAlert, IconCheck } from './icons';
+import type { Dictionary } from '@/content/dictionary';
+import { fill } from '@/content/placeholders';
+import { trackFormStart, trackFormSubmit, trackPhotoUpload } from '@/lib/analytics';
 import {
-  ACCEPTED_EXTENSIONS,
-  ACCEPTED_IMAGE_TYPES,
-  MAX_FILES,
   validateContact,
   validateFiles,
   type ContactErrorKey,
@@ -15,56 +14,23 @@ import {
   type ContactResponse,
   type ContactVariant,
 } from '@/lib/contact';
+import { recaptchaToken } from '@/lib/recaptcha';
+import { IconAlert, IconCheck } from './icons';
+import { PhotoDropzone } from './PhotoDropzone';
 
 type ServiceOption = { value: string; label: string };
 
 type Props = {
   locale: string;
-  variant?: ContactVariant;
+  /** 'general' on the homepage and service pages, 'contact' on /contact. */
+  variant: Exclude<ContactVariant, 'photo'>;
   serviceOptions: ServiceOption[];
   /** Pre-selects the service on a service page. */
   defaultService?: string;
   privacyHref: string;
   phone: { href: string; display: string };
   email: { href: string; display: string };
-  labels: {
-    legendContact: string;
-    legendProject: string;
-    name: string;
-    namePlaceholder: string;
-    email: string;
-    emailPlaceholder: string;
-    phone: string;
-    phonePlaceholder: string;
-    service: string;
-    servicePlaceholder: string;
-    serviceOther: string;
-    city: string;
-    cityPlaceholder: string;
-    message: string;
-    messagePlaceholder: string;
-    photos: string;
-    photosHelp: string;
-    photosSelected: string;
-    preferred: string;
-    preferredPhone: string;
-    preferredEmail: string;
-    preferredEither: string;
-    consent: string;
-    consentLink: string;
-    submit: string;
-    submitting: string;
-    optional: string;
-    required: string;
-    errorSummary: string;
-    errors: Record<ContactErrorKey, string>;
-    successTitle: string;
-    successBody: string;
-    failureTitle: string;
-    failureBody: string;
-    rateLimitTitle: string;
-    rateLimitBody: string;
-  };
+  t: Dictionary;
   className?: string;
 };
 
@@ -79,31 +45,51 @@ const EMPTY: ContactPayload = {
   email: '',
   phone: '',
   service: '',
+  subject: '',
   city: '',
   message: '',
-  preferred: 'either',
+  duration: '',
+  preferred: 'phone',
   consent: false,
   locale: 'fr',
   website: '',
   elapsed: 0,
 };
 
+/**
+ * The lead form.
+ *
+ * Two required fields on the general variant — a name and a phone number —
+ * because every extra required field costs submissions, and everything else
+ * on the list is a question that is faster to ask on the call than to type on
+ * a phone. Address, budget and timeline are deliberately not collected.
+ *
+ * Validation is the same function the route handler runs, so the browser and
+ * the server can never disagree about what a valid submission is.
+ */
 export function QuoteForm({
   locale,
-  variant = 'full',
+  variant,
   serviceOptions,
   defaultService = '',
   privacyHref,
   phone,
   email,
-  labels,
+  t,
   className = '',
 }: Props) {
   const uid = useId();
   const formRef = useRef<HTMLFormElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
-  const mountedAt = useRef<number>(Date.now());
+  /* The floor on how fast a human can fill this in. Stamped on mount rather
+     than during render — reading the clock while rendering is impure, and a
+     re-render would move the start of the window. */
+  const mountedAt = useRef<number | null>(null);
+  useEffect(() => {
+    mountedAt.current = Date.now();
+  }, []);
+  const started = useRef(false);
 
   const [values, setValues] = useState<ContactPayload>({
     ...EMPTY,
@@ -115,11 +101,21 @@ export function QuoteForm({
   const [showErrors, setShowErrors] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
 
+  const isContact = variant === 'contact';
+  const formType = isContact ? 'contact' : 'general';
+
   const fieldId = (name: string) => `${uid}-${name}`;
   const errorId = (name: string) => `${uid}-${name}-error`;
   const has = (key: ContactErrorKey) => showErrors && errors.includes(key);
 
+  function markStarted() {
+    if (started.current) return;
+    started.current = true;
+    trackFormStart(formType);
+  }
+
   function set<K extends keyof ContactPayload>(key: K, value: ContactPayload[K]) {
+    markStarted();
     setValues((previous) => ({ ...previous, [key]: value }));
   }
 
@@ -127,7 +123,7 @@ export function QuoteForm({
     event.preventDefault();
     if (status.kind === 'submitting') return;
 
-    const found = [...validateContact(values, variant), ...validateFiles(files)];
+    const found = [...validateContact(values, variant), ...validateFiles(files, variant)];
     setErrors(found);
     setShowErrors(true);
 
@@ -144,6 +140,7 @@ export function QuoteForm({
     body.set('email', values.email);
     body.set('phone', values.phone);
     body.set('service', values.service);
+    body.set('subject', values.subject);
     body.set('city', values.city);
     body.set('message', values.message);
     body.set('preferred', values.preferred);
@@ -151,7 +148,8 @@ export function QuoteForm({
     body.set('locale', values.locale);
     body.set('variant', variant);
     body.set('website', values.website);
-    body.set('elapsed', String(Date.now() - mountedAt.current));
+    body.set('elapsed', String(mountedAt.current ? Date.now() - mountedAt.current : 0));
+    body.set('recaptcha', await recaptchaToken('quote_form'));
     files.forEach((file) => body.append('photos', file));
 
     try {
@@ -159,6 +157,8 @@ export function QuoteForm({
       const data = (await response.json()) as ContactResponse;
 
       if (data.ok) {
+        if (files.length > 0) trackPhotoUpload(files.length);
+        trackFormSubmit(formType);
         setStatus({ kind: 'success' });
         setValues({ ...EMPTY, locale, service: defaultService });
         setFiles([]);
@@ -183,8 +183,6 @@ export function QuoteForm({
     requestAnimationFrame(() => statusRef.current?.focus());
   }
 
-  const isFull = variant === 'full';
-
   if (status.kind === 'success') {
     return (
       <div
@@ -194,10 +192,10 @@ export function QuoteForm({
         className={`panel-in s-plaque !border-l-green-deep border-l-2 px-6 py-7 ${className}`}
       >
         <p className="relative z-10 flex items-center gap-2.5">
-          <IconCheck className="check-draw text-green-deep h-5 w-5 shrink-0" />
-          <span className="u-h3">{labels.successTitle}</span>
+          <IconCheck className="check-draw text-green-deep h-6 w-6 shrink-0" />
+          <span className="u-h3">{t.form.successTitle}</span>
         </p>
-        <p className="u-body relative z-10 mt-3 text-[0.9375rem]">{labels.successBody}</p>
+        <p className="u-body relative z-10 mt-3 text-[0.9375rem]">{fill(t.form.successBody)}</p>
         <p className="relative z-10 mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.9375rem]">
           <a href={phone.href} className="link-rule">
             {phone.display}
@@ -212,12 +210,13 @@ export function QuoteForm({
 
   const fieldError = (key: ContactErrorKey) =>
     has(key) ? (
-      <p id={errorId(key)} className="mt-1.5 text-[0.8125rem] text-[#b42318]">
-        {labels.errors[key]}
+      <p id={errorId(key)} className="mt-1.5 text-[0.8125rem] text-[var(--color-danger-deep)]">
+        {t.form.errors[key]}
       </p>
     ) : null;
 
   const labelCls = 'u-label mb-2 block text-[0.625rem] tracking-[0.16em] text-ink-70';
+  const req = <span className="text-brass-deep">&nbsp;*</span>;
 
   return (
     <form
@@ -245,17 +244,17 @@ export function QuoteForm({
           ref={summaryRef}
           tabIndex={-1}
           role="alert"
-          className="panel-in s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
+          className="panel-in s-plaque border-l-2 !border-l-[var(--color-danger-deep)] px-5 py-4"
         >
           <p className="relative z-10 flex items-center gap-2.5 text-[0.9375rem] font-[550]">
-            <IconAlert className="h-4.5 w-4.5 shrink-0 text-[#b42318]" />
-            {labels.errorSummary}
+            <IconAlert className="h-5 w-5 shrink-0 text-[var(--color-danger-deep)]" />
+            {t.form.errorSummary}
           </p>
           <ul className="relative z-10 mt-2.5 flex list-disc flex-col gap-1 pl-5 text-[0.875rem]">
             {errors.map((key) => (
               <li key={key}>
                 <a href={`#${fieldId(key)}`} className="link-rule text-[0.875rem]">
-                  {labels.errors[key]}
+                  {t.form.errors[key]}
                 </a>
               </li>
             ))}
@@ -268,13 +267,13 @@ export function QuoteForm({
           ref={statusRef}
           tabIndex={-1}
           role="alert"
-          className="panel-in s-plaque border-l-2 !border-l-[#b42318] px-5 py-4"
+          className="panel-in s-plaque border-l-2 !border-l-[var(--color-danger-deep)] px-5 py-4"
         >
           <p className="relative z-10 text-[0.9375rem] font-[550]">
-            {status.code === 'rate_limited' ? labels.rateLimitTitle : labels.failureTitle}
+            {status.code === 'rate_limited' ? t.form.rateLimitTitle : t.form.failureTitle}
           </p>
           <p className="u-body relative z-10 mt-2 text-[0.875rem]">
-            {status.code === 'rate_limited' ? labels.rateLimitBody : labels.failureBody}
+            {status.code === 'rate_limited' ? t.form.rateLimitBody : t.form.failureBody}
           </p>
           <p className="relative z-10 mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[0.875rem]">
             <a href={phone.href} className="link-rule text-[0.875rem]">
@@ -287,220 +286,168 @@ export function QuoteForm({
         </div>
       ) : null}
 
-      <fieldset className="m-0 border-0 p-0">
-        <legend className="u-label text-bronze mb-4">{labels.legendContact}</legend>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className={isContact ? '' : 'sm:col-span-2'}>
+          <label htmlFor={fieldId('name')} className={labelCls}>
+            {t.form.name}
+            {req}
+          </label>
+          <input
+            id={fieldId('name')}
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            placeholder={t.form.namePlaceholder}
+            value={values.name}
+            onChange={(event) => set('name', event.target.value)}
+            aria-invalid={has('name')}
+            aria-describedby={has('name') ? errorId('name') : undefined}
+            className="field"
+          />
+          {fieldError('name')}
+        </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor={fieldId('phone')} className={labelCls}>
+            {t.form.phone}
+            {req}
+          </label>
+          <input
+            id={fieldId('phone')}
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            required
+            placeholder={t.form.phonePlaceholder}
+            value={values.phone}
+            onChange={(event) => set('phone', event.target.value)}
+            aria-invalid={has('phone')}
+            aria-describedby={has('phone') ? errorId('phone') : undefined}
+            className="field"
+          />
+          {fieldError('phone')}
+        </div>
+
+        <div className={isContact ? 'sm:col-span-2' : ''}>
+          <label htmlFor={fieldId('email')} className={labelCls}>
+            {t.form.email}
+            {isContact ? req : <span className="text-ink-50"> ({t.form.optional})</span>}
+          </label>
+          <input
+            id={fieldId('email')}
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            required={isContact}
+            placeholder={t.form.emailPlaceholder}
+            value={values.email}
+            onChange={(event) => set('email', event.target.value)}
+            aria-invalid={has('email')}
+            aria-describedby={has('email') ? errorId('email') : undefined}
+            className="field"
+          />
+          {fieldError('email')}
+        </div>
+
+        {isContact ? (
           <div className="sm:col-span-2">
-            <label htmlFor={fieldId('name')} className={labelCls}>
-              {labels.name} <span className="text-ink-50">({labels.required})</span>
+            <label htmlFor={fieldId('subject')} className={labelCls}>
+              {t.form.subject}
+              {req}
             </label>
-            <input
-              id={fieldId('name')}
-              name="name"
-              type="text"
-              autoComplete="name"
+            <select
+              id={fieldId('subject')}
+              name="subject"
               required
-              placeholder={labels.namePlaceholder}
-              value={values.name}
-              onChange={(event) => set('name', event.target.value)}
-              aria-invalid={has('name')}
-              aria-describedby={has('name') ? errorId('name') : undefined}
+              value={values.subject}
+              onChange={(event) => set('subject', event.target.value)}
+              aria-invalid={has('subject')}
+              aria-describedby={has('subject') ? errorId('subject') : undefined}
               className="field"
-            />
-            {fieldError('name')}
-          </div>
-
-          <div>
-            <label htmlFor={fieldId('email')} className={labelCls}>
-              {labels.email}
-            </label>
-            <input
-              id={fieldId('email')}
-              name="email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              placeholder={labels.emailPlaceholder}
-              value={values.email}
-              onChange={(event) => set('email', event.target.value)}
-              aria-invalid={has('email') || has('contact')}
-              aria-describedby={
-                has('email')
-                  ? errorId('email')
-                  : has('contact')
-                    ? errorId('contact')
-                    : undefined
-              }
-              className="field"
-            />
-            {fieldError('email')}
-          </div>
-
-          <div>
-            <label htmlFor={fieldId('phone')} className={labelCls}>
-              {labels.phone}
-            </label>
-            <input
-              id={fieldId('phone')}
-              name="phone"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              placeholder={labels.phonePlaceholder}
-              value={values.phone}
-              onChange={(event) => set('phone', event.target.value)}
-              aria-invalid={has('phone') || has('contact')}
-              aria-describedby={has('phone') ? errorId('phone') : undefined}
-              className="field"
-            />
-            {fieldError('phone')}
-          </div>
-
-          {has('contact') ? (
-            <p
-              id={errorId('contact')}
-              className="text-[0.8125rem] text-[#b42318] sm:col-span-2"
             >
-              {labels.errors.contact}
-            </p>
-          ) : null}
-        </div>
-      </fieldset>
-
-      <fieldset className="m-0 border-0 p-0">
-        <legend className="u-label text-bronze mb-4">{labels.legendProject}</legend>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          {isFull ? (
-            <>
-              <div>
-                <label htmlFor={fieldId('service')} className={labelCls}>
-                  {labels.service} <span className="text-ink-50">({labels.required})</span>
-                </label>
-                <select
-                  id={fieldId('service')}
-                  name="service"
-                  required
-                  value={values.service}
-                  onChange={(event) => set('service', event.target.value)}
-                  aria-invalid={has('service')}
-                  aria-describedby={has('service') ? errorId('service') : undefined}
-                  className="field"
-                >
-                  <option value="">{labels.servicePlaceholder}</option>
-                  {serviceOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                  <option value="other">{labels.serviceOther}</option>
-                </select>
-                {fieldError('service')}
-              </div>
-
-              <div>
-                <label htmlFor={fieldId('city')} className={labelCls}>
-                  {labels.city} <span className="text-ink-50">({labels.required})</span>
-                </label>
-                <input
-                  id={fieldId('city')}
-                  name="city"
-                  type="text"
-                  autoComplete="address-level2"
-                  required
-                  placeholder={labels.cityPlaceholder}
-                  value={values.city}
-                  onChange={(event) => set('city', event.target.value)}
-                  aria-invalid={has('city')}
-                  aria-describedby={has('city') ? errorId('city') : undefined}
-                  className="field"
-                />
-                {fieldError('city')}
-              </div>
-            </>
-          ) : null}
-
-          <div className="sm:col-span-2">
-            <label htmlFor={fieldId('message')} className={labelCls}>
-              {labels.message} <span className="text-ink-50">({labels.required})</span>
-            </label>
-            <textarea
-              id={fieldId('message')}
-              name="message"
-              rows={isFull ? 5 : 4}
-              required
-              placeholder={labels.messagePlaceholder}
-              value={values.message}
-              onChange={(event) => set('message', event.target.value)}
-              aria-invalid={has('message')}
-              aria-describedby={has('message') ? errorId('message') : undefined}
-              className="field resize-y"
-            />
-            {fieldError('message')}
+              <option value="">{t.form.subjectPlaceholder}</option>
+              <option value="quote">{t.form.subjectQuote}</option>
+              <option value="question">{t.form.subjectQuestion}</option>
+              <option value="other">{t.form.subjectOther}</option>
+            </select>
+            {fieldError('subject')}
           </div>
+        ) : (
+          <div className="sm:col-span-2">
+            <label htmlFor={fieldId('service')} className={labelCls}>
+              {t.form.service} <span className="text-ink-50">({t.form.optional})</span>
+            </label>
+            <select
+              id={fieldId('service')}
+              name="service"
+              value={values.service}
+              onChange={(event) => set('service', event.target.value)}
+              className="field"
+            >
+              <option value="">{t.form.servicePlaceholder}</option>
+              {serviceOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+              <option value="other">{t.form.serviceOther}</option>
+            </select>
+          </div>
+        )}
 
-          {isFull ? (
-            <>
-              <div className="sm:col-span-2">
-                <label htmlFor={fieldId('photos')} className={labelCls}>
-                  {labels.photos} <span className="text-ink-50">({labels.optional})</span>
-                </label>
-                <input
-                  id={fieldId('photos')}
-                  name="photos"
-                  type="file"
-                  multiple
-                  accept={`${ACCEPTED_IMAGE_TYPES.join(',')},${ACCEPTED_EXTENSIONS}`}
-                  onChange={(event) =>
-                    setFiles(Array.from(event.target.files ?? []).slice(0, MAX_FILES + 1))
-                  }
-                  aria-invalid={has('fileType') || has('fileSize') || has('fileCount')}
-                  aria-describedby={`${fieldId('photos')}-help`}
-                  className="field file:text-teal-deep h-auto cursor-pointer py-2.5 file:mr-3 file:cursor-pointer file:rounded-sm file:border file:border-[color-mix(in_oklab,var(--color-teal-deep)_28%,transparent)] file:bg-gradient-to-b file:from-white file:to-[#e2ecf9] file:px-3 file:py-1.5 file:text-[0.8125rem] file:font-[550]"
-                />
-                <p id={`${fieldId('photos')}-help`} className="u-meta mt-1.5">
-                  {labels.photosHelp}
-                  {files.length > 0 ? ` — ${files.length} ${labels.photosSelected}` : ''}
-                </p>
-                {fieldError('fileCount')}
-                {fieldError('fileSize')}
-                {fieldError('fileType')}
-              </div>
+        {!isContact ? (
+          <div className="sm:col-span-2">
+            <label htmlFor={fieldId('photos')} className={labelCls}>
+              {t.form.photos} <span className="text-ink-50">({t.form.optional})</span>
+            </label>
+            <PhotoDropzone
+              id={fieldId('photos')}
+              files={files}
+              onChange={(next) => {
+                markStarted();
+                setFiles(next);
+              }}
+              describedBy={`${fieldId('photos')}-help`}
+              invalid={has('fileCount') || has('fileSize') || has('fileType')}
+              labels={{
+                drop: t.form.photosDrop,
+                help: t.form.photosHelp,
+                remove: t.form.photosRemove,
+                previewLabel: t.form.photosPreviewLabel,
+              }}
+            />
+            <p id={`${fieldId('photos')}-help`} className="sr-only">
+              {t.form.photosHelp}
+            </p>
+            {fieldError('fileCount')}
+            {fieldError('fileSize')}
+            {fieldError('fileType')}
+          </div>
+        ) : null}
 
-              <fieldset className="m-0 border-0 p-0 sm:col-span-2">
-                <legend className={labelCls}>{labels.preferred}</legend>
-                <div className="flex flex-wrap gap-2">
-                  {(
-                    [
-                      ['phone', labels.preferredPhone],
-                      ['email', labels.preferredEmail],
-                      ['either', labels.preferredEither],
-                    ] as const
-                  ).map(([value, label]) => (
-                    <label
-                      key={value}
-                      className={`btn rounded-sm ${
-                        values.preferred === value ? 'btn-stone' : 'btn-quarry'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="preferred"
-                        value={value}
-                        checked={values.preferred === value}
-                        onChange={() => set('preferred', value)}
-                        className="sr-only-focusable absolute"
-                      />
-                      {label}
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-            </>
-          ) : null}
+        <div className="sm:col-span-2">
+          <label htmlFor={fieldId('message')} className={labelCls}>
+            {isContact ? t.form.message : t.form.messageProject}
+            {isContact ? req : <span className="text-ink-50"> ({t.form.optional})</span>}
+          </label>
+          <textarea
+            id={fieldId('message')}
+            name="message"
+            rows={isContact ? 6 : 4}
+            required={isContact}
+            placeholder={t.form.messagePlaceholder}
+            value={values.message}
+            onChange={(event) => set('message', event.target.value)}
+            aria-invalid={has('message')}
+            aria-describedby={has('message') ? errorId('message') : undefined}
+            className="field resize-y"
+          />
+          {fieldError('message')}
         </div>
-      </fieldset>
+      </div>
 
       <div>
         <label
@@ -516,23 +463,27 @@ export function QuoteForm({
             onChange={(event) => set('consent', event.target.checked)}
             aria-invalid={has('consent')}
             aria-describedby={has('consent') ? errorId('consent') : undefined}
-            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-[var(--color-teal-deep)]"
+            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-[var(--color-brass-deep)]"
           />
           <span>
-            {labels.consent}{' '}
+            {t.form.consent}{' '}
             <Link href={privacyHref} className="link-rule text-[0.875rem]">
-              {labels.consentLink}
+              {t.form.consentLink}
             </Link>
           </span>
         </label>
         {fieldError('consent')}
       </div>
 
+      <p className="u-meta">{t.form.privacyNote}</p>
+
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
         <button
           type="submit"
           disabled={status.kind === 'submitting'}
-          className="btn btn-stone rounded-sm disabled:cursor-progress disabled:opacity-70"
+          data-cta={t.form.submit}
+          data-cta-location={isContact ? 'contact-form' : 'quote-form'}
+          className="btn btn-stone w-full disabled:cursor-progress sm:w-auto"
         >
           {status.kind === 'submitting' ? (
             <>
@@ -540,13 +491,13 @@ export function QuoteForm({
                   has failed. The spinner is decoration for the eye only — the
                   label already carries the state for a screen reader. */}
               <span className="spinner" aria-hidden="true" />
-              {labels.submitting}
+              {t.form.submitting}
             </>
           ) : (
-            labels.submit
+            t.form.submit
           )}
         </button>
-        <a href={phone.href} className="link-rule text-[0.875rem]">
+        <a href={phone.href} className="link-rule min-h-11 text-[0.875rem]">
           {phone.display}
         </a>
       </div>

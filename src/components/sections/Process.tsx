@@ -35,7 +35,7 @@ export function ProcessSteps({
         >
           <span
             className={`u-label block text-[0.6875rem] tracking-[0.24em] ${
-              dark ? 'text-teal' : 'text-bronze'
+              dark ? 'text-brass' : 'text-umber'
             }`}
           >
             {step.step}

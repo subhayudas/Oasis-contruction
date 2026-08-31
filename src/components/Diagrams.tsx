@@ -61,11 +61,12 @@ const labelStyle = {
   textTransform: 'uppercase' as const,
 };
 
-function Leader({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
+/** A horizontal leader line from the drawing out to its label. */
+function Leader({ x1, y1, x2 }: { x1: number; y1: number; x2: number }) {
   return (
     <>
-      <path d={`M${x1} ${y1} H${x2}`} stroke="var(--color-bronze)" strokeWidth="1" />
-      <circle cx={x1} cy={y1} r="2.5" fill="var(--color-bronze)" />
+      <path d={`M${x1} ${y1} H${x2}`} stroke="var(--color-umber)" strokeWidth="1" />
+      <circle cx={x1} cy={y1} r="2.5" fill="var(--color-umber)" />
     </>
   );
 }
@@ -119,7 +120,7 @@ export function BaseSectionDiagram({ locale }: { locale: Locale }) {
       {/* Geotextile */}
       <path
         d="M12 196 H388"
-        stroke="var(--color-teal-deep)"
+        stroke="var(--color-brass-deep)"
         strokeWidth="2"
         strokeDasharray="7 5"
       />
@@ -170,42 +171,42 @@ export function BaseSectionDiagram({ locale }: { locale: Locale }) {
       />
 
       {/* Leaders + labels */}
-      <Leader x1={220} y1={91} x2={440} y2={91} />
+      <Leader x1={220} y1={91} x2={440} />
       <text x="448" y="95" fill="var(--color-ink)" style={labelStyle}>
         {t.pavers}
       </text>
 
-      <Leader x1={136} y1={78} x2={440} y2={78} />
+      <Leader x1={136} y1={78} x2={440} />
       <text x="448" y="60" fill="var(--color-ink)" style={labelStyle}>
         {t.joints}
       </text>
-      <path d="M440 78 V56" stroke="var(--color-bronze)" strokeWidth="1" />
+      <path d="M440 78 V56" stroke="var(--color-umber)" strokeWidth="1" />
 
-      <Leader x1={200} y1={118} x2={440} y2={118} />
+      <Leader x1={200} y1={118} x2={440} />
       <text x="448" y="122" fill="var(--color-ink)" style={labelStyle}>
         {t.bedding}
       </text>
 
-      <Leader x1={200} y1={160} x2={440} y2={160} />
+      <Leader x1={200} y1={160} x2={440} />
       <text x="448" y="164" fill="var(--color-ink)" style={labelStyle}>
         {t.basecourse}
       </text>
 
-      <Leader x1={300} y1={196} x2={440} y2={196} />
-      <text x="448" y="200" fill="var(--color-teal-deep)" style={labelStyle}>
+      <Leader x1={300} y1={196} x2={440} />
+      <text x="448" y="200" fill="var(--color-brass-deep)" style={labelStyle}>
         {t.geotextile}
       </text>
 
-      <Leader x1={200} y1={240} x2={440} y2={240} />
+      <Leader x1={200} y1={240} x2={440} />
       <text x="448" y="244" fill="var(--color-ink)" style={labelStyle}>
         {t.subgrade}
       </text>
 
-      <Leader x1={401} y1={99} x2={414} y2={99} />
+      <Leader x1={401} y1={99} x2={414} />
       <text x="418" y="36" fill="var(--color-ink)" style={labelStyle}>
         {t.edge}
       </text>
-      <path d="M414 99 V32" stroke="var(--color-bronze)" strokeWidth="1" />
+      <path d="M414 99 V32" stroke="var(--color-umber)" strokeWidth="1" />
     </svg>
   );
 }
@@ -253,17 +254,17 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
       {/* Slope indicator */}
       <path
         d="M60 96 L330 110"
-        stroke="var(--color-teal-deep)"
+        stroke="var(--color-brass-deep)"
         strokeWidth="1.5"
         strokeDasharray="6 5"
       />
       <path
         d="M330 110 l-11 -5 m11 5 l-11 6"
-        stroke="var(--color-teal-deep)"
+        stroke="var(--color-brass-deep)"
         strokeWidth="1.5"
         fill="none"
       />
-      <text x="60" y="86" fill="var(--color-teal-deep)" style={labelStyle}>
+      <text x="60" y="86" fill="var(--color-brass-deep)" style={labelStyle}>
         {t.slope}
       </text>
 
@@ -276,12 +277,12 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
           className="flow-water"
           style={{ animationDelay: `${i * 320}ms` }}
           d={`M${x} ${52 + i * 2} v22 m0 0 l-5 -6 m5 6 l5 -6`}
-          stroke="var(--color-teal)"
+          stroke="var(--color-brass)"
           strokeWidth="1.6"
           fill="none"
         />
       ))}
-      <text x="96" y="42" fill="var(--color-teal-deep)" style={labelStyle}>
+      <text x="96" y="42" fill="var(--color-brass-deep)" style={labelStyle}>
         {t.water}
       </text>
 
@@ -312,7 +313,7 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
       <path
         d="M356 120 L356 262 L464 262 L464 120"
         fill="none"
-        stroke="var(--color-teal-deep)"
+        stroke="var(--color-brass-deep)"
         strokeWidth="2"
         strokeDasharray="7 5"
       />
@@ -354,26 +355,26 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
       </text>
 
       {/* Labels */}
-      <Leader x1={200} y1={137} x2={252} y2={137} />
+      <Leader x1={200} y1={137} x2={252} />
       <text x="118" y="167" fill="var(--color-ink)" style={labelStyle}>
         {t.surface}
       </text>
       <path
         d="M252 137 L252 158 L200 158"
-        stroke="var(--color-bronze)"
+        stroke="var(--color-umber)"
         strokeWidth="1"
         fill="none"
       />
 
-      <Leader x1={410} y1={160} x2={520} y2={160} />
+      <Leader x1={410} y1={160} x2={520} />
       <text x="528" y="164" fill="var(--color-ink)" style={labelStyle}>
         {t.stone}
       </text>
 
-      <Leader x1={410} y1={246} x2={500} y2={280} />
+      <Leader x1={410} y1={246} x2={500} />
       <path
         d="M410 246 L500 280 H556"
-        stroke="var(--color-bronze)"
+        stroke="var(--color-umber)"
         strokeWidth="1"
         fill="none"
       />
@@ -381,12 +382,12 @@ export function DrainageDiagram({ locale }: { locale: Locale }) {
         {t.pipe}
       </text>
 
-      <text x="12" y="296" fill="var(--color-teal-deep)" style={labelStyle}>
+      <text x="12" y="296" fill="var(--color-brass-deep)" style={labelStyle}>
         {t.geotextile}
       </text>
       <path
         d="M112 291 H356 V262"
-        stroke="var(--color-teal-deep)"
+        stroke="var(--color-brass-deep)"
         strokeWidth="1"
         fill="none"
       />

@@ -4,6 +4,8 @@
  * as construction sections rather than clip art.
  */
 
+import type { ServiceKey } from '@/lib/routes';
+
 type IconProps = {
   className?: string;
   strokeWidth?: number;
@@ -181,9 +183,89 @@ export function IconFacebook(props: IconProps) {
   );
 }
 
+/** A flight of steps in section, with a coping nosing on each tread. */
+export function IconSteps(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 19.5h4.5V15H12v-4.5h4.5V6H21" />
+      <path d="M3 19.5V21M7.5 15h.01M12 10.5h.01" opacity="0" />
+      <path d="M3.5 19.5v-.9h4v-4.5h4.5V9.6h4.5V5.1H21" opacity="0.45" />
+    </Svg>
+  );
+}
+
+/** A yard in plan: a paved terrace, a wall, a tree and a fire ring. */
+export function IconYard(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 20h18M3 20V9.5h8V20" />
+      <path d="M11 14h10v6H11" />
+      <circle cx="16" cy="17" r="1.5" />
+      <path d="M7 9.5V4.5M4.5 6.5 7 4l2.5 2.5" />
+    </Svg>
+  );
+}
+
+/** A licence shield. */
+export function IconShield(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 3.5 19 6v5.5c0 4-3 7.2-7 9-4-1.8-7-5-7-9V6z" />
+      <path d="m9 12 2 2 4-4" />
+    </Svg>
+  );
+}
+
+/** A camera, for the photo funnel. */
+export function IconCamera(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 8h4l1.5-2h7L17 8h4v12H3z" />
+      <circle cx="12" cy="13.5" r="3.5" />
+    </Svg>
+  );
+}
+
+/** An upload tray. */
+export function IconUpload(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 15v5h16v-5" />
+      <path d="M12 16V4M7.5 8.5 12 4l4.5 4.5" />
+    </Svg>
+  );
+}
+
+/** A five-point star, filled, for review ratings. */
+export function IconStar({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z" />
+    </svg>
+  );
+}
+
+/** A plus that becomes a minus, for the FAQ accordion. */
+export function IconPlus(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M5 12h14" />
+      <path d="M12 5v14" className="accordion-bar" />
+    </Svg>
+  );
+}
+
 export const serviceIcons = {
   'pave-uni': IconPaver,
   muret: IconWall,
-  'nettoyage-pression': IconWash,
+  margelle: IconSteps,
   drainage: IconDrain,
-} as const;
+  'lavage-sous-pression': IconWash,
+  'amenagement-exterieur': IconYard,
+} as const satisfies Record<ServiceKey, (props: IconProps) => React.JSX.Element>;

@@ -1,7 +1,8 @@
-import { Breadcrumbs, type Crumb } from '@/components/Breadcrumbs';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Picture } from '@/components/Picture';
 import { QuoteForm } from '@/components/QuoteForm';
 import {
+  IconCamera,
   IconClock,
   IconFacebook,
   IconInstagram,
@@ -13,113 +14,129 @@ import { Eyebrow } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
 import { sceneById } from '@/content/imagery';
 import { services } from '@/content/services';
-import { site } from '@/content/site';
+import { phones, site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
 import { pagePath } from '@/lib/routes';
+import Link from 'next/link';
 
-export function ContactPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[] }) {
+export function ContactPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const hours = locale === 'fr' ? site.hours.displayFr : site.hours.displayEn;
   const area = locale === 'fr' ? 'Laval et Rive-Nord' : 'Laval and the North Shore';
   const scene = sceneById('scene-entree-pierre');
 
-  const details = [
-    {
-      label: t.common.phone,
-      value: site.phone.display,
-      href: site.phone.href,
-      icon: <IconPhone className="text-teal-deep h-4.5 w-4.5" />,
-      big: true,
-    },
-    {
-      label: t.common.courriel,
-      value: site.email.display,
-      href: site.email.href,
-      icon: <IconMail className="text-teal-deep h-4.5 w-4.5" />,
-    },
-    {
-      label: t.common.address,
-      value: site.address.street,
-      icon: <IconPin className="text-teal-deep h-4.5 w-4.5" />,
-    },
-    {
-      label: t.common.serviceArea,
-      value: area,
-      icon: <IconPin className="text-teal-deep h-4.5 w-4.5" />,
-    },
-    {
-      label: t.common.hours,
-      value: hours,
-      icon: <IconClock className="text-teal-deep h-4.5 w-4.5" />,
-    },
-  ];
-
   return (
     <>
-      <section className="u-wrap pt-8 pb-4 lg:pt-12">
-        <Breadcrumbs items={crumbs} label={t.common.breadcrumb} />
-        <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-7">
+      <section className="u-section-tight pb-0">
+        <div className="u-wrap">
+          <Breadcrumbs
+            label={t.common.breadcrumb}
+            className="mb-8"
+            items={[
+              { name: t.common.home, path: pagePath(locale, 'home') },
+              { name: t.nav.contact, path: pagePath(locale, 'contact') },
+            ]}
+          />
+          <div className="max-w-2xl">
             <Eyebrow>{t.contactPage.eyebrow}</Eyebrow>
-            <span className="u-tick mt-3.5" aria-hidden="true" />
-            <h1 className="u-display mt-6 text-[clamp(2.25rem,5.6vw,4rem)]">
-              {t.contactPage.title}
-            </h1>
-          </div>
-          <div className="lg:col-span-5 lg:pt-4">
-            <p className="u-lede">{t.contactPage.lede}</p>
+            <span className="u-tick mt-3" aria-hidden="true" />
+            <h1 className="u-display mt-6">{t.contactPage.title}</h1>
+            <p className="u-lede mt-6">{t.contactPage.lede}</p>
           </div>
         </div>
       </section>
 
-      <section className="u-section-tight">
-        <div className="u-wrap grid gap-10 border-t border-[var(--line-strong)] pt-10 lg:grid-cols-12 lg:gap-14">
-          {/* ------------------------------------------------------- coordinates */}
-          <div className="lg:col-span-4">
-            <h2 className="u-h3 text-[1.25rem]">{t.contactPage.detailsTitle}</h2>
+      {/* The pinned thumb bar is 60px tall; the extra bottom padding is what
+          keeps it off the submit button on a phone. */}
+      <section className="u-section pb-[7.5rem] md:pb-[clamp(3.5rem,7vw,6.5rem)]">
+        <div className="u-wrap grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <h2 className="u-h3 text-[1.25rem]">{t.contactPage.directTitle}</h2>
+            <p className="u-body mt-3 text-[0.9375rem]">{t.contactPage.directBody}</p>
 
-            <dl className="mt-6 flex flex-col">
-              {details.map((item) => (
-                <div key={item.label} className="border-t border-[var(--line)] py-4">
-                  <dt className="u-label text-ink-50 text-[0.5625rem] tracking-[0.2em]">
-                    {item.label}
-                  </dt>
-                  <dd
-                    className={`mt-2 ${item.big ? 'text-[1.375rem] font-[560]' : 'text-[0.9375rem]'}`}
+            <ul className="mt-6 flex flex-col gap-3">
+              {phones.map((entry) => (
+                <li key={entry.href}>
+                  <a
+                    href={entry.href}
+                    data-cta={t.common.callNow}
+                    data-cta-location="contact-page"
+                    className="btn btn-brass w-full justify-start"
+                    aria-label={`${t.common.callUs} — ${entry.name} : ${entry.display}`}
                   >
-                    {item.href ? (
-                      <a
-                        href={item.href}
-                        className="link-rule inline-flex min-h-9 items-center break-all"
-                      >
-                        {item.icon}
-                        {item.value}
-                      </a>
-                    ) : (
-                      <span className="text-ink-70 inline-flex items-center gap-2.5">
-                        {item.icon}
-                        {item.value}
-                      </span>
-                    )}
-                  </dd>
+                    <IconPhone className="h-4.5 w-4.5" />
+                    <span>
+                      {entry.name} — {entry.display}
+                    </span>
+                  </a>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href={pagePath(locale, 'photo')}
+                  data-cta={t.common.photoCta}
+                  data-cta-location="contact-page"
+                  className="btn btn-quarry w-full justify-start"
+                >
+                  <IconCamera className="h-4.5 w-4.5" />
+                  {t.common.photoCta}
+                </Link>
+              </li>
+            </ul>
+
+            <h2 className="u-h3 mt-10 text-[1.25rem]">{t.contactPage.detailsTitle}</h2>
+            <dl className="mt-5 flex flex-col">
+              {[
+                {
+                  label: t.common.courriel,
+                  value: site.email.display,
+                  href: site.email.href,
+                  icon: <IconMail className="text-brass-deep h-4.5 w-4.5" />,
+                },
+                {
+                  label: t.common.address,
+                  value: site.address.display,
+                  icon: <IconPin className="text-brass-deep h-4.5 w-4.5" />,
+                },
+                {
+                  label: t.common.serviceArea,
+                  value: area,
+                  icon: <IconPin className="text-brass-deep h-4.5 w-4.5" />,
+                },
+                {
+                  label: t.common.hours,
+                  value: hours,
+                  icon: <IconClock className="text-brass-deep h-4.5 w-4.5" />,
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-start gap-3.5 border-b border-[var(--line)] py-4 last:border-b-0"
+                >
+                  <span className="mt-0.5 shrink-0">{item.icon}</span>
+                  <div>
+                    <dt className="u-label text-ink-50 text-[0.5625rem] tracking-[0.2em]">
+                      {item.label}
+                    </dt>
+                    <dd className="text-ink mt-1 text-[0.9375rem]">
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          className="link-rule min-h-11 text-[0.9375rem] break-all"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
+                    </dd>
+                  </div>
                 </div>
               ))}
             </dl>
 
-            <div className="s-plaque mt-8 px-5 py-4">
-              <p className="u-h3 relative z-10 text-[1.0625rem]">{t.contactPage.directTitle}</p>
-              <p className="u-body relative z-10 mt-2 text-[0.9375rem]">
-                {t.contactPage.directBody}
-              </p>
-              <a
-                href={site.phone.href}
-                className="btn btn-stone relative z-10 mt-4 w-full rounded-sm"
-              >
-                <IconPhone className="h-4 w-4" />
-                {site.phone.display}
-              </a>
-            </div>
+            <p className="u-meta mt-5">{t.contactPage.mapNote}</p>
 
             <div className="mt-6 flex items-center gap-2.5">
               <a
@@ -127,64 +144,53 @@ export function ContactPage({ locale, crumbs }: { locale: Locale; crumbs: Crumb[
                 target="_blank"
                 rel="noopener noreferrer me"
                 aria-label={t.common.followInstagram}
-                className="s-plaque text-ink-70 hover:text-teal-deep inline-flex h-11 w-11 items-center justify-center transition-colors"
+                className="btn btn-quarry btn-compact h-11 min-h-11 w-11 !px-0"
               >
-                <IconInstagram className="relative z-10 h-5 w-5" />
+                <IconInstagram className="h-5 w-5" />
               </a>
               <a
                 href={site.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer me"
                 aria-label={t.common.followFacebook}
-                className="s-plaque text-ink-70 hover:text-teal-deep inline-flex h-11 w-11 items-center justify-center transition-colors"
+                className="btn btn-quarry btn-compact h-11 min-h-11 w-11 !px-0"
               >
-                <IconFacebook className="relative z-10 h-5 w-5" />
+                <IconFacebook className="h-5 w-5" />
               </a>
             </div>
-          </div>
 
-          {/* -------------------------------------------------------------- form */}
-          <div className="lg:col-span-8">
-            <div className="s-plaque clip-notch-sm p-6 sm:p-8 lg:p-10">
-              <div className="relative z-10">
-                <h2 className="u-h3 text-[1.25rem]">{t.contactPage.formTitle}</h2>
-                <QuoteForm
-                  className="mt-7"
-                  locale={locale}
-                  variant="full"
-                  serviceOptions={services.map((service) => ({
-                    value: service.key,
-                    label: service.copy[locale].name,
-                  }))}
-                  privacyHref={pagePath(locale, 'privacy')}
-                  phone={{ href: site.phone.href, display: site.phone.display }}
-                  email={{ href: site.email.href, display: site.email.display }}
-                  labels={t.form}
+            <figure className="mt-10">
+              <div className="frame frame-keyline aspect-[4/3]">
+                <Picture
+                  alt={scene?.alt[locale] ?? ''}
+                  sizes="(min-width: 64rem) 36vw, 92vw"
+                  sources={[source('scene-entree-pierre', 'wide')]}
+                  className="block h-full w-full"
+                  imgClassName="h-full w-full object-cover"
                 />
               </div>
+            </figure>
+          </div>
+
+          <div className="lg:col-span-7">
+            <h2 className="u-h3 text-[1.25rem]">{t.contactPage.formTitle}</h2>
+            <div className="glass-panel mt-5 p-6 lg:p-8">
+              <QuoteForm
+                locale={locale}
+                variant="contact"
+                serviceOptions={services.map((s) => ({
+                  value: s.key,
+                  label: s.copy[locale].name,
+                }))}
+                privacyHref={pagePath(locale, 'privacy')}
+                phone={{ href: site.phone.href, display: site.phone.display }}
+                email={{ href: site.email.href, display: site.email.display }}
+                t={t}
+              />
             </div>
           </div>
         </div>
       </section>
-
-      {/* A full-bleed close, so the page ends on the work rather than on a
-          form field. */}
-      <figure className="mt-4">
-        <div className="frame">
-          <Picture
-            alt={scene?.alt[locale] ?? ''}
-            sizes="100vw"
-            sources={[
-              source('scene-entree-pierre', 'banner', '(min-width: 40rem)'),
-              source('scene-entree-pierre', 'portrait'),
-            ]}
-            imgClassName="h-full w-full object-cover"
-          />
-        </div>
-        <figcaption className="u-wrap mt-3">
-          <span className="u-meta block max-w-2xl">{scene?.caption[locale]}</span>
-        </figcaption>
-      </figure>
     </>
   );
 }

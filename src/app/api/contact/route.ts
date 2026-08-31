@@ -14,6 +14,7 @@ import {
   type ContactVariant,
 } from '@/lib/contact';
 import { isLocale } from '@/lib/i18n';
+import { verifyRecaptcha } from '@/lib/recaptcha';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -66,13 +67,22 @@ function serviceLabel(key: string): string {
   return services.find((s) => s.key === key)?.copy.fr.name ?? key;
 }
 
+function subjectLabel(value: string): string {
+  if (value === 'quote') return 'Devis';
+  if (value === 'question') return 'Question';
+  if (value === 'other') return 'Autre';
+  return '—';
+}
+
 function renderEmail(payload: ContactPayload, fileNames: string[]): string {
   const rows: [string, string][] = [
     ['Nom', payload.name],
-    ['Courriel', payload.email || '—'],
     ['Téléphone', payload.phone || '—'],
+    ['Courriel', payload.email || '—'],
     ['Service', serviceLabel(payload.service)],
+    ['Sujet', subjectLabel(payload.subject)],
     ['Ville', payload.city || '—'],
+    ['Depuis quand', payload.duration || '—'],
     ['Contact préféré', payload.preferred],
     ['Langue du site', payload.locale],
     ['Photos', fileNames.length ? fileNames.join(', ') : '—'],
@@ -100,16 +110,25 @@ ${rows
 </body></html>`;
 }
 
+const FORM_LABEL: Record<ContactVariant, string> = {
+  general: 'Demande de devis',
+  photo: 'Envoi de photo',
+  contact: 'Page contact',
+};
+
 async function deliver(
   payload: ContactPayload,
   attachments: Attachment[],
+  variant: ContactVariant,
 ): Promise<'sent' | 'not_configured' | 'failed'> {
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL;
   const resendKey = process.env.RESEND_API_KEY;
   const webhook = process.env.CONTACT_WEBHOOK_URL;
 
-  const subject = `Soumission — ${payload.name}${payload.city ? ` (${payload.city})` : ''}`;
+  const subject = `${FORM_LABEL[variant]} — ${payload.name}${
+    payload.city ? ` (${payload.city})` : ''
+  }`;
 
   if (resendKey && to && from) {
     try {
@@ -151,8 +170,10 @@ async function deliver(
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          subject,
           ...payload,
+          subject,
+          formSubject: payload.subject,
+          form: variant,
           website: undefined,
           elapsed: undefined,
           attachments: attachments.map((a) => ({
@@ -203,8 +224,10 @@ export async function POST(request: NextRequest) {
     email: read('email').slice(0, 160),
     phone: read('phone').slice(0, 40),
     service: read('service').slice(0, 40),
+    subject: read('subject').slice(0, 40),
     city: read('city').slice(0, 80),
     message: read('message').slice(0, 4000),
+    duration: read('duration').slice(0, 200),
     preferred:
       preferredRaw === 'phone' || preferredRaw === 'email' || preferredRaw === 'either'
         ? preferredRaw
@@ -224,14 +247,26 @@ export async function POST(request: NextRequest) {
     return json({ ok: false, code: 'rate_limited' }, 429);
   }
 
-  const variant: ContactVariant = read('variant') === 'compact' ? 'compact' : 'full';
+  // No-op until RECAPTCHA_SECRET_KEY and the public site key are both set.
+  const captcha = await verifyRecaptcha(read('recaptcha'), clientKey(request));
+  if (!captcha.ok) {
+    console.warn(`[contact] reCAPTCHA rejected a submission: ${captcha.reason}`);
+    return json({ ok: false, code: 'rejected' }, 400);
+  }
+
+  const requested = read('variant');
+  const variant: ContactVariant = (['general', 'photo', 'contact'] as const).includes(
+    requested as ContactVariant,
+  )
+    ? (requested as ContactVariant)
+    : 'general';
   const errors = validateContact(payload, variant);
 
   const files = form
     .getAll('photos')
     .filter((entry): entry is File => entry instanceof File && entry.size > 0)
     .slice(0, MAX_FILES + 1);
-  errors.push(...validateFiles(files));
+  errors.push(...validateFiles(files, variant));
 
   if (errors.length > 0) {
     return json({ ok: false, code: 'validation', errors }, 422);
@@ -250,7 +285,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const result = await deliver(payload, attachments);
+  const result = await deliver(payload, attachments, variant);
 
   if (result === 'not_configured') {
     console.warn(

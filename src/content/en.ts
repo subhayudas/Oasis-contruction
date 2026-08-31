@@ -4,34 +4,44 @@ export const en: Dictionary = {
   meta: {
     siteName: 'Oasis Construction',
     home: {
-      title: 'Oasis Construction — Exterior construction and pavers, Laval & North Shore',
+      title: 'Oasis Construction — Interlocking pavers, Laval and North Shore',
       description:
-        'Interlocking pavers, retaining walls, drainage and pressure washing in Laval and the North Shore. Careful work from site preparation to finishing. Request a quote.',
+        'Interlocking paver repair and installation in Laval and the North Shore. Free assessment. Call (438) 505-4846.',
     },
     services: {
-      title: 'Our services — Pavers, walls, drainage and washing | Oasis Construction',
+      title: 'Our services — Pavers, walls, drainage | Oasis Construction',
       description:
-        'Interlocking paver repair, retaining wall repair, pressure washing and drainage. Exterior construction carried out with care in Laval and the North Shore.',
+        'Pavers, retaining walls, steps, drainage, pressure washing and landscape construction in Laval and the North Shore. Free assessment.',
     },
     projects: {
-      title: 'Projects — Pavers, retaining walls and landscaping | Oasis Construction',
+      title: 'Projects — Oasis Construction Laval',
       description:
-        'Walkways, landings, retaining walls, stone stairways and outdoor surfaces built by Oasis Construction in Laval and the North Shore, with before/after transformations.',
+        'Our paver and landscape construction projects in Laval and the North Shore, with before-and-after transformations.',
     },
     about: {
-      title: 'About Oasis Construction — Exterior construction, Laval & North Shore',
+      title: 'About — Oasis Construction',
       description:
-        'Oasis Construction grew out of a passion for exterior landscaping and a commitment to professional, personalised and durable service.',
+        'Oasis Construction: interlocking paver and landscape construction specialists in Laval and the North Shore.',
     },
     contact: {
-      title: 'Contact and quote — Oasis Construction, Laval & North Shore',
+      title: 'Contact Oasis Construction — Laval and North Shore',
       description:
-        'Request a quote for your exterior project. Phone: 514-702-0752. Every day, 9 AM to 8 PM. Laval and the North Shore.',
+        'Contact Oasis Construction for a free quote. (438) 505-4846. Laval and the North Shore.',
+    },
+    areas: {
+      title: 'Service areas — Laval and the North Shore | Oasis Construction',
+      description:
+        'Oasis Construction serves Laval and Montreal’s North Shore. See the areas covered and request a free assessment.',
+    },
+    photo: {
+      title: 'Send us a photo — Oasis Construction',
+      description:
+        'Not sure what is happening with your pavers, wall or steps? Send a photo and get a first read. No charge.',
     },
     privacy: {
       title: 'Privacy policy — Oasis Construction',
       description:
-        'How Oasis Construction collects and uses the information submitted through the quote form on its website.',
+        'How Oasis Construction collects and uses the information submitted through the forms on this site.',
     },
   },
 
@@ -42,14 +52,17 @@ export const en: Dictionary = {
     openMenu: 'Open menu',
     language: 'Language',
     switchTo: 'View this page in French',
-    quote: 'Request a quote',
-    quoteShort: 'Quote',
+    quote: 'Get a free quote',
+    quoteShort: 'Get a quote',
+    photoCta: 'Send us a photo',
+    photoShort: 'Photo',
     call: 'Call',
+    callNow: 'Call now',
     callUs: 'Call Oasis Construction',
     email: 'Email',
-    viewWork: 'View our work',
-    allProjects: 'View all projects',
-    allServices: 'View all services',
+    viewWork: 'See our projects',
+    allProjects: 'See all projects',
+    allServices: 'See all services',
     learnMore: 'Learn more',
     serviceArea: 'Service area',
     hours: 'Hours',
@@ -64,14 +77,9 @@ export const en: Dictionary = {
     facebook: 'Facebook',
     followInstagram: 'Oasis Construction on Instagram',
     followFacebook: 'Oasis Construction on Facebook',
-    logoAlt: 'Oasis Construction logo: a stylised palm above the word Oasis',
-  },
-
-  languageGate: {
-    eyebrow: 'LANGUE · LANGUAGE',
-    title: 'Choose your language',
-    note: 'You can switch languages at any time with the FR / EN selector at the top of the page.',
-    dismiss: 'Close and continue in English',
+    logoAlt: 'Oasis Construction logo: a stylised palm tree above the word Oasis',
+    freeNoObligation: 'Free assessment, no obligation.',
+    toBeConfirmed: 'To be confirmed with the business',
   },
 
   nav: {
@@ -79,86 +87,142 @@ export const en: Dictionary = {
     projects: 'Projects',
     about: 'About',
     contact: 'Contact',
+    areas: 'Service areas',
+    servicesMenu: 'Open the services menu',
+  },
+
+  announcement: {
+    text: 'Make the most of the season for your outdoor projects. Free assessments under way.',
+    cta: 'Book yours',
+    dismiss: 'Hide this announcement',
   },
 
   hero: {
-    eyebrow: 'EXTERIOR CONSTRUCTION · LAVAL & NORTH SHORE',
-    title: 'Outdoor spaces, built to last.',
-    accent: 'An oasis made for you.',
-    lede: 'Interlocking pavers, retaining walls, drainage and restoration, completed with care from preparation to finishing.',
-    imageCaption: 'Paver walkway with slab edging, North Shore',
-    plaqueTitle: 'Oasis Construction',
+    eyebrow: 'INTERLOCKING PAVERS · LAVAL & NORTH SHORE',
+    title: 'Interlocking paver repair and installation in Laval and the North Shore',
+    lede: 'We diagnose the real problem, repair it at the source, and build it to last. Free assessment.',
+    imageAlt:
+      'Residential paver entrance at dusk, with a block retaining wall, stone steps and a lit front door.',
+  },
+
+  trustBar: {
+    label: 'Our credentials',
+    rbq: 'RBQ {rbqNumber}',
+    insured: 'Insured with {insuranceProvider}',
+    projects: '{projectCount} projects completed',
+    area: 'Laval + North Shore',
+  },
+
+  problemSection: {
+    eyebrow: 'The problem',
+    title: 'Pavers sinking? Wall leaning? Water collecting?',
+    body: 'Most paver, wall and drainage problems are not accidents. They have a cause. And until the cause is dealt with, the problem comes back. At Oasis Construction we start by understanding what is going on before we propose anything.',
+  },
+
+  solutionSection: {
+    eyebrow: 'How we work',
+    title: 'We diagnose. We repair. We build to last.',
+    body: 'Oasis Construction is a crew that takes the time to understand the real problem before proposing a solution. Whether it is pavers settling, a wall leaning, drainage that has stopped working, or a full yard build, we tell you what we see, what we recommend, and what it costs. No pressure, no obligation.',
+    imageAlt:
+      'Two workers laying pavers on a residential site, with a plate compactor and screed rails.',
+    points: [
+      'Free on-site assessment, no obligation',
+      'Specialists in repair AND installation',
+      'Clean work, schedules kept',
+      'Built for Quebec winters',
+    ],
   },
 
   servicesSection: {
     eyebrow: 'Services',
-    title: 'Four ways to take an exterior back',
-    lede: 'Work aimed at what moves, what wears and what holds water badly — rather than at what photographs well.',
+    title: 'Our services',
+    lede: 'Work aimed at what is moving, what is wearing and what is holding water — rather than at what photographs well.',
+  },
+
+  processSection: {
+    eyebrow: 'How it works',
+    title: 'How it works',
+    lede: 'Simple, transparent, no surprises.',
+    steps: [
+      {
+        step: '01',
+        title: 'You get in touch',
+        text: 'By phone, through the form, or by sending a photo of the problem. We get back to you quickly.',
+      },
+      {
+        step: '02',
+        title: 'Free on-site assessment',
+        text: 'We come out, look at the problem, and explain what we see. No charge.',
+      },
+      {
+        step: '03',
+        title: 'Transparent quote',
+        text: 'You get a clear, itemised quote. No surprises, no hidden costs.',
+      },
+      {
+        step: '04',
+        title: 'We do the work',
+        text: 'We keep to the schedule, we work clean, and we stand behind the result.',
+      },
+    ],
   },
 
   workSection: {
     eyebrow: 'Projects',
-    title: 'Real sites, not renderings',
-    lede: 'The photographs in this section are actual Oasis Construction jobs in Laval and the North Shore — not illustrative imagery.',
-    sliderLabel: 'Before/after comparison',
+    title: 'Our projects',
+    lede: 'A few of the projects we have completed in Laval and the North Shore.',
+    sliderLabel: 'Before and after comparison',
     sliderHelp: 'Drag the handle, or use the arrow keys, to compare.',
-    sliderValue: 'Share of the “after” image showing',
+    sliderValue: 'Portion of the “after” image visible',
+    realPhotos:
+      'Every photograph in this section is a real Oasis Construction job site, photographed by the crew.',
   },
 
-  processSection: {
-    eyebrow: 'How we work',
-    title: 'Four steps, in order',
-    lede: 'The quality of an installation is mostly decided before anything is laid. That is where most of the time goes.',
-    steps: [
-      {
-        step: '01',
-        title: 'Understand',
-        text: 'A conversation, your photos and a look at the site, to pin down the real problem and what you want out of it.',
-      },
-      {
-        step: '02',
-        title: 'Prepare',
-        text: 'Ground, base and drainage — the stage that decides whether the work holds.',
-      },
-      {
-        step: '03',
-        title: 'Build',
-        text: 'Careful installation or repair, aligned with what is already there around it.',
-      },
-      {
-        step: '04',
-        title: 'Finish',
-        text: 'Levelling, joints, clean-up and the site put back in order.',
-      },
-    ],
+  testimonialsSection: {
+    eyebrow: 'Testimonials',
+    title: 'What our customers say',
+    lede: 'Reviews published by Oasis Construction customers.',
+    translationLabel: 'Translation',
+    ratingLabel: 'Rated 5 out of 5',
+    collectNote:
+      'These are the reviews verified to date. The business’s Google Business Profile is not yet connected to the site; as soon as it is, the rating and review count will appear here.',
+  },
+
+  faqSection: {
+    eyebrow: 'Questions',
+    title: 'Frequently asked questions',
+    lede: 'What we get asked most before a first visit.',
+    expand: 'Show the answer',
+  },
+
+  finalCta: {
+    eyebrow: 'Contact',
+    title: 'Ready to talk about your project?',
+    body: 'The assessment is free. Call us, send a photo of the problem, or fill in the form. We get back to you quickly.',
+    trustLine:
+      'Free assessment, no obligation. RBQ {rbqNumber}. Insured with {insuranceProvider}.',
+    orCall: 'Or call directly',
   },
 
   aboutTeaser: {
     eyebrow: 'About',
-    title: 'Every property is different.',
+    title: 'Every site is different.',
     body: [
-      'Oasis Construction grew out of a passion for exterior landscaping and a commitment to professional, personalised and durable service.',
-      'The team puts real weight on preparation, detail and execution, to build outdoor spaces that are as practical as they are good-looking.',
+      'Oasis Construction grew out of a love of outdoor building and a determination to offer professional, personal, durable work.',
+      'The crew puts a great deal of weight on preparation, detail and execution, to build outdoor spaces that are as functional as they are good-looking.',
     ],
-    cta: 'Meet Oasis',
-  },
-
-  contactPanel: {
-    eyebrow: 'Quote',
-    title: 'Let’s talk about your property.',
-    accent: 'No obligation.',
-    lede: 'Tell us what bothers you outside — a walkway that has sunk, a wall that leans, water that collects. We come back to you with a solution that fits.',
-    orCall: 'Or call directly',
+    cta: 'About Oasis',
   },
 
   footer: {
     tagline: 'An oasis made for you',
     description:
-      'A company specialising in exterior landscaping and interlocking pavers. Installation, repair and maintenance in Laval and the North Shore.',
+      'Interlocking paver, retaining wall, steps and drainage repair and construction in Laval and the North Shore.',
     navTitle: 'Navigation',
     servicesTitle: 'Services',
     contactTitle: 'Contact',
     followTitle: 'Follow the work',
+    credentials: 'RBQ {rbqNumber} · Insured with {insuranceProvider}',
     privacy: 'Privacy policy',
     rights: 'All rights reserved.',
     credit: 'Site built for Oasis Construction.',
@@ -167,104 +231,247 @@ export const en: Dictionary = {
   servicesPage: {
     eyebrow: 'Services',
     title: 'What we do, and how',
-    lede: 'Oasis Construction specialises in exterior landscaping and interlocking pavers. The work ranges from a targeted repair to the full restoration of an existing installation.',
+    lede: 'Oasis Construction specialises in repairing and building interlocking pavers, retaining walls and outdoor surfaces. The work ranges from a targeted repair to rebuilding an entire installation.',
     intro:
-      'Every project is carried out with care, from preparing the ground through to the finishing work. The approach is to understand what the client needs and propose a solution suited to their property, their taste and their budget.',
+      'Every project starts the same way: understanding what is causing the problem. That is what decides whether you need a spot repair or a rebuild, and it is the difference between work that holds and work you pay for twice.',
     ctaTitle: 'Not sure what you are looking at?',
     ctaBody:
-      'Send us a photo. It is usually the fastest way to know whether it is a spot repair or something broader.',
+      'Send us a photo. It is usually the fastest way to find out whether it is a spot repair or something broader.',
   },
 
   servicePage: {
     includesNote: 'The work varies with the condition of what is already there.',
     noteLabel: 'Worth knowing',
     relatedTitle: 'Related services',
-    processTitle: 'How it runs',
+    processTitle: 'How it goes',
     backToServices: 'All services',
-    ctaTitle: 'Get a quote for this work',
+    ctaTitle: 'Get a free quote for this work',
     ctaBody: 'Describe the situation in a few lines, with a photo if you have one.',
+    seeProjects: 'See projects like this',
+    areaTitle: 'Service areas',
     diagramCaption: {
-      base: 'Typical cross-section of an interlocking paver surface. Proportions are illustrative: real layer thicknesses depend on the ground and the use.',
+      base: 'Typical section through a paver surface. The proportions are illustrative: real layer thicknesses depend on the site and the use.',
       drainage:
-        'How a drain runs alongside a surface. The line, the slope and the outlet are determined on site, according to the property.',
+        'The principle of a drain run alongside a surface. The route, the fall and the outlet are determined on site.',
     },
   },
 
   projectsPage: {
     eyebrow: 'Projects',
-    title: 'Recent work',
-    lede: 'Walkways, landings, retaining walls and outdoor surfaces built in Laval and the North Shore. Every photograph on this page is a real Oasis Construction job, shot by the team.',
-    beforeAfterTitle: 'Before / after',
+    title: 'Our projects',
+    lede: 'Walkways, landings, walls and outdoor surfaces built in Laval and the North Shore. Every photograph on this page is a real Oasis Construction job site, photographed by the crew.',
+    beforeAfterTitle: 'Before and after',
     beforeAfterLede:
-      'Two transformations photographed by the team, before the work started and once it was finished.',
+      'Two transformations photographed by the crew, before the work started and once it was finished.',
     galleryTitle: 'More projects',
-    ctaTitle: 'Your property could be next.',
+    ctaTitle: 'Have a project in mind?',
+    ctaBody: 'Ask for a free quote. We look, we explain, we price it.',
+    filterLabel: 'Filter by service',
+    filterAll: 'All',
+    filterEmpty: 'No projects match this filter yet.',
+    countLabel: 'project(s) shown',
+  },
+
+  projectPage: {
+    backToProjects: 'All projects',
+    locationLabel: 'Area',
+    serviceLabel: 'Service',
+    completedLabel: 'Completed',
+    durationLabel: 'Duration',
+    problemTitle: 'The problem',
+    solutionTitle: 'What we did',
+    scopeTitle: 'Scope of work',
+    whatYouSeeTitle: 'What the photograph shows',
+    ctaTitle: 'Something similar?',
+    ctaBody: 'Ask for a free quote. The on-site assessment costs nothing.',
+    pendingLabel: 'Detail to be completed',
+    pendingBody:
+      'The area, the duration and the detail of this job have not been confirmed by the business yet. They will be added here rather than guessed from the photograph.',
+  },
+
+  areasPage: {
+    eyebrow: 'Areas',
+    title: 'Service areas',
+    lede: 'Oasis Construction serves Laval and Montreal’s North Shore. Here are the areas covered.',
+    intro:
+      'The municipalities below make up the territory served. If your address is not listed but you are nearby, call — the answer takes thirty seconds.',
+    detailTitle: 'Territory detail',
+    detailBody: '{serviceAreas}',
+    whyLocalTitle: 'Why the area matters',
+    whyLocalBody:
+      'Soil, water table and freeze-thaw intensity are not the same from one area to the next. Pavers laid on North Shore clay do not behave like pavers laid on sand. Knowing the ground is part of the diagnosis.',
+    ctaTitle: 'In the area?',
+    ctaBody: 'Ask for a free assessment. We come out, we look, we explain.',
+  },
+
+  photoPage: {
+    eyebrow: 'Photo assessment',
+    title: 'Send us a photo',
+    lede: 'Not sure what is happening with your pavers, your wall, your steps or your drainage? Send us a photo and we will give you a first read.',
+    disclaimerLabel: 'Important',
+    disclaimer:
+      'A photo gives us a first impression, but it is not a full diagnosis. For an accurate diagnosis and a quote, we have to see the site in person. The on-site assessment is free.',
+    stepsTitle: 'How it works',
+    steps: [
+      {
+        step: '01',
+        title: 'You send the photo',
+        text: 'One to three photos of the problem — one from a distance, then a close one if you can.',
+      },
+      {
+        step: '02',
+        title: 'We look at it',
+        text: 'We call you with a first read: what we can see, and what we would need to check on site.',
+      },
+      {
+        step: '03',
+        title: 'Free assessment',
+        text: 'If it is worth going further, we come out. No charge, no obligation.',
+      },
+    ],
+    tipsTitle: 'A useful photo shows',
+    tips: [
+      'The whole surface, not just the dip',
+      'A close view of the area that is moving or cracking',
+      'The area in daylight, clear of snow if possible',
+      'What is around it: downspout, slope, foundation',
+    ],
+    confirmTitle: 'Thank you! We have your photo.',
+    confirmBody:
+      'We will call you within {responseTime} with a first read and to see whether we can help. No pressure, no obligation.',
+    confirmTestimonialsTitle:
+      'While we look at your photo, here is what other customers say about our work.',
+  },
+
+  landing: {
+    trustLine: 'Free assessment · RBQ {rbqNumber} · Laval and the North Shore',
+    formTitle: 'Request a free assessment',
+    formLede: 'Two required fields. We call you back.',
+    backToSite: 'See the full site',
+    pave: {
+      title: 'Pavers sinking? We repair at the source.',
+      lede: 'Pavers moving, dips forming, joints emptying out. We find what is causing it under the surface, correct it, and reset. Free assessment in Laval and the North Shore.',
+      points: [
+        'Base and drainage diagnosis before any quote',
+        'Targeted repair where possible — no needless replacement',
+        'Fresh polymeric sand and edges reset',
+        'Built for the freeze-thaw cycles here',
+      ],
+      metaTitle: 'Interlocking paver repair — Free assessment | Oasis Construction',
+      metaDescription:
+        'Pavers sinking in Laval or the North Shore? Free assessment and a transparent quote. Call (438) 505-4846.',
+    },
+    muret: {
+      title: 'Wall leaning? Do not wait for it to go.',
+      lede: 'A leaning wall is still holding the soil back, but not for much longer. We find out why it is moving, redo the footing and the drainage, and rebuild it. Free assessment in Laval and the North Shore.',
+      points: [
+        'Footing, drainage and soil-pressure diagnosis',
+        'Partial rebuild where the rest of the wall is sound',
+        'Clean stone and fabric behind the wall',
+        'We tell you if the wall is an engineering job',
+      ],
+      metaTitle: 'Retaining wall repair — Free assessment | Oasis Construction',
+      metaDescription:
+        'Wall leaning or cracking in Laval or the North Shore? Free assessment and a transparent quote. Call (438) 505-4846.',
+    },
   },
 
   aboutPage: {
     eyebrow: 'About',
-    title: 'Oasis Construction',
+    title: 'About Oasis Construction',
     accent: 'An oasis made for you.',
-    lede: 'A company specialising in exterior landscaping and interlocking pavers, carrying out installation, repair and maintenance projects with particular attention to quality of execution and durability.',
+    lede: 'A company specialising in interlocking paver repair and outdoor construction, carrying out installation, repair and upkeep with particular attention to execution and durability.',
     storyTitle: 'The story',
     story: [
-      'Oasis Construction grew out of a passion for exterior landscaping and a commitment to professional, personalised and durable service.',
-      'Every property is different. The team puts real weight on preparation, detail and execution, to build outdoor spaces that are as practical as they are good-looking.',
-      'Today, Oasis Construction handles exterior improvements ranging from targeted repairs to more complete landscaping and hardscaping projects.',
+      'Oasis Construction grew out of a love of outdoor building and a determination to offer professional, personal, durable work.',
+      'Every site is different. The crew puts a great deal of weight on preparation, detail and execution, to build outdoor spaces that are as functional as they are good-looking.',
+      'Today Oasis Construction carries out exterior work ranging from a targeted repair to complete paving and landscape projects, across Laval and the North Shore.',
     ],
-    approachTitle: 'How the work is done',
+    approachTitle: 'How we work',
     approach: [
       {
-        title: 'Preparation before installation',
-        text: 'Base, compaction and how water leaves the surface: that is what decides whether an installation lasts ten years or three winters.',
+        title: 'Diagnosis before quote',
+        text: 'We look for what is causing the problem before proposing a solution. That is what separates a repair that holds from one you pay for twice.',
       },
       {
-        title: 'One solution per property',
-        text: 'The client’s needs, the property, their taste and their budget shape the proposal. There is no single recipe.',
+        title: 'Preparation before laying',
+        text: 'Base, compaction and how water leaves the site: that is what decides whether the work lasts ten years or three winters.',
       },
       {
-        title: 'Detail through to the end',
-        text: 'Cuts, alignments, joints and clean-up: finishing is the first thing you notice, long after the site is gone.',
+        title: 'One solution per site',
+        text: 'The needs, the property, the taste and the budget shape the proposal. There is no single recipe.',
+      },
+      {
+        title: 'Detail to the end',
+        text: 'Cuts, alignment, joints and clean-up: the finish is what you notice first, long after the crew has gone.',
       },
     ],
+    teamTitle: 'The team',
+    teamBody: '{founderName} — {founderBio}',
+    teamPending:
+      'Team photographs and an introduction to the founders will be added here as soon as the business supplies them. In the meantime, Hugo and Guillaume both answer the phone.',
+    credentialsTitle: 'Licence and insurance',
+    credentialsBody:
+      'Oasis Construction holds RBQ licence {rbqNumber} and is insured with {insuranceProvider} ({insuranceCoverage}).',
     servicesTitle: 'What we build',
     servicesLede:
-      'Interlocking paver repair, retaining walls, drainage, pressure washing and the restoration of existing installations.',
+      'Interlocking pavers, retaining walls, steps and coping, drainage, pressure washing and complete landscape construction.',
     areaTitle: 'Service area',
     areaBody:
       'Oasis Construction serves Laval and the North Shore. If you are not sure whether you are in the area, call — the answer takes thirty seconds.',
+    ctaTitle: 'Talk to someone who knows',
+    ctaBody: 'A question about your site? The phone is the fastest way.',
   },
 
   contactPage: {
     eyebrow: 'Contact',
-    title: 'Request a quote',
-    lede: 'Fill in the form or call directly. The more you describe the situation — and the more photos you add — the more precise the answer will be.',
+    title: 'Contact Oasis Construction',
+    lede: 'Fill in the form or call directly. The more you describe the situation — and the more photos you add — the more precise the answer.',
     detailsTitle: 'Contact details',
-    formTitle: 'Quote form',
-    directTitle: 'Would rather talk to someone?',
+    formTitle: 'Write to us',
+    directTitle: 'Would you rather talk to someone?',
     directBody: 'The phone is still the fastest way to get an answer.',
+    hoursNote: 'Every day, 9 AM to 8 PM.',
+    mapTitle: 'Where we are',
+    mapNote:
+      'The address above is the office. The work happens at your place, in Laval and the North Shore.',
   },
 
   form: {
     legendContact: 'Your details',
     legendProject: 'Your project',
     name: 'Name',
-    namePlaceholder: 'First and last name',
+    namePlaceholder: 'Your name',
     email: 'Email',
-    emailPlaceholder: 'you@example.ca',
+    emailPlaceholder: 'Your email',
     phone: 'Phone',
-    phonePlaceholder: '514-000-0000',
+    phonePlaceholder: 'Your phone number',
     service: 'Service needed',
     servicePlaceholder: 'Choose a service',
-    serviceOther: 'Other / not sure',
+    serviceOther: 'I am not sure',
+    subject: 'Subject',
+    subjectPlaceholder: 'Choose a subject',
+    subjectQuote: 'Quote',
+    subjectQuestion: 'Question',
+    subjectOther: 'Other',
     city: 'City',
     cityPlaceholder: 'Laval, Terrebonne, Blainville…',
-    message: 'Project description',
+    message: 'Message',
+    messageProject: 'Describe your project',
     messagePlaceholder:
-      'E.g. the paver walkway has sunk near the garage over about 2 metres, and water collects there after rain.',
-    photos: 'Photos (optional)',
+      'e.g. the paver walkway has settled near the garage over about 2 metres, and water pools there after rain.',
+    photos: 'Photo',
+    photosRequired: 'Your photos',
     photosHelp: 'JPEG, PNG, HEIC or WebP. Up to 3 files, 5 MB each.',
+    photosDrop: 'Click to upload or drag your photo here',
+    photosDropMobile: 'Tap to take a photo or upload one',
     photosSelected: 'file(s) selected',
+    photosRemove: 'Remove',
+    photosPreviewLabel: 'Photo preview',
+    description: 'Describe the problem',
+    descriptionPlaceholder: 'In a few words, what is worrying you.',
+    duration: 'How long has the problem been there?',
+    durationPlaceholder: 'e.g. since last spring',
     preferred: 'How to reach you',
     preferredPhone: 'By phone',
     preferredEmail: 'By email',
@@ -272,7 +479,11 @@ export const en: Dictionary = {
     consent:
       'I agree that Oasis Construction may use this information to contact me about my request.',
     consentLink: 'Privacy policy',
-    submit: 'Send my request',
+    privacyNote:
+      'Your information is confidential and will only be used to contact you about your project.',
+    privacyNotePhoto: 'Your photos and information are confidential.',
+    submit: 'Send',
+    submitPhoto: 'Send my photo',
     submitting: 'Sending…',
     optional: 'optional',
     required: 'required',
@@ -281,24 +492,35 @@ export const en: Dictionary = {
       name: 'Please enter your name.',
       email: 'Please enter a valid email address.',
       phone: 'Please enter a valid phone number.',
-      contact: 'Please give either an email address or a phone number.',
+      contact: 'Please give at least an email address or a phone number.',
       service: 'Please choose a service.',
+      subject: 'Please choose a subject.',
       city: 'Please enter your city.',
-      message: 'Please describe your project briefly (at least 10 characters).',
-      consent: 'We need your agreement in order to reply.',
+      message: 'Describe your project in a few words (at least 10 characters).',
+      consent: 'You need to agree before we can reply.',
       fileType: 'That file format is not accepted.',
       fileSize: 'Each file must be under 5 MB.',
       fileCount: 'Three files maximum.',
+      fileRequired: 'Please add at least one photo.',
     },
-    successTitle: 'Message sent',
+    successTitle: 'Thank you!',
     successBody:
-      'Thank you. Your request has reached Oasis Construction. For a faster answer you can also call 514-702-0752.',
-    failureTitle: 'The message did not go through',
+      'We have your request. We will call you back within {responseTime}. For a faster answer you can also call (438) 505-4846.',
+    failureTitle: 'Something went wrong',
     failureBody:
-      'The form could not send your request. Email contact@oasis-construction.ca or call 514-702-0752 — we will answer you directly.',
+      'Check the required fields and try again. If it keeps happening, call us at (438) 505-4846 or write to contact@oasis-construction.ca.',
     rateLimitTitle: 'Request already received',
     rateLimitBody:
-      'Several requests have already been sent from this device. Try again in a few minutes, or call us at 514-702-0752.',
+      'Several requests have already been sent from this device. Try again in a few minutes or call us at (438) 505-4846.',
+  },
+
+  cookies: {
+    title: 'Cookies and privacy',
+    body: 'This site uses cookies to remember your language and, if you accept, to measure how the pages are used. No advertising cookie is set without your consent.',
+    accept: 'Accept',
+    refuse: 'Decline',
+    link: 'Learn more',
+    label: 'Cookie choice',
   },
 
   privacyPage: {
@@ -310,33 +532,35 @@ export const en: Dictionary = {
       {
         title: 'Information collected',
         body: [
-          'The quote form on this site collects the information you enter into it: your name, your email address, your phone number, the city where the work is located, the service you are after, your project description, your preferred way of being contacted and, if you attach any, photos of your project.',
+          'The forms on this site collect the information you enter: your name, email address, phone number, the city where the work is, the service needed, a description of your project, your preferred way of being contacted and, if you attach them, photographs of your project.',
           'No account is created and no payment is processed on this site.',
         ],
       },
       {
         title: 'How the information is used',
         body: [
-          'This information is used only to contact you about your request and to prepare a quote. It is not sold, rented or traded.',
-          'The contents of the form are not sent to analytics or advertising tools.',
+          'This information is used only to contact you about your request and to prepare a quote. It is never sold, rented or traded.',
+          'Form contents are not passed to analytics or advertising tools.',
         ],
       },
       {
         title: 'Retention',
         body: [
-          'Requests are kept as long as needed to follow up commercially, then deleted once they are no longer useful.',
+          'Requests are kept as long as they are needed for commercial follow-up, then deleted once they are no longer useful.',
         ],
       },
       {
         title: 'Cookies',
         body: [
-          'This site uses a single cookie, which records the language you chose so that your next visit opens in that language. It is not used for advertising or tracking.',
+          'One cookie records the language you chose so you come back to the site in that language. It is necessary for the site to work.',
+          'If you accept measurement cookies, the site also sets Google Analytics cookies, which are used to understand which pages are visited. You can decline: the site works exactly the same way. Your choice is itself stored in a cookie.',
         ],
       },
       {
         title: 'Your rights',
         body: [
-          'You can ask to access, correct or delete the information held about you by writing to contact@oasis-construction.ca or calling 514-702-0752.',
+          'Under Quebec’s Law 25 (An Act to modernize legislative provisions as regards the protection of personal information), you can request access to the information held about you, ask for it to be corrected or deleted, and withdraw your consent at any time.',
+          'Write to contact@oasis-construction.ca or call (438) 505-4846.',
         ],
       },
     ],
@@ -345,7 +569,7 @@ export const en: Dictionary = {
   notFound: {
     code: '404',
     title: 'This page does not exist.',
-    body: 'The link may be broken, or the page may have moved. Here is where to pick up.',
+    body: 'The link may be broken, or the page may have moved. Here is where to go next.',
     home: 'Back to the home page',
   },
 };

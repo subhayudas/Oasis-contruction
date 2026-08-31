@@ -13,7 +13,7 @@ export default function GlobalNotFound() {
     <html lang="fr" className={`${geist.variable} ${instrumentSerif.variable}`}>
       <body>
         <main className="u-wrap u-section">
-          <p className="u-label text-bronze">404</p>
+          <p className="u-label text-umber">404</p>
           <span className="u-tick mt-3.5" aria-hidden="true" />
           <h1 className="u-h2 mt-6" lang="fr">
             Page introuvable
@@ -22,10 +22,10 @@ export default function GlobalNotFound() {
             Page not found
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/fr" className="btn btn-stone rounded-sm" hrefLang="fr" lang="fr">
+            <Link href="/fr" className="btn btn-stone" hrefLang="fr" lang="fr">
               Accueil
             </Link>
-            <Link href="/en" className="btn btn-quarry rounded-sm" hrefLang="en" lang="en">
+            <Link href="/en" className="btn btn-quarry" hrefLang="en" lang="en">
               Home
             </Link>
           </div>

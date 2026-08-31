@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Picture } from '@/components/Picture';
-import { ContactPanel } from '@/components/sections/ContactPanel';
+import { FinalCta } from '@/components/sections/FinalCta';
 import { ProcessSteps } from '@/components/sections/Process';
 import { IconArrow, serviceIcons } from '@/components/icons';
 import { ArrowLink, Eyebrow } from '@/components/ui';
@@ -64,9 +64,7 @@ export default async function ServicesIndexPage({
           <div className="lg:col-span-7">
             <Eyebrow>{t.servicesPage.eyebrow}</Eyebrow>
             <span className="u-tick mt-3.5" aria-hidden="true" />
-            <h1 className="u-display mt-6 text-[clamp(2.25rem,5.6vw,4rem)]">
-              {t.servicesPage.title}
-            </h1>
+            <h1 className="u-display mt-6">{t.servicesPage.title}</h1>
           </div>
           <div className="lg:col-span-5 lg:pt-4">
             <p className="u-lede">{t.servicesPage.lede}</p>
@@ -97,10 +95,10 @@ export default async function ServicesIndexPage({
                 </div>
 
                 <div className="lg:col-span-5">
-                  <span className="u-label text-bronze text-[0.5625rem] tracking-[0.22em]">
+                  <span className="u-label text-umber text-[0.5625rem] tracking-[0.22em]">
                     {String(index + 1).padStart(2, '0')} · {copy.material}
                   </span>
-                  <h2 className="u-h2 mt-3 text-[clamp(1.5rem,2.6vw,2.125rem)]">
+                  <h2 className="u-h2 mt-3">
                     <Link
                       href={servicePath(locale, service.key)}
                       className="after:absolute after:inset-0 after:content-['']"
@@ -116,7 +114,7 @@ export default async function ServicesIndexPage({
                 </div>
 
                 <div className="lg:col-span-6">
-                  <div className="frame frame-keyline shadow-[0_2px_4px_rgba(12,26,43,0.06),0_26px_40px_-38px_rgba(12,26,43,0.8)]">
+                  <div className="frame frame-keyline shadow-[0_2px_4px_rgba(26,22,16,0.06),0_26px_40px_-38px_rgba(26,22,16,0.8)]">
                     <Picture
                       alt={scene?.alt[locale] ?? ''}
                       sizes="(min-width: 1024px) 46vw, 100vw"
@@ -157,7 +155,7 @@ export default async function ServicesIndexPage({
         </div>
       </section>
 
-      <ContactPanel locale={locale} />
+      <FinalCta locale={locale} />
     </>
   );
 }

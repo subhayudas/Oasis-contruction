@@ -26,7 +26,7 @@ export const scenes: Scene[] = [
   {
     id: 'scene-entree-crepuscule',
     alt: {
-      fr: 'Entrée résidentielle au crépuscule : stationnement en pavé uni, muret de blocs, marches de pierre et porte d’entrée éclairée.',
+      fr: 'Entrée résidentielle au crépuscule : stationnement en pavé uni, muret de blocs, marches de pierre et porte d’entrée éclairée.',
       en: 'Residential entrance at dusk: interlocking paver driveway, block retaining wall, stone steps and a lit front door.',
     },
     caption: {
@@ -41,7 +41,7 @@ export const scenes: Scene[] = [
       en: 'Interlocking paver driveway laid in a herringbone pattern with a soldier-course border and a clean edge against the lawn.',
     },
     caption: {
-      fr: 'Pose en chevrons avec bordure périmétrique : le motif qui répartit le mieux la charge d’un véhicule.',
+      fr: 'Pose en chevrons avec bordure périmétrique : le motif qui répartit le mieux la charge d’un véhicule.',
       en: 'Herringbone laid against a soldier course — the pattern that spreads a vehicle’s load best.',
     },
   },
@@ -74,7 +74,7 @@ export const scenes: Scene[] = [
       en: 'Top course of a block wall checked with a spirit level, drainage stone and geotextile fabric visible behind the wall.',
     },
     caption: {
-      fr: 'Derrière un muret : pierre nette et membrane, pour que l’eau descende au lieu de pousser.',
+      fr: 'Derrière un muret : pierre nette et membrane, pour que l’eau descende au lieu de pousser.',
       en: 'Behind a wall: clean stone and fabric, so water drains instead of pushing.',
     },
   },
@@ -85,7 +85,7 @@ export const scenes: Scene[] = [
       en: 'Open drainage trench along a concrete foundation, with geotextile fabric, perforated pipe and clean stone.',
     },
     caption: {
-      fr: 'Une tranchée le long de la fondation : membrane, drain perforé, pierre nette, puis remblai.',
+      fr: 'Une tranchée le long de la fondation : membrane, drain perforé, pierre nette, puis remblai.',
       en: 'A trench along the foundation: fabric, perforated pipe, clean stone, then backfill.',
     },
   },
@@ -96,14 +96,14 @@ export const scenes: Scene[] = [
       en: 'Perforated drain pipe wrapped in geotextile and bedded in washed stone, with a square catch basin flush with the lawn.',
     },
     caption: {
-      fr: 'Le drain reste enveloppé et entouré de pierre : c’est ce qui l’empêche de se colmater.',
+      fr: 'Le drain reste enveloppé et entouré de pierre : c’est ce qui l’empêche de se colmater.',
       en: 'The pipe stays wrapped and surrounded by stone — that is what keeps it from silting up.',
     },
   },
   {
     id: 'scene-nettoyage-allee',
     alt: {
-      fr: 'Nettoyage à pression d’une allée en pavé : une ligne nette sépare la surface encrassée de la portion déjà lavée.',
+      fr: 'Nettoyage à pression d’une allée en pavé : une ligne nette sépare la surface encrassée de la portion déjà lavée.',
       en: 'Pressure washing a paver driveway: a sharp line separates the grimy surface from the section already cleaned.',
     },
     caption: {
@@ -118,7 +118,7 @@ export const scenes: Scene[] = [
       en: 'A high-pressure fan of water on stone slabs, opening a clean strip between the joints.',
     },
     caption: {
-      fr: 'Un jet en éventail, tenu à bonne distance : assez pour décoller, pas assez pour creuser le joint.',
+      fr: 'Un jet en éventail, tenu à bonne distance : assez pour décoller, pas assez pour creuser le joint.',
       en: 'A fan tip held at the right distance — enough to lift the grime, not enough to cut the joint.',
     },
   },
@@ -129,7 +129,7 @@ export const scenes: Scene[] = [
       en: 'Two workers in high-visibility vests laying pavers on a residential site, with a plate compactor, screed rails and pallets of pavers.',
     },
     caption: {
-      fr: 'La moitié du travail se joue avant la pose : fondation, nivellement, compaction.',
+      fr: 'La moitié du travail se joue avant la pose : fondation, nivellement, compaction.',
       en: 'Half the work happens before the first paver: base, levelling, compaction.',
     },
   },
@@ -162,7 +162,7 @@ export const scenes: Scene[] = [
       en: 'A laser level on a tripod standing on a settled paver driveway, with a levelling rod, a tape measure and paint marks on the surface.',
     },
     caption: {
-      fr: 'Avant de démonter quoi que ce soit : relever les niveaux et repérer où l’eau s’en va.',
+      fr: 'Avant de démonter quoi que ce soit : relever les niveaux et repérer où l’eau s’en va.',
       en: 'Before anything comes up: shoot the levels and find out where the water goes.',
     },
   },
@@ -173,7 +173,7 @@ export const scenes: Scene[] = [
       en: 'Walkway of irregular natural stone slabs leading to a covered entrance, edged by a planting bed and a low wall.',
     },
     caption: {
-      fr: 'Pierre naturelle et bordure retenue : deux façons d’empêcher une allée de s’étaler avec les années.',
+      fr: 'Pierre naturelle et bordure retenue : deux façons d’empêcher une allée de s’étaler avec les années.',
       en: 'Natural stone with a held edge — two ways of keeping a walkway from spreading over the years.',
     },
   },

@@ -24,11 +24,17 @@ export function Breadcrumbs({
                 <IconChevron className="text-ink-50 h-3 w-3" aria-hidden="true" />
               ) : null}
               {last ? (
-                <span aria-current="page" className="text-ink-50">
+                <span
+                  aria-current="page"
+                  className="text-ink-50 inline-flex min-h-11 items-center"
+                >
                   {item.name}
                 </span>
               ) : (
-                <Link href={item.path} className="link-quiet">
+                <Link
+                  href={item.path}
+                  className="link-quiet inline-flex min-h-11 items-center px-1"
+                >
                   {item.name}
                 </Link>
               )}

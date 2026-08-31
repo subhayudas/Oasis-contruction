@@ -6,15 +6,15 @@ import { IconArrow } from './icons';
 
 export function Eyebrow({
   children,
-  tone = 'bronze',
+  tone = 'umber',
   className = '',
 }: {
   children: React.ReactNode;
-  tone?: 'bronze' | 'teal';
+  tone?: 'umber' | 'brass';
   className?: string;
 }) {
   return (
-    <p className={`u-label ${tone === 'bronze' ? 'text-bronze' : 'text-teal'} ${className}`}>
+    <p className={`u-label ${tone === 'umber' ? 'text-umber' : 'text-brass'} ${className}`}>
       {children}
     </p>
   );
@@ -51,7 +51,7 @@ export function SectionHeading({
       <div className={`max-w-2xl ${align === 'center' ? 'mx-auto' : ''}`}>
         {eyebrow ? (
           <>
-            <Eyebrow tone={dark ? 'teal' : 'bronze'}>{eyebrow}</Eyebrow>
+            <Eyebrow tone={dark ? 'brass' : 'umber'}>{eyebrow}</Eyebrow>
             <span
               className={`u-tick mt-3 ${align === 'center' ? 'mx-auto' : ''}`}
               aria-hidden="true"
@@ -61,8 +61,8 @@ export function SectionHeading({
         <h2 className={`u-h2 mt-5 ${dark ? 'text-paper' : 'text-ink'}`}>{title}</h2>
         {accent ? (
           <p
-            className={`u-accent mt-2.5 text-[clamp(1.35rem,2.4vw,2rem)] ${
-              dark ? 'text-teal' : 'text-teal-deep'
+            className={`u-accent mt-2.5 text-[clamp(1.25rem,2vw,1.625rem)] ${
+              dark ? 'text-brass' : 'text-brass-deep'
             }`}
           >
             {accent}
@@ -91,7 +91,7 @@ export function ArrowLink({
   className?: string;
 }) {
   const cls = `link-rule min-h-11 ${
-    tone === 'dark' ? 'text-paper hover:text-teal' : 'text-ink hover:text-teal-deep'
+    tone === 'dark' ? 'text-paper hover:text-brass' : 'text-ink hover:text-brass-deep'
   } ${className}`;
   const content = (
     <>
@@ -186,7 +186,7 @@ export function CheckList({
           <span
             aria-hidden="true"
             className={`mt-[0.55rem] h-1.5 w-1.5 shrink-0 ${
-              tone === 'dark' ? 'bg-teal' : 'bg-bronze'
+              tone === 'dark' ? 'bg-brass' : 'bg-umber'
             }`}
           />
           <span className={tone === 'dark' ? 'text-dust' : 'u-body'}>{item}</span>
@@ -209,10 +209,10 @@ export function NoteCard({
 }) {
   return (
     <aside
-      className={`s-plaque !border-l-bronze border-l-2 px-5 py-4 ${className}`}
+      className={`s-plaque !border-l-umber border-l-2 px-5 py-4 ${className}`}
       aria-label={label}
     >
-      <p className="u-label text-bronze relative z-10">{label}</p>
+      <p className="u-label text-umber relative z-10">{label}</p>
       <p className="u-body relative z-10 mt-2 text-[0.9375rem]">{children}</p>
     </aside>
   );

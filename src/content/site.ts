@@ -1,10 +1,11 @@
 /**
  * Verified business facts only.
  *
- * Everything here comes from the client's intake form. Nothing is inferred:
- * no years in business, no project counts, no review scores, no licence
- * numbers, no response-time promises. If a field is not in the intake, it is
- * not in this file and it is not on the site.
+ * Everything here is confirmed by the client: the two mobile numbers, the
+ * shared inbox, the street address, the social pages and the service area.
+ * Anything NOT confirmed — licence number, insurer, warranty, review score,
+ * project count, years in business, response time — lives in
+ * `placeholders.ts` as a bracketed token and is never guessed here.
  */
 
 export const site = {
@@ -13,10 +14,23 @@ export const site = {
   taglineFr: 'Pour un oasis à votre image',
   taglineEn: 'An oasis made for you',
 
+  /**
+   * Hugo's line is the number on every button: it is the one the business
+   * asked to be reached on first. Guillaume's is published as a second way
+   * through, not as an alternative CTA.
+   */
   phone: {
-    display: '514-702-0752',
+    display: '(438) 505-4846',
+    href: 'tel:+14385054846',
+    e164: '+1-438-505-4846',
+    name: 'Hugo',
+  },
+
+  phoneSecondary: {
+    display: '(514) 702-0752',
     href: 'tel:+15147020752',
     e164: '+1-514-702-0752',
+    name: 'Guillaume',
   },
 
   email: {
@@ -24,14 +38,14 @@ export const site = {
     href: 'mailto:contact@oasis-construction.ca',
   },
 
-  /**
-   * The intake gives a street address with no municipality or postal code, so
-   * neither is invented here or emitted in structured data.
-   */
   address: {
-    street: '10955 rue Massé',
+    street: '10955 avenue Massé',
+    locality: 'Montréal',
     region: 'QC',
+    postalCode: 'H1G 4G5',
     country: 'CA',
+    /** One line, the way it goes on an envelope. */
+    display: '10955 avenue Massé, Montréal, QC H1G 4G5',
   },
 
   hours: {
@@ -57,5 +71,8 @@ export const site = {
     facebook: 'https://www.facebook.com/profile.php?id=61573970215653',
   },
 } as const;
+
+/** Both published numbers, in the order they should be offered. */
+export const phones = [site.phone, site.phoneSecondary] as const;
 
 export type Site = typeof site;

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getDictionary } from '@/content/dictionary';
 import type { Locale } from '@/lib/i18n';
 import { pagePath } from '@/lib/routes';
+import { BrandMark } from './BrandMark';
 
 type Props = {
   locale: Locale;
@@ -21,13 +22,10 @@ export function Logo({ locale, asLink = true, className = '', size = 44 }: Props
 
   const mark = (
     <span className={`flex items-center gap-3 ${className}`}>
-      <img
-        src="/brand/oasis-logo-512.png"
+      <BrandMark
         alt={asLink ? t.common.logoAlt : ''}
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-        className="shrink-0 rounded-full shadow-[0_1px_2px_rgba(12,26,43,0.18),0_6px_14px_-10px_rgba(12,26,43,0.6)] ring-1 ring-[rgba(255,255,255,0.9)]"
+        size={size}
+        className="shrink-0 rounded-full shadow-[0_1px_2px_rgba(26,22,16,0.18),0_6px_14px_-10px_rgba(26,22,16,0.6)] ring-1 ring-[rgba(255,255,255,0.9)]"
       />
       <span className="hidden leading-none sm:block">
         <span className="block text-[0.9375rem] font-[560] tracking-[-0.01em]">

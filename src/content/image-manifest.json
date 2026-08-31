@@ -1268,6 +1268,25 @@
           }
         ],
         "path": "/images/scene-terrasse-finie-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-terrasse-finie-square"
       }
     }
   },
@@ -1312,6 +1331,25 @@
           }
         ],
         "path": "/images/scene-cordeau-sable-wide"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-cordeau-sable-square"
       }
     }
   },
@@ -1438,6 +1476,25 @@
           }
         ],
         "path": "/images/scene-entree-pierre-portrait"
+      },
+      "square": {
+        "ratio": "1x1",
+        "aspect": 1.0,
+        "sizes": [
+          {
+            "w": 480,
+            "h": 480
+          },
+          {
+            "w": 720,
+            "h": 720
+          },
+          {
+            "w": 960,
+            "h": 960
+          }
+        ],
+        "path": "/images/scene-entree-pierre-square"
       }
     }
   }

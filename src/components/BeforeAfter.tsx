@@ -102,12 +102,12 @@ export function BeforeAfter({ before, after, labels, sizes, className = '' }: Pr
 
         <span
           aria-hidden="true"
-          className="bg-paper/90 pointer-events-none absolute inset-y-0 z-10 w-px shadow-[0_0_0_1px_rgba(12,26,43,0.35)]"
+          className="bg-paper/90 pointer-events-none absolute inset-y-0 z-10 w-px shadow-[0_0_0_1px_rgba(26,22,16,0.35)]"
           style={{ left: 'var(--pos)' }}
         />
         <span
           aria-hidden="true"
-          className="ba-handle pointer-events-none absolute top-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.9)] bg-gradient-to-b from-white to-[#dbe8f9] shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-2px_0_rgba(31,111,235,0.22),0_2px_4px_rgba(12,26,43,0.35),0_10px_18px_-10px_rgba(12,26,43,0.7)]"
+          className="ba-handle pointer-events-none absolute top-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(255,255,255,0.9)] bg-gradient-to-b from-white to-[#efe7d4] shadow-[inset_0_1px_0_rgba(255,255,255,1),inset_0_-2px_0_rgba(138,109,47,0.22),0_2px_4px_rgba(26,22,16,0.35),0_10px_18px_-10px_rgba(26,22,16,0.7)]"
           style={{ left: 'var(--pos)' }}
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor">

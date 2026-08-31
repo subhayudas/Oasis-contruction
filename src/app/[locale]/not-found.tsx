@@ -13,7 +13,7 @@ import { IconArrow } from '@/components/icons';
 export default function LocaleNotFound() {
   return (
     <section className="u-wrap u-section">
-      <p className="u-label text-bronze">404</p>
+      <p className="u-label text-umber">404</p>
       <span className="u-tick mt-3.5" aria-hidden="true" />
 
       <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -53,7 +53,7 @@ export default function LocaleNotFound() {
               </Link>
             </li>
           </ul>
-          <Link href={pagePath('fr', 'home')} className="btn btn-stone mt-7 rounded-sm">
+          <Link href={pagePath('fr', 'home')} className="btn btn-stone mt-7">
             Retour à l’accueil
           </Link>
         </div>
@@ -97,7 +97,7 @@ export default function LocaleNotFound() {
               </Link>
             </li>
           </ul>
-          <Link href={pagePath('en', 'home')} className="btn btn-stone mt-7 rounded-sm">
+          <Link href={pagePath('en', 'home')} className="btn btn-stone mt-7">
             Back to the home page
           </Link>
         </div>

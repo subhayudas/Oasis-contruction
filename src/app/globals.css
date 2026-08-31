@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   Oasis Construction — white-first surfaces, blue accents.
+   Oasis Construction — charcoal ground, warm gold accent.
 
    Three ideas carry the whole system:
      1. White is the material. Everything is cut from paper-white and lit.
-     2. Blue is the light. Accents, rims and reflected bounce are all blue.
+     2. Gold is the light. Accents, rims and reflected bounce are all warm.
      3. Depth is drawn, not faked flat — every surface states whether it is
         raised (gloss on top, shadow below) or recessed (shadow on top).
 
@@ -15,33 +15,41 @@
    ========================================================================== */
 
 @theme {
-  /* Surfaces — white primary, cooled by the smallest amount of blue. */
+  /* Surfaces — white is the page, warm light grey is the alternating band. */
   --color-paper: #ffffff;
-  --color-paper-2: #f6f9fe;
-  --color-sand: #eaf1fb;
-  --color-limestone: #d7e5f6;
-  --color-stone: #bacfe8;
+  --color-paper-2: #fafaf8;
+  --color-sand: #f5f5f5;
+  --color-limestone: #e9e6df;
+  --color-stone: #d6d1c6;
 
-  /* Text — navy-black rather than warm black, so it belongs to the blue. */
-  --color-ink: #0c1a2b;
-  --color-ink-80: #1b3049;
-  --color-ink-70: #3c5675;
-  --color-ink-50: #546a86;
+  /* Text — charcoal, not pure black, so large fields of type stay readable.
+     Every step below meets 4.5:1 on white; -50 is the floor for body copy. */
+  --color-ink: #1a1a1a;
+  --color-ink-80: #333333;
+  --color-ink-70: #4a4a4a;
+  --color-ink-50: #6b6b6b;
 
-  /* Secondary marks: the muted steel blue used for eyebrows and register
-     ticks. Named for the role it plays, not the metal it used to be. */
-  --color-bronze: #3f6089;
-  --color-brown: #2d4a6d;
+  /* The secondary mark: warm stone-brown for eyebrows and register ticks.
+     Darker than the accent because it has to carry small uppercase type. */
+  --color-umber: #7a6a55;
+  --color-umber-deep: #5b4e3d;
 
-  /* The blue itself. `teal` rides dark grounds, `teal-deep` rides white. */
-  --color-teal: #5aa9ff;
-  --color-teal-deep: #0f56c4;
-  --color-green: #0f7a45;
-  --color-green-deep: #0a6135;
+  /* The accent. `brass` is the warm gold of the brief and rides dark grounds
+     (6.2:1 on the lightest stop of the dark band); `brass-deep` is the same
+     hue taken down far enough to clear 4.5:1 as text on BOTH white and the
+     #f5f5f5 alternating band — #c4a45c is 2.1:1 on white and unusable for
+     type, and the obvious first darkening, #8a6d2f, still misses on sand. */
+  --color-brass: #c4a45c;
+  --color-brass-deep: #7a5f22;
+
+  --color-green: #2d7a4f;
+  --color-green-deep: #1f5c39;
+  --color-danger: #c0392b;
+  --color-danger-deep: #96271b;
 
   --color-chalk: #ffffff;
-  --color-dust: #c3d5ea;
-  --color-dust-2: #90a8c6;
+  --color-dust: #d8d3c9;
+  --color-dust-2: #a89f90;
 
   --font-sans:
     var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -65,7 +73,7 @@
   :root {
     --line: color-mix(in oklab, var(--color-ink) 11%, transparent);
     --line-strong: color-mix(in oklab, var(--color-ink) 22%, transparent);
-    --line-dark: color-mix(in oklab, var(--color-teal) 22%, transparent);
+    --line-dark: color-mix(in oklab, var(--color-brass) 26%, transparent);
     --grain: url('/brand/grain.png');
     --dur: 260ms;
 
@@ -78,20 +86,20 @@
     /* The navy the dark bands bottom out at — the last stop of the surface
        gradient below. Named because the ramps have to open on exactly it to
        be continuous with the band they are leaving. */
-    --ink-floor: #091626;
+    --ink-floor: #121212;
 
     /* The dark band's paint, named once so the band and the ramp that
        introduces it are literally the same gradient rather than two that
        have to be kept in agreement. */
     --ink-surface:
-      radial-gradient(120% 130% at 10% -14%, rgb(35 79 138 / 0.55) 0%, transparent 58%),
-      radial-gradient(90% 100% at 96% 108%, rgb(15 86 196 / 0.32) 0%, transparent 60%),
-      linear-gradient(178deg, #14283f 0%, #0d1e33 52%, var(--ink-floor) 100%);
+      radial-gradient(120% 130% at 10% -14%, rgb(92 78 54 / 0.55) 0%, transparent 58%),
+      radial-gradient(90% 100% at 96% 108%, rgb(196 164 92 / 0.16) 0%, transparent 60%),
+      linear-gradient(178deg, #2a2723 0%, #1d1b18 52%, var(--ink-floor) 100%);
 
     /* One shadow colour for the whole site, so every drop shadow reads as
        the same navy light source rather than a pile of unrelated greys. */
-    --sh: 12 26 43;
-    --blue: 31 111 235;
+    --sh: 26 22 16;
+    --blue: 138 109 47;
 
     /* The glass rim: bright at the top-left corner where the light lands,
        blue through the middle where the edge refracts, bright again at the
@@ -100,17 +108,17 @@
       145deg,
       rgb(255 255 255 / 0.98) 0%,
       rgb(255 255 255 / 0.6) 20%,
-      rgb(var(--blue) / 0.26) 50%,
+      rgb(var(--blue) / 0.22) 50%,
       rgb(255 255 255 / 0.5) 76%,
       rgb(255 255 255 / 0.95) 100%
     );
 
     --rim-ink: linear-gradient(
       145deg,
-      rgb(255 255 255 / 0.34) 0%,
-      rgb(90 169 255 / 0.34) 42%,
+      rgb(255 255 255 / 0.3) 0%,
+      rgb(196 164 92 / 0.38) 42%,
       rgb(255 255 255 / 0.05) 72%,
-      rgb(255 255 255 / 0.24) 100%
+      rgb(255 255 255 / 0.22) 100%
     );
 
     --glass-blur: 16px;
@@ -134,9 +142,9 @@
        to refract — glass over flat white has nothing to say. */
     background-color: var(--color-paper);
     background-image:
-      radial-gradient(58rem 40rem at 8% -10%, rgb(var(--blue) / 0.06), transparent 62%),
-      radial-gradient(46rem 34rem at 102% 4%, rgb(90 169 255 / 0.055), transparent 64%),
-      radial-gradient(70rem 48rem at 50% 118%, rgb(var(--blue) / 0.045), transparent 66%);
+      radial-gradient(58rem 40rem at 8% -10%, rgb(var(--blue) / 0.05), transparent 62%),
+      radial-gradient(46rem 34rem at 102% 4%, rgb(196 164 92 / 0.06), transparent 64%),
+      radial-gradient(70rem 48rem at 50% 118%, rgb(var(--blue) / 0.04), transparent 66%);
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--color-ink);
@@ -179,18 +187,18 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-teal-deep);
+    outline: 2px solid var(--color-brass-deep);
     outline-offset: 3px;
     border-radius: 1px;
   }
 
   .on-ink :focus-visible,
   .on-ink:focus-visible {
-    outline-color: var(--color-teal);
+    outline-color: var(--color-brass);
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-teal) 40%, transparent);
+    background: color-mix(in oklab, var(--color-brass) 40%, transparent);
     color: var(--color-ink);
   }
 
@@ -217,28 +225,32 @@
    ========================================================================== */
 
 @layer components {
+  /* The scale from the design system, and the only place it is set. Sizes
+     are clamped between the mobile and desktop figures in the brief — H1
+     28→48px, H2 24→36px, H3 20→28px — so nothing needs a per-component
+     override and headings cannot drift apart from one page to the next. */
   .u-display {
     font-family: var(--font-sans);
-    font-weight: 560;
-    font-size: clamp(2.5rem, 7.4vw, 5.25rem);
-    line-height: 0.95;
-    letter-spacing: -0.035em;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4.2vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.028em;
   }
 
   .u-h2 {
     font-family: var(--font-sans);
-    font-weight: 550;
-    font-size: clamp(1.85rem, 3.6vw, 3rem);
-    line-height: 1.02;
-    letter-spacing: -0.028em;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.022em;
   }
 
   .u-h3 {
     font-family: var(--font-sans);
-    font-weight: 560;
-    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
+    font-weight: 600;
+    font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+    line-height: 1.28;
+    letter-spacing: -0.012em;
   }
 
   .u-accent {
@@ -250,14 +262,15 @@
   }
 
   .u-lede {
-    font-size: clamp(1.0625rem, 1.15vw, 1.1875rem);
+    font-size: clamp(1.0625rem, 1.1vw, 1.125rem);
     line-height: 1.6;
     color: var(--color-ink-70);
     letter-spacing: -0.005em;
   }
 
   .u-body {
-    line-height: 1.68;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--color-ink-70);
   }
 
@@ -317,14 +330,14 @@
     width: 2.75rem;
     height: 2px;
     border-radius: 2px;
-    background: linear-gradient(90deg, var(--color-bronze), var(--color-teal-deep));
+    background: linear-gradient(90deg, var(--color-umber), var(--color-brass-deep));
     box-shadow: 0 1px 0 rgb(255 255 255 / 0.9);
   }
 
   /* On navy the two blues of the tick vanish into the ground, so it is redrawn
      from brand blue into white. */
   .on-ink .u-tick {
-    background: linear-gradient(90deg, var(--color-teal), rgb(255 255 255 / 0.85));
+    background: linear-gradient(90deg, var(--color-brass), rgb(255 255 255 / 0.85));
     box-shadow: 0 1px 0 rgb(0 0 0 / 0.35);
   }
 
@@ -610,6 +623,7 @@
      shadow tight under the card and an ambient shadow well beyond it. */
   .s-plaque {
     position: relative;
+    border-radius: 0.75rem;
     background: linear-gradient(
       172deg,
       rgb(255 255 255 / 0.97) 0%,
@@ -659,7 +673,7 @@
 
   .s-tray-ink {
     position: relative;
-    background: linear-gradient(180deg, #0a1729 0%, #142943 100%);
+    background: linear-gradient(180deg, #151311 0%, #262320 100%);
     box-shadow:
       inset 0 2px 5px rgb(0 0 0 / 0.65),
       inset 0 -1px 0 rgb(255 255 255 / 0.08),
@@ -671,13 +685,14 @@
      genuinely raises it rather than just recolouring. */
   .s-sample {
     position: relative;
+    border-radius: 0.75rem;
     background:
       linear-gradient(180deg, rgb(255 255 255 / 0.85) 0%, rgb(255 255 255 / 0) 42%),
       linear-gradient(
         166deg,
-        rgb(255 255 255 / 0.92) 0%,
-        rgb(246 249 254 / 0.84) 52%,
-        rgb(230 239 251 / 0.9) 100%
+        rgb(255 255 255 / 0.94) 0%,
+        rgb(252 251 248 / 0.86) 52%,
+        rgb(241 238 230 / 0.9) 100%
       );
     -webkit-backdrop-filter: blur(14px) saturate(160%);
     backdrop-filter: blur(14px) saturate(160%);
@@ -726,10 +741,11 @@
     align-items: center;
     justify-content: center;
     gap: 0.625rem;
-    min-height: 2.875rem;
-    padding-inline: 1.25rem;
-    font-size: 0.9375rem;
-    font-weight: 550;
+    min-height: 3.25rem;
+    padding-inline: 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
     letter-spacing: -0.005em;
     text-align: center;
     cursor: pointer;
@@ -742,111 +758,122 @@
       color var(--dur) var(--ease-material);
   }
 
-  /* Primary: a solid blue key, moulded. Gloss across the top half, a dark
-     lower edge that reads as thickness, then contact + ambient shadow. */
+  /* ------------------------------------------------------------------
+     Three keys, one mould.
+
+       .btn-stone   primary   solid charcoal, white type
+       .btn-quarry  secondary outlined, transparent ground, charcoal type
+       .btn-brass   phone     solid deep gold, white type
+
+     The brief calls for a 52px key. `.btn` sets that as the floor; the
+     compact variants below take it to 48px for the pinned thumb bar and
+     the header, where a 52px key would crowd a 60px bar.
+     ------------------------------------------------------------------ */
   .btn-stone {
     color: #ffffff;
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.28) 0%, rgb(255 255 255 / 0) 52%),
-      linear-gradient(178deg, #3d8bf5 0%, #1a66dd 48%, #0d47ad 100%);
-    border: 1px solid #0a3a91;
+      linear-gradient(180deg, rgb(255 255 255 / 0.1) 0%, rgb(255 255 255 / 0) 54%),
+      linear-gradient(178deg, #2e2e2e 0%, #1f1f1f 48%, #111111 100%);
+    border: 1px solid #000000;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.55),
-      inset 0 -2px 0 rgb(0 0 0 / 0.28),
-      inset 0 0 0 1px rgb(255 255 255 / 0.1),
-      0 1px 2px rgb(var(--sh) / 0.24),
-      0 10px 18px -10px rgb(13 71 173 / 0.6),
-      0 20px 34px -22px rgb(var(--sh) / 0.6);
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      inset 0 -2px 0 rgb(0 0 0 / 0.4),
+      0 1px 3px rgb(var(--sh) / 0.22),
+      0 10px 18px -12px rgb(var(--sh) / 0.55);
   }
 
   .btn-stone:hover {
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.34) 0%, rgb(255 255 255 / 0) 52%),
-      linear-gradient(178deg, #4d97fa 0%, #2472e8 48%, #0f51c0 100%);
+      linear-gradient(180deg, rgb(255 255 255 / 0.13) 0%, rgb(255 255 255 / 0) 54%),
+      linear-gradient(178deg, #3a3a3a 0%, #2b2b2b 48%, #1a1a1a 100%);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.62),
-      inset 0 -2px 0 rgb(0 0 0 / 0.26),
-      inset 0 0 0 1px rgb(255 255 255 / 0.14),
-      0 1px 2px rgb(var(--sh) / 0.24),
-      0 14px 24px -10px rgb(13 71 173 / 0.66),
-      0 26px 44px -22px rgb(var(--sh) / 0.6);
+      inset 0 1px 0 rgb(255 255 255 / 0.2),
+      inset 0 -2px 0 rgb(0 0 0 / 0.38),
+      0 2px 5px rgb(var(--sh) / 0.24),
+      0 14px 24px -12px rgb(var(--sh) / 0.6);
   }
 
   .btn-stone:active {
-    transform: translateY(2px);
-    background: linear-gradient(178deg, #0f51c0 0%, #1a66dd 100%);
+    transform: translateY(1px);
+    background: linear-gradient(178deg, #0d0d0d 0%, #1a1a1a 100%);
     box-shadow:
-      inset 0 3px 6px rgb(0 0 0 / 0.4),
-      inset 0 -1px 0 rgb(255 255 255 / 0.14),
+      inset 0 3px 6px rgb(0 0 0 / 0.5),
       0 1px 2px rgb(var(--sh) / 0.2);
   }
 
-  /* Secondary: a frosted white key. Same mould, no ink. */
+  /* Secondary: the outline key. A 2px charcoal rule and nothing behind it,
+     so it never competes with the primary sitting beside it. */
   .btn-quarry {
     color: var(--color-ink);
-    background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.2) 54%),
-      linear-gradient(178deg, #ffffff 0%, #f2f7fd 52%, #e2ecf9 100%);
-    -webkit-backdrop-filter: blur(10px) saturate(160%);
-    backdrop-filter: blur(10px) saturate(160%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 1),
-      inset 0 -2px 0 rgb(var(--blue) / 0.16),
-      0 1px 2px rgb(var(--sh) / 0.09),
-      0 3px 6px -3px rgb(var(--sh) / 0.1),
-      0 16px 26px -16px rgb(var(--sh) / 0.42);
+    background: transparent;
+    border: 2px solid var(--color-ink);
+    box-shadow: none;
   }
 
   .btn-quarry:hover {
-    background:
-      linear-gradient(180deg, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0.3) 54%),
-      linear-gradient(178deg, #ffffff 0%, #f7fbff 52%, #dfeaf9 100%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 1),
-      inset 0 -2px 0 rgb(var(--blue) / 0.24),
-      0 1px 2px rgb(var(--sh) / 0.09),
-      0 5px 10px -4px rgb(var(--sh) / 0.12),
-      0 22px 34px -16px rgb(var(--sh) / 0.46);
+    background: color-mix(in oklab, var(--color-ink) 6%, transparent);
+    border-color: #000000;
   }
 
   .btn-quarry:active {
-    transform: translateY(2px);
-    box-shadow:
-      inset 0 3px 5px rgb(var(--sh) / 0.22),
-      inset 0 -1px 0 rgb(255 255 255 / 0.7);
+    transform: translateY(1px);
+    background: color-mix(in oklab, var(--color-ink) 11%, transparent);
   }
 
-  /* On the dark band: a porcelain key, brightest thing in the section. */
+  /* On a dark ground the charcoal outline disappears, so it inverts. */
+  .on-ink .btn-quarry {
+    color: var(--color-paper);
+    border-color: rgb(255 255 255 / 0.7);
+  }
+
+  .on-ink .btn-quarry:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: #ffffff;
+  }
+
+  /* Phone: solid gold. `brass-deep` rather than the display gold, because
+     white type on #c4a45c is 2.1:1 and unreadable. */
   .btn-brass {
-    color: var(--color-ink);
+    color: #ffffff;
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 0.9) 0%, rgb(255 255 255 / 0.25) 52%),
-      linear-gradient(178deg, #ffffff 0%, #eef5fe 52%, #d5e6fa 100%);
+      linear-gradient(180deg, rgb(255 255 255 / 0.05) 0%, rgb(255 255 255 / 0) 54%),
+      linear-gradient(178deg, #7a5f22 0%, #70571f 48%, #5d481a 100%);
+    border: 1px solid #4a3915;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 1),
-      inset 0 -2px 0 rgb(var(--blue) / 0.22),
-      0 1px 2px rgb(0 0 0 / 0.35),
-      0 12px 22px -10px rgb(0 0 0 / 0.55),
-      0 0 34px -8px rgb(90 169 255 / 0.35);
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      inset 0 -2px 0 rgb(0 0 0 / 0.26),
+      0 1px 3px rgb(var(--sh) / 0.24),
+      0 10px 18px -12px rgb(var(--sh) / 0.5);
   }
 
   .btn-brass:hover {
     background:
-      linear-gradient(180deg, rgb(255 255 255 / 1) 0%, rgb(255 255 255 / 0.35) 52%),
-      linear-gradient(178deg, #ffffff 0%, #f6faff 52%, #e2eefc 100%);
+      linear-gradient(180deg, rgb(255 255 255 / 0.05) 0%, rgb(255 255 255 / 0) 54%),
+      linear-gradient(178deg, #806426 0%, #756020 48%, #614c1c 100%);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 1),
-      inset 0 -2px 0 rgb(var(--blue) / 0.3),
-      0 1px 2px rgb(0 0 0 / 0.35),
-      0 16px 30px -10px rgb(0 0 0 / 0.6),
-      0 0 44px -8px rgb(90 169 255 / 0.45);
+      inset 0 1px 0 rgb(255 255 255 / 0.34),
+      inset 0 -2px 0 rgb(0 0 0 / 0.24),
+      0 2px 5px rgb(var(--sh) / 0.26),
+      0 14px 24px -12px rgb(var(--sh) / 0.55);
   }
 
   .btn-brass:active {
-    transform: translateY(2px);
-    box-shadow:
-      inset 0 3px 6px rgb(var(--sh) / 0.3),
-      inset 0 -1px 0 rgb(255 255 255 / 0.7);
+    transform: translateY(1px);
+    background: linear-gradient(178deg, #5d481a 0%, #7a5f22 100%);
+    box-shadow: inset 0 3px 6px rgb(0 0 0 / 0.35);
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* 48px keys: the pinned thumb bar and the header, where the 52px key is
+     taller than the bar that holds it. */
+  .btn-compact {
+    min-height: 3rem;
+    padding-inline: 1rem;
   }
 
   /* Quiet text link with a drawn underline that grows on hover. */
@@ -866,12 +893,12 @@
   }
 
   .link-rule:hover {
-    color: var(--color-teal-deep);
+    color: var(--color-brass-deep);
     background-size: 100% 2px;
   }
 
   .on-ink .link-rule:hover {
-    color: var(--color-teal);
+    color: var(--color-brass);
   }
 
   .link-quiet {
@@ -880,7 +907,7 @@
   }
 
   .link-quiet:hover {
-    color: var(--color-teal-deep);
+    color: var(--color-brass-deep);
   }
 
   /* --------------------------------------------------------- FR/EN rocker */
@@ -891,7 +918,7 @@
     display: inline-flex;
     align-items: stretch;
     padding: 2px;
-    border-radius: 3px;
+    border-radius: 0.5rem;
     background: linear-gradient(
       180deg,
       rgb(216 229 245 / 0.92) 0%,
@@ -909,10 +936,13 @@
   .switch-face {
     position: relative;
     z-index: 2;
+    border-radius: 0.375rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 2.375rem;
+    min-width: 2.75rem;
+    /* 44px, so the rocker is a real tap target rather than a 18px sliver. */
+    min-height: 2.75rem;
     padding-inline: 0.5rem;
     font-size: 0.75rem;
     font-weight: 600;
@@ -925,14 +955,14 @@
   }
 
   .switch-face:hover {
-    color: var(--color-teal-deep);
+    color: var(--color-brass-deep);
   }
 
   .switch-face[aria-current='true'] {
-    color: var(--color-teal-deep);
+    color: var(--color-brass-deep);
     background:
       linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.15) 55%),
-      linear-gradient(178deg, #ffffff 0%, #eaf2fd 100%);
+      linear-gradient(178deg, #ffffff 0%, #f4f0e6 100%);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 1),
       inset 0 -1px 0 rgb(var(--blue) / 0.2),
@@ -956,10 +986,10 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     border-radius: 3px;
-    color: var(--color-teal-deep);
+    color: var(--color-brass-deep);
     background:
       linear-gradient(180deg, rgb(255 255 255 / 0.95) 0%, rgb(255 255 255 / 0.2) 55%),
-      linear-gradient(178deg, #ffffff 0%, #e9f1fd 100%);
+      linear-gradient(178deg, #ffffff 0%, #f3efe4 100%);
     text-shadow: 0 1px 0 rgb(255 255 255 / 0.9);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 1),
@@ -1007,6 +1037,7 @@
   .frame {
     position: relative;
     background: var(--color-limestone);
+    border-radius: 0.5rem;
     overflow: hidden;
   }
 
@@ -1024,12 +1055,109 @@
     content: '';
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     pointer-events: none;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.5),
       inset 0 0 0 1px rgb(var(--blue) / 0.16),
       inset 0 0 0 2px rgb(255 255 255 / 0.24),
       inset 0 -30px 44px -34px rgb(var(--sh) / 0.6);
+  }
+
+  /* ------------------------------------------------- services dropdown */
+
+  /* The panel stays in the document so its exit can play and so the trigger's
+     aria-controls always points at something real. `visibility` is what takes
+     it out of the tab order and the accessibility tree — `opacity` alone would
+     leave a focusable, invisible menu sitting over the page. */
+  .menu-panel {
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(-50%, -0.5rem);
+    transition:
+      opacity 160ms var(--ease-material),
+      transform 160ms var(--ease-material),
+      visibility 0s linear 160ms;
+  }
+
+  .menu-panel[data-open='true'] {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+
+  /* --------------------------------------------------------- FAQ accordion */
+
+  .accordion-panel {
+    animation: accordion-in 200ms var(--ease-material) both;
+  }
+
+  @keyframes accordion-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* The vertical stroke of the plus retracts, leaving a minus. Rotating the
+     whole glyph would spin the horizontal bar too and read as a loading
+     spinner rather than a state change. */
+  .accordion-bar {
+    transform-origin: center;
+    transition: transform 200ms var(--ease-material);
+  }
+
+  .is-open .accordion-bar {
+    transform: scaleY(0);
+  }
+
+  /* ------------------------------------------------------- photo drop zone */
+
+  .dropzone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 11rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 2px dashed color-mix(in oklab, var(--color-ink) 24%, transparent);
+    background: linear-gradient(180deg, #faf8f4 0%, #ffffff 60%);
+    transition:
+      border-color var(--dur) var(--ease-material),
+      background-color var(--dur) var(--ease-material);
+  }
+
+  .dropzone:hover,
+  .dropzone[data-dragging='true'] {
+    border-color: var(--color-brass-deep);
+    background: linear-gradient(180deg, #f7f1e2 0%, #ffffff 60%);
+  }
+
+  .dropzone[data-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+
+  .dropzone:focus-within {
+    border-color: var(--color-brass-deep);
+    box-shadow: 0 0 0 3px rgb(var(--blue) / 0.18);
+  }
+
+  /* The input covers the whole zone so the entire area is the tap target on a
+     phone, but it keeps its own focus ring by staying a real focusable input
+     rather than being replaced by a label. */
+  .dropzone-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
   }
 
   /* ------------------------------------------------------------ form bits */
@@ -1039,10 +1167,14 @@
      rim here is drawn with rings instead of a masked gradient. */
   .field {
     width: 100%;
-    min-height: 2.875rem;
-    padding: 0.625rem 0.8125rem;
-    border-radius: 3px;
-    background: linear-gradient(180deg, #f4f8fe 0%, #ffffff 46%, #ffffff 100%);
+    min-height: 3rem;
+    padding: 0.6875rem 0.875rem;
+    border-radius: 0.5rem;
+    /* 16px exactly. Anything smaller makes iOS Safari zoom the page on
+       focus, which is the single most common way a mobile form gets
+       abandoned. */
+    font-size: 1rem;
+    background: linear-gradient(180deg, #f8f6f1 0%, #ffffff 46%, #ffffff 100%);
     border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
     box-shadow:
       inset 0 2px 4px rgb(var(--sh) / 0.13),
@@ -1059,11 +1191,11 @@
   }
 
   .field:hover {
-    border-color: color-mix(in oklab, var(--color-teal-deep) 34%, transparent);
+    border-color: color-mix(in oklab, var(--color-brass-deep) 34%, transparent);
   }
 
   .field:focus {
-    border-color: var(--color-teal-deep);
+    border-color: var(--color-brass-deep);
     box-shadow:
       inset 0 2px 4px rgb(var(--sh) / 0.1),
       inset 0 -1px 0 rgb(255 255 255 / 0.95),
@@ -1071,7 +1203,7 @@
   }
 
   .field[aria-invalid='true'] {
-    border-color: #b42318;
+    border-color: var(--color-danger-deep);
     box-shadow:
       inset 0 2px 4px rgb(180 35 24 / 0.14),
       inset 0 -1px 0 rgb(255 255 255 / 0.9);
@@ -1080,8 +1212,8 @@
   select.field {
     appearance: none;
     background-image:
-      linear-gradient(45deg, transparent 50%, var(--color-teal-deep) 50%),
-      linear-gradient(135deg, var(--color-teal-deep) 50%, transparent 50%),
+      linear-gradient(45deg, transparent 50%, var(--color-brass-deep) 50%),
+      linear-gradient(135deg, var(--color-brass-deep) 50%, transparent 50%),
       linear-gradient(180deg, #f4f8fe 0%, #ffffff 46%, #ffffff 100%);
     background-position:
       calc(100% - 18px) calc(50% + 1px),
@@ -1208,6 +1340,12 @@
       0 18px 38px -24px rgb(var(--sh) / 0.7);
   }
 
+  /* The announcement, hidden before first paint by the head script rather
+     than by React, so dismissing it never costs a layout shift. */
+  [data-announcement='hidden'] [data-announcement-bar] {
+    display: none;
+  }
+
   /* ------------------------------------------------------- thumb bar reveal */
 
   /* The hero already carries both calls to action, so the pinned bar stays
@@ -1307,12 +1445,12 @@
     height: 2px;
     transform: scaleX(0);
     transform-origin: left center;
-    background: linear-gradient(90deg, var(--color-teal-deep) 0%, transparent 100%);
+    background: linear-gradient(90deg, var(--color-brass-deep) 0%, transparent 100%);
     pointer-events: none;
   }
 
   .on-ink .step-rule::before {
-    background: linear-gradient(90deg, var(--color-teal) 0%, transparent 100%);
+    background: linear-gradient(90deg, var(--color-brass) 0%, transparent 100%);
   }
 
   .step-rule.is-in::before {

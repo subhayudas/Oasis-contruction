@@ -1,34 +1,35 @@
 import Link from 'next/link';
 
 import { Picture } from '@/components/Picture';
-import { IconClock, IconPhone, IconPin } from '@/components/icons';
+import { IconCamera } from '@/components/icons';
 import { getDictionary } from '@/content/dictionary';
+import { fact } from '@/content/placeholders';
 import { sceneById } from '@/content/imagery';
-import { site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
 import { pagePath } from '@/lib/routes';
 
 /**
- * A full-bleed photographic band under the header. The photograph is the
- * surface, not an inset — so everything above it is set in paper on ink, and a
- * two-stop scrim keeps the type at contrast whatever the crop resolves to.
+ * The five-second band.
+ *
+ * Everything a visitor needs to decide whether this is the right company is
+ * above the fold: what Oasis does, where, the promise, and two ways to act.
+ * The trust badges sit directly under the buttons because the question that
+ * follows "can they help me" is always "are they real".
+ *
+ * The photograph is the surface rather than an inset, so a two-stop scrim
+ * carries the type at contrast whatever the crop resolves to. The scrim is
+ * heavier on small screens, where the column runs the full width of a
+ * portrait crop and the type sits straight over the lit windows.
  */
 export function Hero({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const scene = sceneById('scene-entree-crepuscule');
-  const area = locale === 'fr' ? 'Laval & Rive-Nord' : 'Laval & North Shore';
-  const hours = locale === 'fr' ? site.hours.displayFr : site.hours.displayEn;
 
-  const facts = [
-    { label: t.common.serviceArea, value: area, icon: IconPin, href: undefined },
-    {
-      label: t.common.phone,
-      value: site.phone.display,
-      icon: IconPhone,
-      href: site.phone.href,
-    },
-    { label: t.common.hours, value: hours, icon: IconClock, href: undefined },
+  const badges = [
+    `RBQ ${fact('rbqNumber')}`,
+    locale === 'fr' ? 'Assuré' : 'Insured',
+    `${fact('projectCount')} ${locale === 'fr' ? 'projets complétés' : 'projects completed'}`,
   ];
 
   return (
@@ -37,7 +38,7 @@ export function Hero({ locale }: { locale: Locale }) {
       <div className="absolute inset-0 -z-10">
         <Picture
           priority
-          alt={scene?.alt[locale] ?? ''}
+          alt={scene?.alt[locale] ?? t.hero.imageAlt}
           sizes="100vw"
           sources={[
             // 21:9 only once the viewport is genuinely letterbox-shaped;
@@ -50,47 +51,34 @@ export function Hero({ locale }: { locale: Locale }) {
           className="block h-full w-full"
           imgClassName="h-full w-full object-cover"
         />
-        {/* Two scrims in the section's own navy, kept light enough that the
-            dusk photograph stays a photograph and the band belongs to the
-            white pages under it: one up from the base to carry the type, one
-            in from the left so the headline never fights the lit doorway on
-            the right. The base stop is fully opaque rather than 0.86: the
-            band under the hero opens on exactly this navy, so the dark runs
-            through the join and drains into the paper instead of stopping
-            at an edge. */}
+        {/* 40% over the whole frame on desktop, 50% below it, per the design
+            system — then a base ramp so the type at the bottom clears the
+            brightest part of the photograph, and the band drains into the
+            trust bar underneath instead of stopping at an edge. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(9_22_38/1)_0%,rgb(9_22_38/0.88)_9%,rgb(9_22_38/0.66)_30%,rgb(9_22_38/0.3)_62%,rgb(9_22_38/0.16)_100%)]"
+          className="absolute inset-0 bg-[rgb(18_16_14/0.40)] lg:bg-[rgb(18_16_14/0.34)]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(9_22_38/0.58)_0%,rgb(9_22_38/0.28)_46%,rgb(9_22_38/0)_82%)] lg:block"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(18_16_14/1)_0%,rgb(18_16_14/0.8)_12%,rgb(18_16_14/0.42)_38%,rgb(18_16_14/0.1)_72%,transparent_100%)]"
         />
-        {/* Below `lg` there is no left scrim to lean on and the column runs the
-            full width of a portrait crop, so the type sits straight over the
-            lit windows. This veil stands in for the left one at those sizes,
-            heaviest at the eyebrow and spent by the buttons. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(9_22_38/0.44)_0%,rgb(9_22_38/0.3)_20%,rgb(9_22_38/0.16)_55%,rgb(9_22_38/0)_80%)] lg:hidden"
-        />
-        {/* The blue bloom the rest of the dark surfaces carry. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(120%_130%_at_10%_-14%,rgb(35_79_138/0.32)_0%,transparent_58%)]"
+          className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(18_16_14/0.5)_0%,rgb(18_16_14/0.22)_48%,transparent_84%)] lg:block"
         />
       </div>
 
       {/* ---------------------------------------------------------- editorial */}
-      <div className="u-wrap flex min-h-[clamp(30rem,80svh,46rem)] flex-col justify-end pt-16 pb-10 lg:min-h-[clamp(34rem,86svh,50rem)] lg:pt-28 lg:pb-14">
+      <div className="u-wrap flex min-h-[70svh] flex-col justify-end pt-16 pb-12 lg:min-h-[85svh] lg:pt-28 lg:pb-16">
         {/* The hero is painted before any observer could run, so its entrance
             is pure CSS and staged in reading order: label, headline, promise,
-            detail, action. The headline starts almost immediately — it is the
-            thing the largest paint is measured on, and nothing is gained by
-            holding it back. */}
-        <div className="max-w-3xl">
-          <p className="rise u-label text-teal">{t.hero.eyebrow}</p>
-          <span className="rise u-tick mt-3.5" aria-hidden="true" />
+            action. The headline starts almost immediately — it is the thing
+            the largest paint is measured on, and nothing is gained by holding
+            it back. */}
+        <div className="max-w-3xl text-center lg:text-left">
+          <p className="rise u-label text-brass">{t.hero.eyebrow}</p>
+          <span className="rise u-tick mx-auto mt-3.5 lg:mx-0" aria-hidden="true" />
 
           <h1
             className="rise u-display text-paper mt-7"
@@ -98,16 +86,10 @@ export function Hero({ locale }: { locale: Locale }) {
           >
             {t.hero.title}
           </h1>
-          <p
-            className="rise u-accent text-teal mt-4 text-[clamp(1.6rem,3.4vw,2.6rem)]"
-            style={{ ['--rise-delay' as string]: '170ms' }}
-          >
-            {t.hero.accent}
-          </p>
 
           <p
-            className="rise text-dust mt-7 max-w-xl text-[1.0625rem] leading-[1.68] sm:text-[1.1875rem]"
-            style={{ ['--rise-delay' as string]: '250ms' }}
+            className="rise text-dust mx-auto mt-7 max-w-xl text-[1.0625rem] leading-[1.65] sm:text-[1.1875rem] lg:mx-0"
+            style={{ ['--rise-delay' as string]: '190ms' }}
           >
             {t.hero.lede}
           </p>
@@ -116,52 +98,44 @@ export function Hero({ locale }: { locale: Locale }) {
               screen the pinned mobile bar would only be repeating them. */}
           <div
             data-sentinel="hero-cta"
-            className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-            style={{ ['--rise-delay' as string]: '330ms' }}
+            className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
+            style={{ ['--rise-delay' as string]: '280ms' }}
           >
-            <Link href={pagePath(locale, 'contact')} className="btn btn-brass rounded-sm">
+            <Link
+              href={pagePath(locale, 'contact')}
+              data-cta={t.common.quote}
+              data-cta-location="hero"
+              className="btn btn-brass"
+            >
               {t.common.quote}
             </Link>
-            <Link href={pagePath(locale, 'projects')} className="btn btn-stone rounded-sm">
-              {t.common.viewWork}
+            <Link
+              href={pagePath(locale, 'photo')}
+              data-cta={t.common.photoCta}
+              data-cta-location="hero"
+              className="btn btn-quarry"
+            >
+              <IconCamera className="h-4.5 w-4.5" />
+              {t.common.photoCta}
             </Link>
           </div>
-        </div>
 
-        {/* The three facts, ruled straight onto the photograph. */}
-        <dl
-          className="rise mt-12 grid gap-px border-t border-[var(--line-dark)] sm:grid-cols-3 lg:mt-14"
-          style={{ ['--rise-delay' as string]: '420ms' }}
-        >
-          {facts.map(({ label, value, icon: Icon, href }, index) => (
-            <div
-              key={label}
-              className={`flex flex-col gap-1.5 py-4 sm:py-5 ${
-                index > 0
-                  ? 'border-t border-[var(--line-dark)] sm:border-t-0 sm:border-l sm:pl-6'
-                  : ''
-              }`}
-            >
-              <dt className="u-label text-dust-2 text-[0.5625rem] tracking-[0.2em]">{label}</dt>
-              <dd className="text-paper text-[0.9375rem]">
-                {href ? (
-                  <a
-                    href={href}
-                    className="hover:text-teal inline-flex min-h-9 items-center gap-2.5 font-[550] transition-colors"
-                  >
-                    <Icon className="text-teal h-4 w-4 shrink-0" />
-                    {value}
-                  </a>
-                ) : (
-                  <span className="inline-flex min-h-9 items-center gap-2.5">
-                    <Icon className="text-teal h-4 w-4 shrink-0" />
-                    {value}
+          <ul
+            className="rise text-dust-2 mt-7 flex flex-wrap justify-center gap-x-2.5 gap-y-1.5 text-[0.8125rem] lg:justify-start"
+            style={{ ['--rise-delay' as string]: '380ms' }}
+          >
+            {badges.map((badge, index) => (
+              <li key={badge} className="flex items-center gap-2.5">
+                {index > 0 ? (
+                  <span aria-hidden="true" className="text-dust-2/50">
+                    •
                   </span>
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
+                ) : null}
+                <span>{badge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
