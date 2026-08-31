@@ -49,7 +49,7 @@ export function Hero({ locale }: { locale: Locale }) {
           imgClassName="h-full w-full object-cover"
         />
         {/* 40% over the whole frame on desktop, 50% below it, per the design
-            system — then a base ramp so the type at the bottom clears the
+            system - then a base ramp so the type at the bottom clears the
             brightest part of the photograph, and the band drains into the
             trust bar underneath instead of stopping at an edge. */}
         <div
@@ -70,7 +70,7 @@ export function Hero({ locale }: { locale: Locale }) {
       <div className="u-wrap flex min-h-[70svh] flex-col justify-end pt-16 pb-12 lg:min-h-[85svh] lg:pt-28 lg:pb-16">
         {/* The hero is painted before any observer could run, so its entrance
             is pure CSS and staged in reading order: label, headline, promise,
-            action. The headline starts almost immediately — it is the thing
+            action. The headline starts almost immediately - it is the thing
             the largest paint is measured on, and nothing is gained by holding
             it back. */}
         <div className="max-w-3xl text-center lg:text-left">

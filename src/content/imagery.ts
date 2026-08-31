@@ -6,7 +6,7 @@ export type Scene = {
   /** Image id in the generated manifest. */
   id: string;
   alt: Copy;
-  /** A short line describing the technique shown — never a claim about a job. */
+  /** A short line describing the technique shown - never a claim about a job. */
   caption: Copy;
 };
 
@@ -30,8 +30,8 @@ export const scenes: Scene[] = [
       en: 'Residential entrance at dusk: interlocking paver driveway, block retaining wall, stone steps and a lit front door.',
     },
     caption: {
-      fr: 'Stationnement en pavé uni, muret de soutènement et marches — les trois ouvrages qui composent la plupart des entrées.',
-      en: 'Paver driveway, retaining wall and steps — the three pieces that make up most entrances.',
+      fr: 'Stationnement en pavé uni, muret de soutènement et marches - les trois ouvrages qui composent la plupart des entrées.',
+      en: 'Paver driveway, retaining wall and steps - the three pieces that make up most entrances.',
     },
   },
   {
@@ -42,7 +42,7 @@ export const scenes: Scene[] = [
     },
     caption: {
       fr: 'Pose en chevrons avec bordure périmétrique : le motif qui répartit le mieux la charge d’un véhicule.',
-      en: 'Herringbone laid against a soldier course — the pattern that spreads a vehicle’s load best.',
+      en: 'Herringbone laid against a soldier course - the pattern that spreads a vehicle’s load best.',
     },
   },
   {
@@ -97,7 +97,7 @@ export const scenes: Scene[] = [
     },
     caption: {
       fr: 'Le drain reste enveloppé et entouré de pierre : c’est ce qui l’empêche de se colmater.',
-      en: 'The pipe stays wrapped and surrounded by stone — that is what keeps it from silting up.',
+      en: 'The pipe stays wrapped and surrounded by stone - that is what keeps it from silting up.',
     },
   },
   {
@@ -119,7 +119,7 @@ export const scenes: Scene[] = [
     },
     caption: {
       fr: 'Un jet en éventail, tenu à bonne distance : assez pour décoller, pas assez pour creuser le joint.',
-      en: 'A fan tip held at the right distance — enough to lift the grime, not enough to cut the joint.',
+      en: 'A fan tip held at the right distance - enough to lift the grime, not enough to cut the joint.',
     },
   },
   {
@@ -140,8 +140,8 @@ export const scenes: Scene[] = [
       en: 'Backyard terrace of large-format concrete slabs, edged by a low seat wall and a mown lawn, late in the day.',
     },
     caption: {
-      fr: 'Une surface de grand format demande une fondation plus régulière — c’est là que se joue la planéité.',
-      en: 'Large-format surfaces need a flatter base — that is where the finished level is won or lost.',
+      fr: 'Une surface de grand format demande une fondation plus régulière - c’est là que se joue la planéité.',
+      en: 'Large-format surfaces need a flatter base - that is where the finished level is won or lost.',
     },
   },
   {
@@ -174,7 +174,7 @@ export const scenes: Scene[] = [
     },
     caption: {
       fr: 'Pierre naturelle et bordure retenue : deux façons d’empêcher une allée de s’étaler avec les années.',
-      en: 'Natural stone with a held edge — two ways of keeping a walkway from spreading over the years.',
+      en: 'Natural stone with a held edge - two ways of keeping a walkway from spreading over the years.',
     },
   },
 ];

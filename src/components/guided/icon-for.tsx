@@ -18,7 +18,7 @@ import {
  *
  * Written as a switch rather than a lookup that returns a component, so the
  * icon is chosen inside a render rather than a component being manufactured
- * during one — the second kind resets its own state on every parent render.
+ * during one - the second kind resets its own state on every parent render.
  */
 export function GuidedGlyph({
   name,

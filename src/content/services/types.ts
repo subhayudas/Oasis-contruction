@@ -40,7 +40,7 @@ export type ServiceCopy = {
   local: string;
   process: ProcessStep[];
 
-  /** No prices — the factors that move them, and the free assessment. */
+  /** No prices - the factors that move them, and the free assessment. */
   priceTitle: string;
   priceLede: string;
   priceFactors: string[];
@@ -59,7 +59,7 @@ export type ServiceCopy = {
 
 export type Service = {
   key: ServiceKey;
-  /** Scene ids from `imagery.ts` — illustrative, not jobsite photographs. */
+  /** Scene ids from `imagery.ts` - illustrative, not jobsite photographs. */
   hero: string;
   detail: string;
   /** Technical drawing shown instead of a photograph where none is authentic. */

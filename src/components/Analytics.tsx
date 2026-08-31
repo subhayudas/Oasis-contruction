@@ -12,8 +12,8 @@ import { GA4_ID, GTM_ID, META_PIXEL_ID, track, trackPhone, trackCta } from '@/li
  * thread through every component: scroll depth, clicks on tel: links, and
  * clicks on anything marked as a call to action.
  *
- * With no NEXT_PUBLIC_GTM_ID / NEXT_PUBLIC_GA4_ID set — which is the state
- * this ships in — no third-party script is requested at all. The dataLayer is
+ * With no NEXT_PUBLIC_GTM_ID / NEXT_PUBLIC_GA4_ID set - which is the state
+ * this ships in - no third-party script is requested at all. The dataLayer is
  * still filled, so the events can be verified in the console before the
  * business hands over a container id.
  */

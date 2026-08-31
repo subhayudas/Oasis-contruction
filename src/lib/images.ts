@@ -14,7 +14,7 @@ const images = manifest as unknown as Record<string, ManifestEntry>;
 export type PhotoId = keyof typeof manifest;
 
 export type Source = {
-  /** Intrinsic size of the largest derivative — used to prevent layout shift. */
+  /** Intrinsic size of the largest derivative - used to prevent layout shift. */
   width: number;
   height: number;
   aspect: number;

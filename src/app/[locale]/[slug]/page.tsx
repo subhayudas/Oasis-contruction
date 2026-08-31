@@ -29,7 +29,7 @@ import { fillOrNull } from '@/content/placeholders';
 /**
  * One route for every single-segment page in a language, because French
  * service pages sit at the root of the site next to /contact and /projets
- * rather than under a /services prefix — a homeowner searching "muret Laval"
+ * rather than under a /services prefix - a homeowner searching "muret Laval"
  * should land on oasis-construction.ca/muret.
  *
  * The slug is resolved against the service map first, then the page map, so a

@@ -13,7 +13,7 @@ import { StepHeader } from './StepHeader';
  * Step 5. Optional, and honestly labelled.
  *
  * `accept="image/*"` is what makes iOS and Android offer the camera as well
- * as the library — the point of asking here is that someone standing on their
+ * as the library - the point of asking here is that someone standing on their
  * own driveway can photograph the crack and send it in one motion.
  *
  * The disclaimer under the drop zone is not legal boilerplate. A photograph
@@ -123,7 +123,7 @@ export function StepPhotos({
                       // next/image cannot optimise a blob and would gain nothing.
                       <img
                         src={previews[index]}
-                        alt={`${copy.photos.previewLabel} — ${file.name}`}
+                        alt={`${copy.photos.previewLabel} - ${file.name}`}
                         className="h-full w-full object-cover"
                       />
                     ) : null}
@@ -131,7 +131,7 @@ export function StepPhotos({
                   <button
                     type="button"
                     onClick={() => onRemove(index)}
-                    aria-label={`${copy.photos.remove} — ${file.name}`}
+                    aria-label={`${copy.photos.remove} - ${file.name}`}
                     className="bg-ink text-paper absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full shadow-[0_2px_6px_rgba(26,22,16,0.4)]"
                   >
                     <IconClose className="h-3.5 w-3.5" />
@@ -151,7 +151,7 @@ export function StepPhotos({
           "Passer" would do the same thing under different names, and a
           choice between two identical outcomes is friction, not agency.
           The skip is an outlined key rather than a text link so it clears
-          44px on a thumb — it is the majority path, not a footnote. */}
+          44px on a thumb - it is the majority path, not a footnote. */}
       {photos.length > 0 ? (
         <button type="button" onClick={onContinue} className="btn btn-stone w-full">
           {copy.photos.continue}

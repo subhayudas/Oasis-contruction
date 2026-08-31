@@ -13,7 +13,7 @@ export type FaqEntry = { q: string; a: string };
  * the whole row a 44px+ tap target, and stays a real button for a keyboard.
  *
  * Answers stay in the DOM at all times so they are findable with Ctrl-F and
- * indexable — only the height and visibility are toggled.
+ * indexable - only the height and visibility are toggled.
  */
 export function FaqAccordion({ items }: { items: FaqEntry[] }) {
   const uid = useId();

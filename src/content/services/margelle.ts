@@ -23,7 +23,7 @@ export const margelle: Service = {
       causesTitle: 'Ce qui cause le problème',
       causes: [
         'Les margelles qui bougent sont généralement causées par une base insuffisante, un ancrage déficient, ou un mouvement du sol dû au gel-dégel.',
-        'Le drainage joue aussi un rôle — l’eau qui s’accumule sous les marches gèle, prend de l’expansion et soulève. C’est ce cycle, répété chaque hiver, qui finit par déchausser une marche.',
+        'Le drainage joue aussi un rôle - l’eau qui s’accumule sous les marches gèle, prend de l’expansion et soulève. C’est ce cycle, répété chaque hiver, qui finit par déchausser une marche.',
       ],
 
       solutionTitle: 'Ce qu’on fait',
@@ -126,7 +126,7 @@ export const margelle: Service = {
       warrantyTitle: 'Garantie',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Margelle Laval — Marches et bordures | Oasis Construction',
+      metaTitle: 'Margelle Laval - Marches et bordures | Oasis Construction',
       metaDescription:
         'Installation de margelles et marches sécuritaires à Laval et sur la Rive-Nord. Évaluation gratuite. Appelez (438) 505-4846.',
     },
@@ -146,7 +146,7 @@ export const margelle: Service = {
       causesTitle: 'What causes it',
       causes: [
         'Steps that move are usually the result of an insufficient base, poor anchoring, or ground movement from freeze-thaw.',
-        'Drainage plays a part too — water collecting under the steps freezes, expands and lifts. It is that cycle, repeated every winter, that eventually works a tread loose.',
+        'Drainage plays a part too - water collecting under the steps freezes, expands and lifts. It is that cycle, repeated every winter, that eventually works a tread loose.',
       ],
 
       solutionTitle: 'What we do',
@@ -175,7 +175,7 @@ export const margelle: Service = {
         'Steps set into a slope',
       ],
 
-      note: 'When a poured concrete stairway has cracked or tipped, laying coping over it does not fix anything — the structure underneath is what is moving. We will say so plainly at the assessment, even when that means the job is bigger than you hoped.',
+      note: 'When a poured concrete stairway has cracked or tipped, laying coping over it does not fix anything - the structure underneath is what is moving. We will say so plainly at the assessment, even when that means the job is bigger than you hoped.',
 
       localTitle: 'In Laval and the North Shore',
       local:
@@ -249,7 +249,7 @@ export const margelle: Service = {
       warrantyTitle: 'Warranty',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Steps and coping Laval — Safe steps | Oasis Construction',
+      metaTitle: 'Steps and coping Laval - Safe steps | Oasis Construction',
       metaDescription:
         'Safe steps and coping installed in Laval and the North Shore. Free assessment. Call (438) 505-4846.',
     },

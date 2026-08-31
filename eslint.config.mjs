@@ -3,8 +3,8 @@ import typescript from 'eslint-config-next/typescript';
 
 /**
  * eslint-config-next 16 ships native flat configs, so they are imported
- * directly. Routing them through FlatCompat — the bridge for the old
- * .eslintrc format — makes the validator try to JSON.stringify a config
+ * directly. Routing them through FlatCompat - the bridge for the old
+ * .eslintrc format - makes the validator try to JSON.stringify a config
  * object that references its own plugins, and the whole run dies on a
  * circular structure before a single file is checked.
  */

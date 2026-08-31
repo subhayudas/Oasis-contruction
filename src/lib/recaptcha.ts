@@ -5,7 +5,7 @@
  * limit, which stop the bulk of drive-by spam without asking the visitor for
  * anything. reCAPTCHA is the layer on top for a determined scripted attack.
  *
- * With no keys set — the state this ships in — `enabled` is false, the client
+ * With no keys set - the state this ships in - `enabled` is false, the client
  * loads no Google script, and the route handler does not reject submissions
  * for a missing token. That matters: a half-configured integration that
  * silently drops real leads is worse than no integration.

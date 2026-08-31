@@ -5,7 +5,7 @@ The loose WhatsApp exports the client sent are downscaled copies (739x1600);
 the same photographs are embedded in assets/oasis-construction-website-intake.pdf
 at 887x1920 / 1080x1920, and the PDF additionally carries one before/after frame
 that has no loose counterpart. This script writes those JPEG streams verbatim to
-assets/source/ — no re-encoding, no modification of the originals.
+assets/source/ - no re-encoding, no modification of the originals.
 """
 
 from __future__ import annotations

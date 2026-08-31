@@ -10,7 +10,7 @@ import { StepHeader } from './StepHeader';
  * Step 3. A city, not a postal code and not an address.
  *
  * A city is one tap and answers the only question that matters at this
- * stage — is this inside the service area. A postal code would be typing, and
+ * stage - is this inside the service area. A postal code would be typing, and
  * a street address is a question the crew asks on the call anyway, when the
  * visitor is already talking to a person rather than deciding whether to.
  *

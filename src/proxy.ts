@@ -73,7 +73,7 @@ export function proxy(request: NextRequest) {
   // English already matches the route tree.
   if (isLocale(first)) return NextResponse.next();
 
-  // Everything else is French, including unknown paths — which is what puts
+  // Everything else is French, including unknown paths - which is what puts
   // the visitor on the branded French 404 rather than a bare one.
   const locale: Locale = defaultLocale;
   const url = request.nextUrl.clone();

@@ -1,5 +1,5 @@
 /**
- * A small hand-drawn icon set on a 24px grid with a 1.5px stroke — drawn for
+ * A small hand-drawn icon set on a 24px grid with a 1.5px stroke - drawn for
  * this brand rather than pulled from a generic pack, so the service marks read
  * as construction sections rather than clip art.
  */
@@ -251,7 +251,7 @@ export function IconStar({ className }: IconProps) {
   );
 }
 
-/** A question mark in a ring — the "I am not sure" card. */
+/** A question mark in a ring - the "I am not sure" card. */
 export function IconQuestion(props: IconProps) {
   return (
     <Svg {...props}>
@@ -262,7 +262,7 @@ export function IconQuestion(props: IconProps) {
   );
 }
 
-/** A bolt — the urgent timeline. */
+/** A bolt - the urgent timeline. */
 export function IconBolt(props: IconProps) {
   return (
     <Svg {...props}>
@@ -271,7 +271,7 @@ export function IconBolt(props: IconProps) {
   );
 }
 
-/** A wall calendar — the planned timelines. */
+/** A wall calendar - the planned timelines. */
 export function IconCalendar(props: IconProps) {
   return (
     <Svg {...props}>
@@ -281,7 +281,7 @@ export function IconCalendar(props: IconProps) {
   );
 }
 
-/** An open eye — the visitor who is only looking. */
+/** An open eye - the visitor who is only looking. */
 export function IconEye(props: IconProps) {
   return (
     <Svg {...props}>
@@ -291,7 +291,7 @@ export function IconEye(props: IconProps) {
   );
 }
 
-/** A left-pointing chevron with a tail — the back link. */
+/** A left-pointing chevron with a tail - the back link. */
 export function IconBack(props: IconProps) {
   return (
     <Svg {...props}>

@@ -7,7 +7,7 @@ import type { Locale } from '@/lib/i18n';
 import { GuidedForm } from './GuidedForm';
 
 type OpenOptions = {
-  /** The CTA that opened it — recorded on the `form_view` event. */
+  /** The CTA that opened it - recorded on the `form_view` event. */
   source: string;
   service?: GuidedServiceKey;
 };
@@ -26,7 +26,7 @@ const Context = createContext<GuidedFormContext | null>(null);
  * The form is mounted once, at the layout, and every CTA asks this context to
  * show it. That is what makes "Demandez un devis" and "Envoyez-nous une
  * photo" the same experience rather than two funnels with two lead schemas
- * and two sets of bugs — the photo step is inside the flow, not beside it.
+ * and two sets of bugs - the photo step is inside the flow, not beside it.
  *
  * Nothing renders until a CTA is pressed, so the form costs a closed page
  * nothing but this provider.
@@ -86,7 +86,7 @@ const FOCUSABLE = [
 /**
  * A dialog that behaves like one: focus moves in, stays in while it is open,
  * and goes back to the button that opened it on close. Escape closes it, and
- * the page behind it cannot scroll — on a phone, a modal over a scrolling
+ * the page behind it cannot scroll - on a phone, a modal over a scrolling
  * page is how a half-filled form gets lost.
  */
 function GuidedFormModal({

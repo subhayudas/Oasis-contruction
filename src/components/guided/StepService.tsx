@@ -10,7 +10,7 @@ import { StepHeader } from './StepHeader';
  * "Je ne suis pas certain" is a first-class answer rather than a fallback at
  * the bottom of a dropdown, because a homeowner who does not know the trade
  * word for their problem is the single most common visitor this business
- * gets — and the one most likely to abandon a form that assumes they do.
+ * gets - and the one most likely to abandon a form that assumes they do.
  */
 export function StepService({
   copy,

@@ -28,7 +28,7 @@ export const muret: Service = {
       solutionTitle: 'Ce qu’on fait',
       solution: [
         'On évalue la cause du mouvement. Si c’est un drainage, on le corrige. Si c’est la fondation, on reconstruit avec une base plus solide.',
-        'On ne se contente pas de redresser le mur — on règle le problème qui cause le mouvement. Un muret redressé sur une fondation qui n’a pas changé va repencher.',
+        'On ne se contente pas de redresser le mur - on règle le problème qui cause le mouvement. Un muret redressé sur une fondation qui n’a pas changé va repencher.',
       ],
 
       includesTitle: 'Ce que les travaux peuvent comprendre',
@@ -152,7 +152,7 @@ export const muret: Service = {
       solutionTitle: 'What we do',
       solution: [
         'We work out what is causing the movement. If it is drainage, we correct the drainage. If it is the footing, we rebuild on a stronger base.',
-        'We do not simply straighten the wall — we fix what is moving it. A wall straightened over an unchanged footing will lean again.',
+        'We do not simply straighten the wall - we fix what is moving it. A wall straightened over an unchanged footing will lean again.',
       ],
 
       includesTitle: 'What the work can include',
@@ -195,7 +195,7 @@ export const muret: Service = {
         {
           step: '03',
           title: 'Footing',
-          text: 'We prepare or reinforce the base — it decides how long the wall lasts.',
+          text: 'We prepare or reinforce the base - it decides how long the wall lasts.',
         },
         {
           step: '04',
@@ -235,11 +235,11 @@ export const muret: Service = {
         },
         {
           q: 'How high can a wall be without a permit?',
-          a: 'The height allowed without a permit varies from one North Shore municipality to the next, and the rules differ depending on whether the wall is in the front yard, the back yard, or near a property line. Check with your city before starting — theirs is the answer that counts. We can tell you what is usually asked for the kind of wall you have in mind.',
+          a: 'The height allowed without a permit varies from one North Shore municipality to the next, and the rules differ depending on whether the wall is in the front yard, the back yard, or near a property line. Check with your city before starting - theirs is the answer that counts. We can tell you what is usually asked for the kind of wall you have in mind.',
         },
         {
           q: 'Why put stone behind a wall?',
-          a: 'Because soil is not what pushes hardest on a retaining wall — the water held in it is. A layer of clean stone wrapped in fabric lets water drop and exit at the base of the wall instead of collecting behind it and freezing. It is the part of the wall nobody ever sees, and it decides whether the wall holds.',
+          a: 'Because soil is not what pushes hardest on a retaining wall - the water held in it is. A layer of clean stone wrapped in fabric lets water drop and exit at the base of the wall instead of collecting behind it and freezing. It is the part of the wall nobody ever sees, and it decides whether the wall holds.',
         },
         {
           q: 'Can you repair only the section that is moving?',
@@ -250,7 +250,7 @@ export const muret: Service = {
       warrantyTitle: 'Warranty',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Retaining walls Laval — Repair and building | Oasis',
+      metaTitle: 'Retaining walls Laval - Repair and building | Oasis',
       metaDescription:
         'Retaining wall construction and repair in Laval and the North Shore. Free assessment. Call (438) 505-4846.',
     },

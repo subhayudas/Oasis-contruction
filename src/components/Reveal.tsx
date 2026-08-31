@@ -13,9 +13,9 @@ import { useEffect } from 'react';
  * the same question asked of the viewport and neither deserves an observer of
  * its own:
  *
- *   `data-scrolled`  — the page has moved under the sticky header, so the bar
+ *   `data-scrolled` - the page has moved under the sticky header, so the bar
  *                      thickens its glass and lengthens its shadow.
- *   `data-hero-cta`  — the hero's own buttons are still on screen, so the
+ *   `data-hero-cta` - the hero's own buttons are still on screen, so the
  *                      pinned thumb bar stays out of the way until they go.
  *
  * Both are written to `<html>` and consumed entirely in CSS. Pages with no

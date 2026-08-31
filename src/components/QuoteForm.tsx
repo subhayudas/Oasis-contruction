@@ -23,7 +23,7 @@ type ServiceOption = { value: string; label: string };
 type Props = {
   locale: string;
   /**
-   * 'contact' on /contact — the written-enquiry form. 'general' is the older
+   * 'contact' on /contact - the written-enquiry form. 'general' is the older
    * name-and-number quote form, kept working but no longer placed anywhere:
    * the guided form replaced it everywhere it used to sit.
    */
@@ -63,8 +63,7 @@ const EMPTY: ContactPayload = {
 /**
  * The lead form.
  *
- * Two required fields on the general variant — a name and a phone number —
- * because every extra required field costs submissions, and everything else
+ * Two required fields on the general variant - a name and a phone number -  * because every extra required field costs submissions, and everything else
  * on the list is a question that is faster to ask on the call than to type on
  * a phone. Address, budget and timeline are deliberately not collected.
  *
@@ -87,7 +86,7 @@ export function QuoteForm({
   const summaryRef = useRef<HTMLDivElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
   /* The floor on how fast a human can fill this in. Stamped on mount rather
-     than during render — reading the clock while rendering is impure, and a
+     than during render - reading the clock while rendering is impure, and a
      re-render would move the start of the window. */
   const mountedAt = useRef<number | null>(null);
   useEffect(() => {
@@ -492,7 +491,7 @@ export function QuoteForm({
           {status.kind === 'submitting' ? (
             <>
               {/* A form that has gone quiet is indistinguishable from one that
-                  has failed. The spinner is decoration for the eye only — the
+                  has failed. The spinner is decoration for the eye only - the
                   label already carries the state for a screen reader. */}
               <span className="spinner" aria-hidden="true" />
               {t.form.submitting}

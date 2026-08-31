@@ -15,7 +15,7 @@ type Props = {
 
 /**
  * The client's circular mark, isolated from the black JPEG corners of the
- * supplied logo.jpeg. The artwork itself is untouched — no redraw, no trace.
+ * supplied logo.jpeg. The artwork itself is untouched - no redraw, no trace.
  */
 export function Logo({ locale, asLink = true, className = '', size = 44 }: Props) {
   const t = getDictionary(locale);
@@ -44,7 +44,7 @@ export function Logo({ locale, asLink = true, className = '', size = 44 }: Props
     <Link
       href={pagePath(locale, 'home')}
       className="-m-1 inline-flex rounded-sm p-1"
-      aria-label={`${t.meta.siteName} — ${t.common.home}`}
+      aria-label={`${t.meta.siteName} - ${t.common.home}`}
     >
       {mark}
     </Link>

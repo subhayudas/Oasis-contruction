@@ -4,42 +4,42 @@ export const en: Dictionary = {
   meta: {
     siteName: 'Oasis Construction',
     home: {
-      title: 'Oasis Construction — Interlocking pavers, Laval and North Shore',
+      title: 'Oasis Construction - Interlocking pavers, Laval and North Shore',
       description:
         'Interlocking paver repair and installation in Laval and the North Shore. Free assessment. Call (438) 505-4846.',
     },
     services: {
-      title: 'Our services — Pavers, walls, drainage | Oasis Construction',
+      title: 'Our services - Pavers, walls, drainage | Oasis Construction',
       description:
         'Pavers, retaining walls, steps, drainage, pressure washing and landscape construction in Laval and the North Shore. Free assessment.',
     },
     projects: {
-      title: 'Projects — Oasis Construction Laval',
+      title: 'Projects - Oasis Construction Laval',
       description:
         'Our paver and landscape construction projects in Laval and the North Shore, with before-and-after transformations.',
     },
     about: {
-      title: 'About — Oasis Construction',
+      title: 'About - Oasis Construction',
       description:
         'Oasis Construction: interlocking paver and landscape construction specialists in Laval and the North Shore.',
     },
     contact: {
-      title: 'Contact Oasis Construction — Laval and North Shore',
+      title: 'Contact Oasis Construction - Laval and North Shore',
       description:
         'Contact Oasis Construction for a free quote. (438) 505-4846. Laval and the North Shore.',
     },
     areas: {
-      title: 'Service areas — Laval and the North Shore | Oasis Construction',
+      title: 'Service areas - Laval and the North Shore | Oasis Construction',
       description:
         'Oasis Construction serves Laval and Montreal’s North Shore. See the areas covered and request a free assessment.',
     },
     photo: {
-      title: 'Send us a photo — Oasis Construction',
+      title: 'Send us a photo - Oasis Construction',
       description:
         'Not sure what is happening with your pavers, wall or steps? Send a photo and get a first read. No charge.',
     },
     privacy: {
-      title: 'Privacy policy — Oasis Construction',
+      title: 'Privacy policy - Oasis Construction',
       description:
         'How Oasis Construction collects and uses the information submitted through the forms on this site.',
     },
@@ -128,7 +128,7 @@ export const en: Dictionary = {
   servicesSection: {
     eyebrow: 'Services',
     title: 'Our services',
-    lede: 'Work aimed at what is moving, what is wearing and what is holding water — rather than at what photographs well.',
+    lede: 'Work aimed at what is moving, what is wearing and what is holding water - rather than at what photographs well.',
   },
 
   processSection: {
@@ -284,7 +284,7 @@ export const en: Dictionary = {
     title: 'Service areas',
     lede: 'Oasis Construction serves Laval and Montreal’s North Shore. Here are the areas covered.',
     intro:
-      'The municipalities below make up the territory served. If your address is not listed but you are nearby, call — the answer takes thirty seconds.',
+      'The municipalities below make up the territory served. If your address is not listed but you are nearby, call - the answer takes thirty seconds.',
     detailTitle: 'Territory detail',
     detailBody: '{serviceAreas}',
     whyLocalTitle: 'Why the area matters',
@@ -306,7 +306,7 @@ export const en: Dictionary = {
       {
         step: '01',
         title: 'You send the photo',
-        text: 'One to three photos of the problem — one from a distance, then a close one if you can.',
+        text: 'One to three photos of the problem - one from a distance, then a close one if you can.',
       },
       {
         step: '02',
@@ -343,11 +343,11 @@ export const en: Dictionary = {
       lede: 'Pavers moving, dips forming, joints emptying out. We find what is causing it under the surface, correct it, and reset. Free assessment in Laval and the North Shore.',
       points: [
         'Base and drainage diagnosis before any quote',
-        'Targeted repair where possible — no needless replacement',
+        'Targeted repair where possible - no needless replacement',
         'Fresh polymeric sand and edges reset',
         'Built for the freeze-thaw cycles here',
       ],
-      metaTitle: 'Interlocking paver repair — Free assessment | Oasis Construction',
+      metaTitle: 'Interlocking paver repair - Free assessment | Oasis Construction',
       metaDescription:
         'Pavers sinking in Laval or the North Shore? Free assessment and a transparent quote. Call (438) 505-4846.',
     },
@@ -360,7 +360,7 @@ export const en: Dictionary = {
         'Clean stone and fabric behind the wall',
         'We tell you if the wall is an engineering job',
       ],
-      metaTitle: 'Retaining wall repair — Free assessment | Oasis Construction',
+      metaTitle: 'Retaining wall repair - Free assessment | Oasis Construction',
       metaDescription:
         'Wall leaning or cracking in Laval or the North Shore? Free assessment and a transparent quote. Call (438) 505-4846.',
     },
@@ -397,7 +397,7 @@ export const en: Dictionary = {
       },
     ],
     teamTitle: 'The team',
-    teamBody: '{founderName} — {founderBio}',
+    teamBody: '{founderName} - {founderBio}',
     teamPending:
       'Team photographs and an introduction to the founders will be added here as soon as the business supplies them. In the meantime, Hugo and Guillaume both answer the phone.',
     credentialsTitle: 'Licence and insurance',
@@ -410,7 +410,7 @@ export const en: Dictionary = {
       'Interlocking pavers, retaining walls, steps and coping, drainage, pressure washing and complete landscape construction.',
     areaTitle: 'Service area',
     areaBody:
-      'Oasis Construction serves Laval and the North Shore. If you are not sure whether you are in the area, call — the answer takes thirty seconds.',
+      'Oasis Construction serves Laval and the North Shore. If you are not sure whether you are in the area, call - the answer takes thirty seconds.',
     ctaTitle: 'Talk to someone who knows',
     ctaBody: 'A question about your site? The phone is the fastest way.',
   },
@@ -418,7 +418,7 @@ export const en: Dictionary = {
   contactPage: {
     eyebrow: 'Contact',
     title: 'Contact Oasis Construction',
-    lede: 'Fill in the form or call directly. The more you describe the situation — and the more photos you add — the more precise the answer.',
+    lede: 'Fill in the form or call directly. The more you describe the situation - and the more photos you add - the more precise the answer.',
     detailsTitle: 'Contact details',
     formTitle: 'Write to us',
     guidedTitle: 'Ask for your free assessment',

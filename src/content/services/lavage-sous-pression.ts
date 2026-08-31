@@ -28,7 +28,7 @@ export const lavageSousPression: Service = {
       solutionTitle: 'Ce qu’on fait',
       solution: [
         'On nettoie en profondeur avec un équipement professionnel, on enlève la mousse et les mauvaises herbes.',
-        'Si nécessaire, on applique un produit de protection et on ressable les joints — parce qu’un lavage qui vide les joints sans les remplir laisse la surface plus vulnérable qu’avant.',
+        'Si nécessaire, on applique un produit de protection et on ressable les joints - parce qu’un lavage qui vide les joints sans les remplir laisse la surface plus vulnérable qu’avant.',
       ],
 
       includesTitle: 'Ce que les travaux peuvent comprendre',
@@ -141,7 +141,7 @@ export const lavageSousPression: Service = {
       solutionTitle: 'What we do',
       solution: [
         'We clean thoroughly with professional equipment and remove the moss and weeds.',
-        'Where it is needed we apply a protective treatment and re-sand the joints — because a wash that empties the joints without refilling them leaves the surface more exposed than it was.',
+        'Where it is needed we apply a protective treatment and re-sand the joints - because a wash that empties the joints without refilling them leaves the surface more exposed than it was.',
       ],
 
       includesTitle: 'What the work can include',
@@ -228,7 +228,7 @@ export const lavageSousPression: Service = {
       warrantyTitle: 'Warranty',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Pressure washing Laval — Surface cleaning | Oasis',
+      metaTitle: 'Pressure washing Laval - Surface cleaning | Oasis',
       metaDescription:
         'Pressure washing for pavers, patios and exterior surfaces in Laval and the North Shore. Free assessment. Call (438) 505-4846.',
     },

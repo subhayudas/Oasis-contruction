@@ -5,15 +5,15 @@ import type { ServiceKey } from '@/lib/routes';
  * The guided lead form's data model and copy.
  *
  * Everything the visitor sees in the six-step flow is here, in both
- * languages, as data — so the components below it are a rendering of a list
+ * languages, as data - so the components below it are a rendering of a list
  * and never a place where a French string lives. The shape is a
  * `Record<Locale, …>`, which means a missing English option is a type error
  * rather than a blank card on the English site.
  *
  * The one rule this file exists to enforce: the visitor taps, they do not
  * type. Every question is a closed list of plausible answers written the way
- * a homeowner would describe the problem — "le pavé s'affaisse", not
- * "affaissement de la fondation" — plus an escape hatch, because a list that
+ * a homeowner would describe the problem - "le pavé s'affaisse", not
+ * "affaissement de la fondation" - plus an escape hatch, because a list that
  * does not admit "none of these" pushes people into the wrong answer or out
  * of the form entirely.
  */
@@ -68,7 +68,7 @@ export type GuidedCopy = {
   close: string;
   back: string;
   progressLabel: string;
-  /** "Étape 3 sur 6" — announced, never printed. */
+  /** "Étape 3 sur 6" - announced, never printed. */
   stepAnnouncement: (current: number, total: number) => string;
 
   intro: {
@@ -183,7 +183,7 @@ const fr: GuidedCopy = {
 
   service: {
     question: 'Qu’est-ce qu’on peut faire pour vous?',
-    hint: 'Choisissez le service qui vous intéresse. Si vous n’êtes pas certain, choisissez « Je ne suis pas certain » — c’est correct.',
+    hint: 'Choisissez le service qui vous intéresse. Si vous n’êtes pas certain, choisissez « Je ne suis pas certain » - c’est correct.',
     options: [
       { key: 'pave-uni', label: 'Pavé uni', hint: 'Entrée, terrasse, trottoir', icon: 'paver' },
       {
@@ -425,7 +425,7 @@ const fr: GuidedCopy = {
 
   photos: {
     question: 'Vous voulez nous montrer votre projet?',
-    hint: 'Une ou deux photos nous aideront à mieux comprendre. C’est optionnel — vous pouvez passer cette étape.',
+    hint: 'Une ou deux photos nous aideront à mieux comprendre. C’est optionnel - vous pouvez passer cette étape.',
     dropDesktop: 'Glissez vos photos ici ou cliquez pour les choisir',
     dropMobile: 'Cliquez pour prendre ou choisir une photo',
     constraints: 'JPEG, PNG, HEIC ou WebP. Jusqu’à 5 photos, 10 Mo chacune.',
@@ -515,7 +515,7 @@ const en: GuidedCopy = {
 
   service: {
     question: 'What can we do for you?',
-    hint: 'Pick the service you are interested in. If you are not sure, choose “I’m not sure” — that’s fine.',
+    hint: 'Pick the service you are interested in. If you are not sure, choose “I’m not sure” - that’s fine.',
     options: [
       {
         key: 'pave-uni',
@@ -733,7 +733,7 @@ const en: GuidedCopy = {
 
   photos: {
     question: 'Would you like to show us the project?',
-    hint: 'One or two photos help us understand. It’s optional — you can skip this step.',
+    hint: 'One or two photos help us understand. It’s optional - you can skip this step.',
     dropDesktop: 'Drag your photos here, or click to choose them',
     dropMobile: 'Tap to take or choose a photo',
     constraints: 'JPEG, PNG, HEIC or WebP. Up to 5 photos, 10 MB each.',

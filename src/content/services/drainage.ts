@@ -78,7 +78,7 @@ export const drainage: Service = {
         {
           step: '04',
           title: 'Installation',
-          text: 'Membrane, drain, pierre nette, puis remblai — dans cet ordre, c’est ce qui empêche le drain de se colmater.',
+          text: 'Membrane, drain, pierre nette, puis remblai - dans cet ordre, c’est ce qui empêche le drain de se colmater.',
         },
         {
           step: '05',
@@ -117,7 +117,7 @@ export const drainage: Service = {
         },
         {
           q: 'Est-ce que je peux juste rallonger ma descente de gouttière?',
-          a: 'Parfois, oui — et si c’est ce qui règle votre problème, on va vous le dire. Rediriger une descente qui déverse contre une fondation ou au milieu d’une entrée est la correction la moins chère qui existe. Ça ne règle pas un terrain qui retient l’eau sur toute sa surface, par contre.',
+          a: 'Parfois, oui - et si c’est ce qui règle votre problème, on va vous le dire. Rediriger une descente qui déverse contre une fondation ou au milieu d’une entrée est la correction la moins chère qui existe. Ça ne règle pas un terrain qui retient l’eau sur toute sa surface, par contre.',
         },
         {
           q: 'Peut-on faire les travaux en automne?',
@@ -202,7 +202,7 @@ export const drainage: Service = {
         {
           step: '04',
           title: 'Installation',
-          text: 'Fabric, pipe, clean stone, then backfill — in that order, which is what keeps the drain from silting up.',
+          text: 'Fabric, pipe, clean stone, then backfill - in that order, which is what keeps the drain from silting up.',
         },
         {
           step: '05',
@@ -241,7 +241,7 @@ export const drainage: Service = {
         },
         {
           q: 'Can I just extend my downspout?',
-          a: 'Sometimes, yes — and if that solves your problem, we will tell you. Redirecting a downspout that discharges against a foundation or into the middle of a driveway is the cheapest correction there is. It will not fix a lot that holds water across its whole surface, though.',
+          a: 'Sometimes, yes - and if that solves your problem, we will tell you. Redirecting a downspout that discharges against a foundation or into the middle of a driveway is the cheapest correction there is. It will not fix a lot that holds water across its whole surface, though.',
         },
         {
           q: 'Can the work be done in the fall?',

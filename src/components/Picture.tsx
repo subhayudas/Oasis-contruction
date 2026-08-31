@@ -16,14 +16,14 @@ type Props = {
 };
 
 /**
- * The default <source> in a <picture> needs no media query — it is whatever is
+ * The default <source> in a <picture> needs no media query - it is whatever is
  * left once the earlier ones have failed. A <link rel="preload"> has no such
  * ordering, so an unqualified one matches everywhere and a desktop browser
  * would fetch the wide crop AND the mobile crop.
  *
  * This reconstructs the "left over" condition as a plain max-width just under
- * the narrowest breakpoint above it. The obvious spelling — `not all and
- * (min-width: 40rem)` — is valid CSS and evaluates correctly once the page is
+ * the narrowest breakpoint above it. The obvious spelling - `not all and
+ * (min-width: 40rem)` - is valid CSS and evaluates correctly once the page is
  * live, but Chrome's preload scanner fetches it anyway, which is the exact
  * waste this function exists to prevent.
  */
@@ -58,8 +58,8 @@ export function Picture({
     <picture className={className}>
       {/* The LCP image is discovered by the preload scanner only after the
           stylesheet and the markup above it have parsed. Preloading the AVIF
-          candidate set — with the same media query and sizes the <source>
-          uses, so the browser picks the identical file — starts the request
+          candidate set - with the same media query and sizes the <source>
+          uses, so the browser picks the identical file - starts the request
           in the first round trip instead of the third. React hoists these
           into <head>. */}
       {priority

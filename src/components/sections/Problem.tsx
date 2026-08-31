@@ -1,6 +1,8 @@
+import { OpenGuidedForm } from '@/components/guided/OpenGuidedForm';
 import { SectionHeading } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
 import type { Locale } from '@/lib/i18n';
+import { pagePath } from '@/lib/routes';
 
 /**
  * The section that names the visitor's problem back to them before the site
@@ -22,6 +24,14 @@ export function Problem({ locale }: { locale: Locale }) {
         <p className="u-lede reveal mx-auto mt-8 max-w-[44rem] text-center">
           {t.problemSection.body}
         </p>
+        <div className="reveal mt-8 flex justify-center">
+          <OpenGuidedForm
+            href={pagePath(locale, 'contact')}
+            label={t.common.quote}
+            location="problem"
+            className="btn btn-stone"
+          />
+        </div>
       </div>
     </section>
   );

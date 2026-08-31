@@ -18,7 +18,7 @@ export function isLocale(value: string | undefined): value is Locale {
 export const LOCALE_COOKIE = 'oasis_locale';
 
 /**
- * Set only when the visitor picks a language themselves — from the opening
+ * Set only when the visitor picks a language themselves - from the opening
  * dialog or the header rocker. LOCALE_COOKIE alone is not enough to tell an
  * explicit choice from the proxy's Accept-Language guess, and the dialog must
  * only ever ask once.

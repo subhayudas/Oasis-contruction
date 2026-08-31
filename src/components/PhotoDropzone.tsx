@@ -27,7 +27,7 @@ type Props = {
  * their own driveway looking at the crack should be able to photograph it and
  * send it in one motion.
  *
- * Object URLs are revoked when the preview goes away — otherwise every photo a
+ * Object URLs are revoked when the preview goes away - otherwise every photo a
  * visitor swaps out leaks the whole file until the tab closes.
  */
 export function PhotoDropzone({ files, onChange, id, describedBy, invalid, labels }: Props) {
@@ -98,7 +98,7 @@ export function PhotoDropzone({ files, onChange, id, describedBy, invalid, label
                   // next/image would gain nothing and cannot optimise a blob.
                   <img
                     src={previews[index]}
-                    alt={`${labels.previewLabel} — ${file.name}`}
+                    alt={`${labels.previewLabel} - ${file.name}`}
                     className="h-full w-full object-cover"
                   />
                 ) : null}
@@ -106,7 +106,7 @@ export function PhotoDropzone({ files, onChange, id, describedBy, invalid, label
               <button
                 type="button"
                 onClick={() => onChange(files.filter((_, i) => i !== index))}
-                aria-label={`${labels.remove} — ${file.name}`}
+                aria-label={`${labels.remove} - ${file.name}`}
                 className="bg-ink text-paper absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full shadow-[0_2px_6px_rgba(26,22,16,0.4)]"
               >
                 <IconClose className="h-3.5 w-3.5" />

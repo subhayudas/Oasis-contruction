@@ -2,8 +2,7 @@
 """Build web derivatives for the site's *illustrative* photography.
 
 These frames are AI-generated (OpenArt / GPT Image 2) and live in
-assets/generated. They illustrate the trades Oasis Construction performs —
-paver work, retaining walls, drainage, pressure washing — and they carry the
+assets/generated. They illustrate the trades Oasis Construction performs - paver work, retaining walls, drainage, pressure washing - and they carry the
 site everywhere EXCEPT the project sections.
 
 They are deliberately kept apart from scripts/build-images.py, which handles
@@ -12,7 +11,7 @@ photograph of a real Oasis project is processed there and shown only in the
 project galleries; nothing generated is ever presented as a completed job.
 Each manifest entry records its generated origin.
 
-Processing here is intentionally minimal — art-directed cropping, Lanczos
+Processing here is intentionally minimal - art-directed cropping, Lanczos
 resampling, output sharpening and AVIF/WebP/JPEG encoding. No tonal grading:
 the frames are already finished.
 
@@ -93,7 +92,7 @@ FRAMES: list[Frame] = [
         prompt="Paver driveway, retaining wall and lit entrance at dusk, suburban Quebec",
         variants=(
             Variant("wide", "21x9", focus=(0.5, 0.5), widths=(1280, 1920, 2560)),
-            # Keep the maple and the retaining wall in frame — they are the
+            # Keep the maple and the retaining wall in frame - they are the
             # landscaping in the shot; the lit door alone is just a house.
             Variant("landscape", "16x9", focus=(0.44, 0.5), widths=(960, 1280, 1600)),
             Variant("mobile", "4x5", focus=(0.55, 0.54), widths=(640, 900, 1200)),
@@ -246,7 +245,7 @@ def build_frame(frame: Frame, records: dict) -> None:
     base = Image.open(SRC / frame.src).convert("RGB")
     print(f"  {frame.id}: source {base.width}x{base.height}")
     entry = {
-        "origin": f"AI-generated illustrative photography (OpenArt, GPT Image 2) — {frame.prompt}. "
+        "origin": f"AI-generated illustrative photography (OpenArt, GPT Image 2) - {frame.prompt}. "
         f"Source file assets/generated/{frame.src}. Not a photograph of an Oasis Construction project.",
         "generated": True,
         "variants": {},

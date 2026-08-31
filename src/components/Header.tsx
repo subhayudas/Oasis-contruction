@@ -27,7 +27,7 @@ export function Header({ locale }: { locale: Locale }) {
   ];
 
   /**
-   * The sheet opens over the logo, so it needs a home link of its own — and
+   * The sheet opens over the logo, so it needs a home link of its own - and
    * it has room for the service-area page that the desktop bar does not.
    */
   const mobileItems = [

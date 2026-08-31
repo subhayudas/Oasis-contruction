@@ -3,8 +3,7 @@
 import { useCallback, useSyncExternalStore } from 'react';
 
 /**
- * Reads a value that only exists in the browser — localStorage, in practice —
- * without an effect that immediately calls setState.
+ * Reads a value that only exists in the browser - localStorage, in practice -  * without an effect that immediately calls setState.
  *
  * The obvious shape for this is `useState(null)` plus `useEffect(() => set(read()))`,
  * but that is a cascading render on every mount and React's lint rules reject

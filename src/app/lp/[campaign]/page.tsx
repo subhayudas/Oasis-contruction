@@ -27,7 +27,7 @@ import '../../globals.css';
  * visitor who arrived from an ad has exactly one job here, and every extra
  * link is a way out of it.
  *
- * They are French-only and noindex — organic search should land on /pave-uni
+ * They are French-only and noindex - organic search should land on /pave-uni
  * and /muret, which are the pages built to rank. Two near-identical pages
  * competing for the same query is how a small site cannibalises itself.
  */

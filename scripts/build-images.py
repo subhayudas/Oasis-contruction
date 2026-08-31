@@ -339,7 +339,7 @@ def build_logo(records: dict) -> None:
     ico.save(app_dir / "favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
 
     records["logo"] = {
-        "origin": "logo.jpeg (intake PDF, Logo) — circular mark isolated from the black JPEG corners",
+        "origin": "logo.jpeg (intake PDF, Logo) - circular mark isolated from the black JPEG corners",
         "variants": {
             "mark": {
                 "ratio": "1x1",

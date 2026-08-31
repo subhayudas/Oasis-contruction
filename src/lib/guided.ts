@@ -4,8 +4,7 @@ import { fileLimits, isValidEmail, isValidPhone } from './contact';
 /**
  * The guided form's state machine.
  *
- * Kept out of the component so the flow can be reasoned about — and tested —
- * without a DOM: every transition the visitor can cause is one action, and
+ * Kept out of the component so the flow can be reasoned about - and tested -  * without a DOM: every transition the visitor can cause is one action, and
  * the only way to reach the confirmation screen is a successful submission.
  *
  * `step` is the whole router: 0 is the intro, 1–6 are the questions, 7 is the
@@ -29,7 +28,7 @@ export const STEP = {
 
 export type StepIndex = (typeof STEP)[keyof typeof STEP];
 
-/** The analytics name for each step — stable, never localised. */
+/** The analytics name for each step - stable, never localised. */
 export const STEP_NAMES: Record<number, string> = {
   1: 'service',
   2: 'problem',
@@ -64,7 +63,7 @@ export type GuidedState = {
   submitted: boolean;
   /** Kept after the state is cleared, for the confirmation greeting. */
   firstName: string;
-  /** Epoch ms, stamped on the first interaction — never during render. */
+  /** Epoch ms, stamped on the first interaction - never during render. */
   startedAt: number | null;
   /** The furthest step reached, for the abandonment event. */
   furthestStep: number;
@@ -138,7 +137,7 @@ export function guidedReducer(state: GuidedState, action: GuidedAction): GuidedS
 
     case 'SELECT_SERVICE':
       // Changing the service invalidates the problem chosen under the old
-      // one — silently keeping it would send a "muret penche" lead tagged as
+      // one - silently keeping it would send a "muret penche" lead tagged as
       // drainage, which is worse than asking the question again.
       return advance(state, {
         service: action.key,

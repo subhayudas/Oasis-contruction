@@ -18,7 +18,7 @@ type Props = {
 };
 
 /**
- * A CTA that opens the guided form — and is still a working link without it.
+ * A CTA that opens the guided form - and is still a working link without it.
  *
  * It renders as a real anchor to the contact or photo page and only cancels
  * the navigation once the provider has answered, so a visitor with a blocked

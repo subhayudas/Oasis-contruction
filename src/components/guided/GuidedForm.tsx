@@ -58,7 +58,7 @@ const CONFIRM_MS = 300;
 
 type Props = {
   locale: Locale;
-  /** Where the form was opened from — recorded on every lead. */
+  /** Where the form was opened from - recorded on every lead. */
   source: string;
   /** Pre-highlights the matching card on a service or campaign page. */
   defaultService?: GuidedServiceKey;
@@ -71,7 +71,7 @@ type Props = {
  * The guided lead form.
  *
  * Six questions, one per screen, answered by tapping. Only the name and the
- * phone number are typed — everything the crew needs to prepare for the call
+ * phone number are typed - everything the crew needs to prepare for the call
  * arrives as structured selections the visitor never had to phrase.
  *
  * Three things are worth knowing about how it behaves:
@@ -85,7 +85,7 @@ type Props = {
  *   submission the server accepted.
  *
  *   Nothing is submitted until the last screen, so a visitor who leaves at
- *   step 4 leaves no half-lead behind — only a `form_abandon` event saying
+ *   step 4 leaves no half-lead behind - only a `form_abandon` event saying
  *   which screen lost them.
  */
 export function GuidedForm({ locale, source, defaultService, onClose, className = '' }: Props) {
@@ -122,12 +122,12 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   /**
    * `form_view` means the form was seen, not that the page loaded.
    *
-   * In the modal, mounting *is* being seen — it only exists because someone
+   * In the modal, mounting *is* being seen - it only exists because someone
    * pressed a key to open it. Embedded at the foot of a page it is not:
    * counting a view on every homepage load would put the whole funnel's
    * denominator at "everyone who arrived", and a real 70% completion rate
    * would read as 3%. So the embedded copy waits until it is actually on
-   * screen. The ref guard keeps it to one event either way — a mount effect
+   * screen. The ref guard keeps it to one event either way - a mount effect
    * is the classic way to send an event twice.
    */
   const viewed = useRef(false);
@@ -147,7 +147,7 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
     }
 
     const node = rootRef.current;
-    // No observer (or no node) should not cost the event entirely — an
+    // No observer (or no node) should not cost the event entirely - an
     // uncounted view is a hole in the funnel, so fall back to the mount.
     if (!node || typeof IntersectionObserver === 'undefined') {
       fire();
@@ -190,7 +190,7 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   /* Each new question starts at the top of its own screen.
      In the modal that means resetting the sheet's own scroll; embedded in a
      page there is no inner scroller, so the form itself is brought back
-     into view — and only when it has actually left, so a visitor already
+     into view - and only when it has actually left, so a visitor already
      looking at it is never yanked. */
   useEffect(() => {
     const scroller = scrollRef.current;
@@ -241,7 +241,7 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   }
 
   /* The file error lives in the reducer, so reporting it belongs here rather
-     than in the branch that computed it — this fires once per new error. */
+     than in the branch that computed it - this fires once per new error. */
   useEffect(() => {
     if (state.fileError) trackGuidedError(STEP.photos, 'photos', state.fileError);
   }, [state.fileError]);

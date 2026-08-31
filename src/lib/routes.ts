@@ -37,7 +37,7 @@ export const simplePages = [
 export type SimplePageKey = (typeof simplePages)[number];
 
 /**
- * Service pages sit at the root of their language, not under /services — a
+ * Service pages sit at the root of their language, not under /services - a
  * homeowner searching "muret Laval" should land on oasis-construction.ca/muret.
  * /services remains as a hub that links to all six.
  */
@@ -56,7 +56,7 @@ export const serviceKeys = Object.keys(serviceSlugs) as ServiceKey[];
 
 /* ------------------------------------------------------------ path builders */
 
-/** `/` for French, `/en` for English — the prefix every other path starts with. */
+/** `/` for French, `/en` for English - the prefix every other path starts with. */
 export function localeRoot(locale: Locale): string {
   return locale === defaultLocale ? '' : `/${locale}`;
 }
@@ -96,7 +96,7 @@ export function pageKeyFromSlug(locale: Locale, slug: string): SimplePageKey | u
 
 /* --------------------------------------------------------------- alternates */
 
-/** Every localised URL for one logical page — used for hreflang alternates. */
+/** Every localised URL for one logical page - used for hreflang alternates. */
 export function alternatesForPage(key: PageKey): Record<Locale, string> {
   return Object.fromEntries(locales.map((l) => [l, pagePath(l, key)])) as Record<
     Locale,

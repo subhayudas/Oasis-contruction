@@ -55,7 +55,7 @@ export type ContactPayload = {
   preferred: PreferredContact;
   consent: boolean;
   locale: string;
-  /** Honeypot — must stay empty. */
+  /** Honeypot - must stay empty. */
   website: string;
   /** Milliseconds the form was on screen before submission. */
   elapsed: number;
@@ -64,10 +64,10 @@ export type ContactPayload = {
 /**
  * The forms on the site:
  *
- *   general  the classic quote form — name + phone required, the rest optional
- *   photo    the photo funnel — at least one photograph plus name and phone
- *   contact  the contact page — a fuller enquiry with a subject
- *   guided   the six-step tap-through form — name + phone, everything else
+ *   general  the classic quote form - name + phone required, the rest optional
+ *   photo    the photo funnel - at least one photograph plus name and phone
+ *   contact  the contact page - a fuller enquiry with a subject
+ *   guided   the six-step tap-through form - name + phone, everything else
  *            arrives as structured selections the visitor never typed
  */
 export type ContactVariant = 'general' | 'photo' | 'contact' | 'guided';

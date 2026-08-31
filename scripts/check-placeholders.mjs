@@ -3,8 +3,8 @@
  * Lists every business fact the site is still waiting on.
  *
  * Run it before a launch, and again after the client sends anything over. A
- * non-empty list is not a build failure — the site is designed to ship with
- * these visible — but nobody should be able to launch without having seen it.
+ * non-empty list is not a build failure - the site is designed to ship with
+ * these visible - but nobody should be able to launch without having seen it.
  */
 import { readFileSync } from 'node:fs';
 

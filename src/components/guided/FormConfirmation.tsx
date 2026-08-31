@@ -16,7 +16,7 @@ import { pagePath } from '@/lib/routes';
  * It answers the three questions a visitor has the moment they let go of a
  * lead: did it arrive, what happens next, and what if I do not want to wait.
  * The callback window is a `{responseTime}` hole rather than an invented
- * number — a promise the business has not made is not ours to make, and a
+ * number - a promise the business has not made is not ours to make, and a
  * missed one costs more than the vagueness does.
  *
  * The testimonial is one of the two the business has actually published,
@@ -97,7 +97,7 @@ export function FormConfirmation({
               “{review.quote}”
             </blockquote>
             <figcaption className="u-meta mt-2.5">
-              — {review.author}, {review.date.slice(0, 4)}
+              - {review.author}, {review.date.slice(0, 4)}
             </figcaption>
           </figure>
         </>

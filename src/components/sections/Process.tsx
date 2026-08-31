@@ -1,9 +1,11 @@
+import { OpenGuidedForm } from '@/components/guided/OpenGuidedForm';
 import { Picture } from '@/components/Picture';
 import { SectionHeading } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
 import { sceneById } from '@/content/imagery';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
+import { pagePath } from '@/lib/routes';
 
 type Step = { step: string; title: string; text: string };
 
@@ -83,6 +85,14 @@ export function Process({ locale }: { locale: Locale }) {
         </figure>
 
         <ProcessSteps steps={t.processSection.steps} className="mt-12 lg:gap-x-7" />
+        <div className="reveal mt-10">
+          <OpenGuidedForm
+            href={pagePath(locale, 'contact')}
+            label={t.common.quote}
+            location="process"
+            className="btn btn-stone"
+          />
+        </div>
       </div>
     </section>
   );

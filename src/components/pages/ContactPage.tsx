@@ -63,18 +63,18 @@ export function ContactPage({ locale }: { locale: Locale }) {
                     data-cta={t.common.callNow}
                     data-cta-location="contact-page"
                     className="btn btn-brass w-full justify-start"
-                    aria-label={`${t.common.callUs} — ${entry.name} : ${entry.display}`}
+                    aria-label={`${t.common.callUs} - ${entry.name} : ${entry.display}`}
                   >
                     <IconPhone className="h-4.5 w-4.5" />
                     <span>
-                      {entry.name} — {entry.display}
+                      {entry.name} - {entry.display}
                     </span>
                   </a>
                 </li>
               ))}
               <li>
                 {/* The guided form is already on this page, and its step 5
-                    is the photograph — so this scrolls to it rather than
+                    is the photograph - so this scrolls to it rather than
                     opening a second copy of it in a modal. */}
                 <a
                   href="#demande"
@@ -179,8 +179,8 @@ export function ContactPage({ locale }: { locale: Locale }) {
             {/* The guided form is the primary path: a homeowner with a
                 problem should never have to compose a paragraph to report
                 it. The message form stays underneath for the enquiries that
-                are genuinely correspondence — a question about an invoice, a
-                supplier, a job already done — which the six questions above
+                are genuinely correspondence - a question about an invoice, a
+                supplier, a job already done - which the six questions above
                 would only get in the way of. */}
             <h2 id="demande" className="u-h3 scroll-mt-28 text-[1.25rem]">
               {t.contactPage.guidedTitle}

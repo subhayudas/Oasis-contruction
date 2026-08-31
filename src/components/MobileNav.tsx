@@ -23,7 +23,7 @@ type Props = {
  * every entry a real link, so the panel is usable with a keyboard, a screen
  * reader or a thumb.
  *
- * The sheet belongs to the right edge of the screen — it arrives from there
+ * The sheet belongs to the right edge of the screen - it arrives from there
  * and returns there, which is what gives a phone a place to picture the menu
  * when it is shut. That needs an exit as well as an entrance, so the markup
  * stays in the document and `visibility` does the hiding: it takes the panel
@@ -54,8 +54,7 @@ export function MobileNav({
   }, []);
 
   /* Close whenever navigation actually happens. React documents this
-     render-phase comparison as the way to adjust state from a changed prop —
-     an effect that calls setState would render the open sheet once first. */
+     render-phase comparison as the way to adjust state from a changed prop -      an effect that calls setState would render the open sheet once first. */
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);

@@ -75,7 +75,7 @@ export function AreasPage({ locale }: { locale: Locale }) {
             <p className="u-body mt-5 max-w-xl">{t.areasPage.whyLocalBody}</p>
 
             {/* Rendered only once the business supplies the exact territory
-                wording — an empty section beats a bracketed one here, because
+                wording - an empty section beats a bracketed one here, because
                 this page is otherwise complete without it. */}
             {hasFact('serviceAreas') ? (
               <div className="mt-8">

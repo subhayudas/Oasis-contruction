@@ -9,7 +9,7 @@ import { StepHeader } from './StepHeader';
  *
  * This is the field that lets the crew call the right person first. "Je
  * regarde mes options" is written as a legitimate answer rather than a
- * disqualifier — a visitor who feels punished for picking it will pick
+ * disqualifier - a visitor who feels punished for picking it will pick
  * something else, and then the ordering the question exists to produce is
  * wrong for every lead in the list.
  */

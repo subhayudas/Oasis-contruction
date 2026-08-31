@@ -54,7 +54,7 @@ export const paveUni: Service = {
         'Contours de piscine',
       ],
 
-      note: 'Selon l’état de la fondation et l’étendue des dommages, certaines surfaces demandent une réfection plus large qu’une réparation ponctuelle. On vous le dit dès la visite, avant de commencer. Ce qui est compris et ce qui est en supplément — démolition et disposition de l’ancienne surface, profondeur d’excavation, membrane géotextile, bordures de retenue — est détaillé dans le devis.',
+      note: 'Selon l’état de la fondation et l’étendue des dommages, certaines surfaces demandent une réfection plus large qu’une réparation ponctuelle. On vous le dit dès la visite, avant de commencer. Ce qui est compris et ce qui est en supplément - démolition et disposition de l’ancienne surface, profondeur d’excavation, membrane géotextile, bordures de retenue - est détaillé dans le devis.',
 
       localTitle: 'À Laval et sur la Rive-Nord',
       local:
@@ -99,7 +99,7 @@ export const paveUni: Service = {
         'S’il s’agit d’une nouvelle installation ou d’une réparation',
       ],
       priceNote:
-        'C’est pour ça qu’on fait une évaluation gratuite sur place — on ne peut pas vous donner un prix juste sans avoir vu le site.',
+        'C’est pour ça qu’on fait une évaluation gratuite sur place - on ne peut pas vous donner un prix juste sans avoir vu le site.',
 
       faqTitle: 'Questions fréquentes',
       faq: [
@@ -109,7 +109,7 @@ export const paveUni: Service = {
         },
         {
           q: 'Combien de temps dure une installation de pavé uni?',
-          a: 'Une installation bien faite, avec une base correctement préparée et un drainage qui fonctionne, dure très longtemps — le pavé lui-même s’use beaucoup moins vite que la base sur laquelle il repose. La clé, c’est la préparation de la base. C’est aussi pourquoi la majorité des réparations qu’on fait ne sont pas des problèmes de pavé, mais des problèmes de fondation.',
+          a: 'Une installation bien faite, avec une base correctement préparée et un drainage qui fonctionne, dure très longtemps - le pavé lui-même s’use beaucoup moins vite que la base sur laquelle il repose. La clé, c’est la préparation de la base. C’est aussi pourquoi la majorité des réparations qu’on fait ne sont pas des problèmes de pavé, mais des problèmes de fondation.',
         },
         {
           q: 'Le pavé uni résiste-t-il au gel-dégel?',
@@ -128,7 +128,7 @@ export const paveUni: Service = {
       warrantyTitle: 'Garantie',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Pavé uni Laval — Installation et réparation | Oasis Construction',
+      metaTitle: 'Pavé uni Laval - Installation et réparation | Oasis Construction',
       metaDescription:
         'Installation et réparation de pavé uni à Laval et sur la Rive-Nord. Évaluation gratuite, devis transparent. Appelez (438) 505-4846.',
     },
@@ -150,7 +150,7 @@ export const paveUni: Service = {
       causesTitle: 'What causes it',
       causes: [
         'Settling pavers are almost always a base problem: insufficient preparation, poor drainage, or ground movement from freeze-thaw. Repairing the surface without addressing the cause just books the same problem for a few years from now.',
-        'Joints that empty out, an edge that lifts, a dip that always forms in the same place near a downspout — these are rarely coincidences. That is water travelling where it should not.',
+        'Joints that empty out, an edge that lifts, a dip that always forms in the same place near a downspout - these are rarely coincidences. That is water travelling where it should not.',
       ],
 
       solutionTitle: 'What we do',
@@ -180,7 +180,7 @@ export const paveUni: Service = {
         'Pool surrounds',
       ],
 
-      note: 'Depending on the condition of the base and how far the damage extends, some surfaces need a broader rebuild rather than a spot repair. We tell you that at the visit, before anything starts. What is included and what is extra — demolition and disposal of the old surface, excavation depth, geotextile fabric, edge restraints — is itemised in the quote.',
+      note: 'Depending on the condition of the base and how far the damage extends, some surfaces need a broader rebuild rather than a spot repair. We tell you that at the visit, before anything starts. What is included and what is extra - demolition and disposal of the old surface, excavation depth, geotextile fabric, edge restraints - is itemised in the quote.',
 
       localTitle: 'In Laval and the North Shore',
       local:
@@ -225,7 +225,7 @@ export const paveUni: Service = {
         'Whether it is a new installation or a repair',
       ],
       priceNote:
-        'That is why the on-site assessment is free — we cannot give you an honest price without seeing the site.',
+        'That is why the on-site assessment is free - we cannot give you an honest price without seeing the site.',
 
       faqTitle: 'Frequently asked questions',
       faq: [
@@ -235,7 +235,7 @@ export const paveUni: Service = {
         },
         {
           q: 'How long does a paver installation last?',
-          a: 'A properly built installation, with a correctly prepared base and drainage that works, lasts a very long time — the pavers themselves wear far more slowly than the base under them. The base is the whole game. It is also why most of the repairs we do are not paver problems at all; they are base problems.',
+          a: 'A properly built installation, with a correctly prepared base and drainage that works, lasts a very long time - the pavers themselves wear far more slowly than the base under them. The base is the whole game. It is also why most of the repairs we do are not paver problems at all; they are base problems.',
         },
         {
           q: 'Do pavers hold up to freeze-thaw?',
@@ -254,7 +254,7 @@ export const paveUni: Service = {
       warrantyTitle: 'Warranty',
       warranty: '{warrantyTerms}',
 
-      metaTitle: 'Interlocking pavers Laval — Repair | Oasis Construction',
+      metaTitle: 'Interlocking pavers Laval - Repair | Oasis Construction',
       metaDescription:
         'Interlocking paver installation and repair in Laval and the North Shore. Free assessment, transparent quote. Call (438) 505-4846.',
     },

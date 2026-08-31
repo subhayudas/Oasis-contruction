@@ -1,6 +1,6 @@
 {
   "logo": {
-    "origin": "logo.jpeg (intake PDF, Logo) — circular mark isolated from the black JPEG corners",
+    "origin": "logo.jpeg (intake PDF, Logo) - circular mark isolated from the black JPEG corners",
     "variants": {
       "mark": {
         "ratio": "1x1",
@@ -655,7 +655,7 @@
     }
   },
   "scene-entree-crepuscule": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Paver driveway, retaining wall and lit entrance at dusk, suburban Quebec. Source file assets/generated/hero-oasis-driveway-dusk.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Paver driveway, retaining wall and lit entrance at dusk, suburban Quebec. Source file assets/generated/hero-oasis-driveway-dusk.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -718,7 +718,7 @@
     }
   },
   "scene-pave-uni-allee": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Herringbone paver driveway with soldier-course border, golden hour. Source file assets/generated/service-pave-uni-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Herringbone paver driveway with soldier-course border, golden hour. Source file assets/generated/service-pave-uni-hero.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -781,7 +781,7 @@
     }
   },
   "scene-pave-uni-pose": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Paver set by hand on screeded bedding sand, string line and mallet. Source file assets/generated/service-pave-uni-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Paver set by hand on screeded bedding sand, string line and mallet. Source file assets/generated/service-pave-uni-detail.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -825,7 +825,7 @@
     }
   },
   "scene-muret-talus": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Segmental block retaining wall along a driveway with stone steps. Source file assets/generated/service-muret-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Segmental block retaining wall along a driveway with stone steps. Source file assets/generated/service-muret-hero.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -888,7 +888,7 @@
     }
   },
   "scene-muret-assise": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Top course of a block wall levelled, drainage stone and geotextile behind. Source file assets/generated/service-muret-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Top course of a block wall levelled, drainage stone and geotextile behind. Source file assets/generated/service-muret-detail.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -932,7 +932,7 @@
     }
   },
   "scene-drainage-tranchee": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — French drain trench along a foundation: perforated pipe, stone, geotextile. Source file assets/generated/service-drainage-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - French drain trench along a foundation: perforated pipe, stone, geotextile. Source file assets/generated/service-drainage-hero.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -995,7 +995,7 @@
     }
   },
   "scene-drainage-drain": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Perforated pipe wrapped in geotextile and bedded in washed stone, catch basin. Source file assets/generated/service-drainage-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Perforated pipe wrapped in geotextile and bedded in washed stone, catch basin. Source file assets/generated/service-drainage-detail.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -1039,7 +1039,7 @@
     }
   },
   "scene-nettoyage-allee": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Pressure washing a paver driveway, clean/dirty demarcation line. Source file assets/generated/service-nettoyage-hero.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Pressure washing a paver driveway, clean/dirty demarcation line. Source file assets/generated/service-nettoyage-hero.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -1102,7 +1102,7 @@
     }
   },
   "scene-nettoyage-jet": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — High-pressure fan striking flagstone joints, clean strip appearing. Source file assets/generated/service-nettoyage-detail.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - High-pressure fan striking flagstone joints, clean strip appearing. Source file assets/generated/service-nettoyage-detail.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -1146,7 +1146,7 @@
     }
   },
   "scene-equipe-chantier": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Two-person crew laying pavers, plate compactor and screed rails, golden hour. Source file assets/generated/about-crew-laying-pavers.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Two-person crew laying pavers, plate compactor and screed rails, golden hour. Source file assets/generated/about-crew-laying-pavers.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -1209,7 +1209,7 @@
     }
   },
   "scene-terrasse-finie": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Large-format slab terrace with a seat wall at golden hour. Source file assets/generated/about-terrasse-finie.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Large-format slab terrace with a seat wall at golden hour. Source file assets/generated/about-terrasse-finie.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {
@@ -1291,7 +1291,7 @@
     }
   },
   "scene-cordeau-sable": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — String line over screeded bedding sand at dusk, screed rail and mallet. Source file assets/generated/craft-cordeau-sable.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - String line over screeded bedding sand at dusk, screed rail and mallet. Source file assets/generated/craft-cordeau-sable.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "portrait": {
@@ -1354,7 +1354,7 @@
     }
   },
   "scene-releve-niveau": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Rotary laser level on a settled paver driveway during a site survey. Source file assets/generated/process-releve-niveau.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Rotary laser level on a settled paver driveway during a site survey. Source file assets/generated/process-releve-niveau.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "banner": {
@@ -1417,7 +1417,7 @@
     }
   },
   "scene-entree-pierre": {
-    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) — Flagstone walkway curving to a covered entrance, planting bed alongside. Source file assets/generated/entree-pierre-naturelle.jpg. Not a photograph of an Oasis Construction project.",
+    "origin": "AI-generated illustrative photography (OpenArt, GPT Image 2) - Flagstone walkway curving to a covered entrance, planting bed alongside. Source file assets/generated/entree-pierre-naturelle.jpg. Not a photograph of an Oasis Construction project.",
     "generated": true,
     "variants": {
       "wide": {

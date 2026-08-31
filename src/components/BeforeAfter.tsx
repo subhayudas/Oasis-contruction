@@ -28,7 +28,7 @@ type Props = {
  *
  * Sitting still at the halfway mark, though, it reads as a photograph with a
  * line drawn on it. So the first time it comes into view it wipes once in each
- * direction and settles back — the only way to say "this drags" without
+ * direction and settles back - the only way to say "this drags" without
  * printing an instruction over the picture. The hint runs once per mount, is
  * cancelled the moment the reader touches the control, and never starts at all
  * for a reader who has asked for less motion.
@@ -58,7 +58,7 @@ export function BeforeAfter({ before, after, labels, sizes, className = '' }: Pr
           observer.disconnect();
           frame.classList.add('is-hinting');
           // Photographs inside the frame fade in with animations of their
-          // own, and those bubble — only the frame's own end matters here.
+          // own, and those bubble - only the frame's own end matters here.
           frame.addEventListener('animationend', function done(event) {
             if (event.target !== frame) return;
             frame.removeEventListener('animationend', done);

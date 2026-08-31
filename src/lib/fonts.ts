@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 /**
  * Both families are vendored, subset to the Latin + French glyphs the site
  * actually uses (60 KB for all three files), and self-hosted through
- * next/font — no third-party request, no flash of unstyled text, and the
+ * next/font - no third-party request, no flash of unstyled text, and the
  * metric overrides below keep the fallback from shifting the layout.
  */
 export const geist = localFont({

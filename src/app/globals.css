@@ -1,12 +1,12 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   Oasis Construction — charcoal ground, warm gold accent.
+   Oasis Construction - charcoal ground, warm gold accent.
 
    Three ideas carry the whole system:
      1. White is the material. Everything is cut from paper-white and lit.
      2. Gold is the light. Accents, rims and reflected bounce are all warm.
-     3. Depth is drawn, not faked flat — every surface states whether it is
+     3. Depth is drawn, not faked flat - every surface states whether it is
         raised (gloss on top, shadow below) or recessed (shadow on top).
 
    The page tooth stays, but only as a whisper: enough to keep large white
@@ -15,14 +15,14 @@
    ========================================================================== */
 
 @theme {
-  /* Surfaces — white is the page, warm light grey is the alternating band. */
+  /* Surfaces - white is the page, warm light grey is the alternating band. */
   --color-paper: #ffffff;
   --color-paper-2: #fafaf8;
   --color-sand: #f5f5f5;
   --color-limestone: #e9e6df;
   --color-stone: #d6d1c6;
 
-  /* Text — charcoal, not pure black, so large fields of type stay readable.
+  /* Text - charcoal, not pure black, so large fields of type stay readable.
      Every step below meets 4.5:1 on white; -50 is the floor for body copy. */
   --color-ink: #1a1a1a;
   --color-ink-80: #333333;
@@ -37,7 +37,7 @@
   /* The accent. `brass` is the warm gold of the brief and rides dark grounds
      (6.2:1 on the lightest stop of the dark band); `brass-deep` is the same
      hue taken down far enough to clear 4.5:1 as text on BOTH white and the
-     #f5f5f5 alternating band — #c4a45c is 2.1:1 on white and unusable for
+     #f5f5f5 alternating band - #c4a45c is 2.1:1 on white and unusable for
      type, and the obvious first darkening, #8a6d2f, still misses on sand. */
   --color-brass: #c4a45c;
   --color-brass-deep: #7a5f22;
@@ -78,12 +78,12 @@
     --dur: 260ms;
 
     /* How long a surface takes to arrive. Sections no longer meet on a ruled
-       line — each ground rises out of the one above it over this distance.
+       line - each ground rises out of the one above it over this distance.
        Kept shorter than the smallest section padding so a ramp never reaches
        a line of type. */
     --seam: clamp(3.25rem, 6.2vw, 6rem);
 
-    /* The navy the dark bands bottom out at — the last stop of the surface
+    /* The navy the dark bands bottom out at - the last stop of the surface
        gradient below. Named because the ramps have to open on exactly it to
        be continuous with the band they are leaving. */
     --ink-floor: #121212;
@@ -139,7 +139,7 @@
   body {
     /* Two very soft blue blooms, fixed to the viewport. They are almost
        invisible on their own, but they are what the frosted surfaces have
-       to refract — glass over flat white has nothing to say. */
+       to refract - glass over flat white has nothing to say. */
     background-color: var(--color-paper);
     background-image:
       radial-gradient(58rem 40rem at 8% -10%, rgb(var(--blue) / 0.05), transparent 62%),
@@ -226,8 +226,8 @@
 
 @layer components {
   /* The scale from the design system, and the only place it is set. Sizes
-     are clamped between the mobile and desktop figures in the brief — H1
-     28→48px, H2 24→36px, H3 20→28px — so nothing needs a per-component
+     are clamped between the mobile and desktop figures in the brief - H1
+     28→48px, H2 24→36px, H3 20→28px - so nothing needs a per-component
      override and headings cannot drift apart from one page to the next. */
   .u-display {
     font-family: var(--font-sans);
@@ -324,7 +324,7 @@
     margin: 0;
   }
 
-  /* The register mark under an eyebrow — steel blue running into brand blue. */
+  /* The register mark under an eyebrow - steel blue running into brand blue. */
   .u-tick {
     display: block;
     width: 2.75rem;
@@ -404,7 +404,7 @@
     pointer-events: none;
   }
 
-  /* Frosted bar — the sticky header. Sits over moving content, so the blur
+  /* Frosted bar - the sticky header. Sits over moving content, so the blur
      has to do real work; the rim and the hairline underneath give it an
      edge you can actually see against white. */
   /* The frost lives on a child layer, never on the bar itself: an element
@@ -435,7 +435,7 @@
       0 14px 30px -26px rgb(var(--sh) / 0.55);
   }
 
-  /* Frosted panel — dialogs and drawers. These float over whatever the page
+  /* Frosted panel - dialogs and drawers. These float over whatever the page
      was showing, often a photograph, so the frost is heavy on purpose: the
      panel's own content has to stay the most legible thing on screen. What
      shows through is a ghost, not a competing image. */
@@ -499,7 +499,7 @@
      Two rules keep this honest. Every ramp lives inside section padding, so
      no line of type is ever set on half-mixed ground. And every ramp is
      fully transparent at one end, so it composites over whatever is really
-     there instead of guessing at a colour to match — which matters here,
+     there instead of guessing at a colour to match - which matters here,
      because the page's blue blooms are fixed to the viewport and the ground
      under any given seam is not the same white twice.
      ============================================================== */
@@ -538,7 +538,7 @@
     inset-block: calc(var(--seam) * -1) 0;
     background: var(--ink-surface);
     /* A smoothstep, not a straight ramp. Both ends have to leave without
-       being seen leaving — a linear fade announces itself at the two points
+       being seen leaving - a linear fade announces itself at the two points
        where its slope changes, which is exactly the pair of lines this is
        here to get rid of. */
     --seam-mask: linear-gradient(
@@ -559,7 +559,7 @@
   /* --- arriving out of another dark band -------------------------------
      Two bands running together are meant to read as one surface, but each
      starts its gradient over, so the darkest row of one lands against the
-     lightest row of the next. Nothing needs to fade in here — the join just
+     lightest row of the next. Nothing needs to fade in here - the join just
      needs the floor colour carried across it and let go of. */
   main > .s-ink + .s-ink::before,
   main:has(> :last-child.s-ink) + footer.s-ink::before {
@@ -653,7 +653,7 @@
   }
 
   /* Inset tray: a milled channel in the surface. Shadow along the top edge,
-     highlight along the bottom — the opposite of everything raised. */
+     highlight along the bottom - the opposite of everything raised. */
   .s-tray {
     position: relative;
     background: linear-gradient(
@@ -680,8 +680,7 @@
       0 1px 0 rgb(255 255 255 / 0.06);
   }
 
-  /* Material sample: the service card. A cut sample lifted off its board —
-     glossed across the top third, blue bounce underneath, and a hover that
+  /* Material sample: the service card. A cut sample lifted off its board -      glossed across the top third, blue bounce underneath, and a hover that
      genuinely raises it rather than just recolouring. */
   .s-sample {
     position: relative;
@@ -996,7 +995,7 @@
 
   /* ------------------------------------------------- language gate (opening) */
 
-  /* The engraved code plate on each choice — the rocker key, standing alone. */
+  /* The engraved code plate on each choice - the rocker key, standing alone. */
   .gate-code {
     position: relative;
     display: inline-flex;
@@ -1048,7 +1047,7 @@
 
   /* ------------------------------------------------------------- imagery */
 
-  /* Chamfered top-right corner — the notched print detail, used sparingly. */
+  /* Chamfered top-right corner - the notched print detail, used sparingly. */
   .clip-notch {
     clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%);
   }
@@ -1091,7 +1090,7 @@
 
   /* The panel stays in the document so its exit can play and so the trigger's
      aria-controls always points at something real. `visibility` is what takes
-     it out of the tab order and the accessibility tree — `opacity` alone would
+     it out of the tab order and the accessibility tree - `opacity` alone would
      leave a focusable, invisible menu sitting over the page. */
   .menu-panel {
     visibility: hidden;
@@ -1269,8 +1268,8 @@
     /* Paired columns converge on each other rather than both rising: the
        photograph comes in from the side it lives on, so the relationship
        between the picture and the text it belongs to is stated by the
-       movement itself. Horizontal offsets are safe — the body clips its own
-       overflow — and stay small enough never to read as a slide-in. */
+       movement itself. Horizontal offsets are safe - the body clips its own
+       overflow - and stay small enough never to read as a slide-in. */
     .reveal-l {
       transform: translate3d(-20px, 8px, 0);
     }
@@ -1342,7 +1341,7 @@
 
   /* Once the page has moved under it the bar has to hold its own edge against
      photographs and dark bands, so the glass thickens and its shadow lengthens.
-     Nothing about the layout changes — the header keeps its height, so the
+     Nothing about the layout changes - the header keeps its height, so the
      document never shifts under the reader. */
   .glass-bar::after {
     transition:
@@ -1372,7 +1371,7 @@
   /* ------------------------------------------------------- thumb bar reveal */
 
   /* The hero already carries both calls to action, so the pinned bar stays
-     out of the way until they leave the screen — then it slides up to take
+     out of the way until they leave the screen - then it slides up to take
      their place. Pages with no hero never set the flag and keep it on. */
   [data-mobile-contact-bar] {
     transition: transform 320ms var(--ease-material);
@@ -1435,8 +1434,7 @@
     }
   }
 
-  /* The chip rides above the card, so it lifts further than the card does —
-     the two shadows separating is what sells the card as a real object. */
+  /* The chip rides above the card, so it lifts further than the card does -      the two shadows separating is what sells the card as a real object. */
   .s-sample .s-chip {
     transition:
       transform var(--dur) var(--ease-material),
@@ -1654,7 +1652,7 @@
 
   /* A comparator that sits still at the halfway mark looks like a photograph
      with a line drawn on it. The first time it comes into view it wipes once,
-     both ways, and settles back — which is the only way to say "this drags"
+     both ways, and settles back - which is the only way to say "this drags"
      without printing an instruction on top of the picture. It runs once, it
      never runs if the reader has already grabbed the handle, and the wipe is
      driven straight off the custom property so React re-renders nothing. */
@@ -1730,12 +1728,12 @@
   }
 
   /* ==================================================================
-     Guided form — the tap-through lead flow.
+     Guided form - the tap-through lead flow.
 
      Every screen is one question and a column of keys. The keys are the
      whole interface, so they are built like keys: raised, warm, with a
      press state that answers the thumb before the screen changes. The
-     300ms selected state below is not decoration — it is the receipt
+     300ms selected state below is not decoration - it is the receipt
      for the tap, shown before the next question replaces it.
      ================================================================== */
 
@@ -2011,7 +2009,7 @@
 }
 
 /* ==========================================================================
-   Reduced motion — nothing on this site depends on movement to be understood.
+   Reduced motion - nothing on this site depends on movement to be understood.
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -2095,7 +2093,7 @@
   }
 
   /* The comparator hint is a movement with no still equivalent, so it is not
-     replayed at speed — it simply never runs. */
+     replayed at speed - it simply never runs. */
   .ba-frame.is-hinting {
     animation: none;
   }
@@ -2120,7 +2118,7 @@
   }
 
   /* The guided form's screens simply replace one another. The 300ms
-     selected state is kept — it is feedback, not decoration. */
+     selected state is kept - it is feedback, not decoration. */
   .g-step,
   .g-modal-veil,
   .g-modal-panel {
@@ -2141,8 +2139,8 @@
     display: none;
   }
 
-  /* Seams have nothing to blend into on paper — there is no page ground for
-     a ramp to dissolve towards — so the bands print on their own surface. */
+  /* Seams have nothing to blend into on paper - there is no page ground for
+     a ramp to dissolve towards - so the bands print on their own surface. */
   main > .s-ink::before,
   main > .s-ink + :not(.s-ink)::before,
   main + footer.s-ink::before {

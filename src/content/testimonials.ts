@@ -18,7 +18,7 @@ export type Testimonial = {
  *
  * These two are the reviews the business has published. There is no third,
  * no aggregate score and no review count anywhere on the site, because none
- * has been verified — inventing social proof is the one thing that would cost
+ * has been verified - inventing social proof is the one thing that would cost
  * more trust than having little of it.
  *
  * The quotes are reproduced verbatim, in the language they were written in.
@@ -54,7 +54,7 @@ export const testimonialTranslations: Record<string, string> = {
   'david-2025-05':
     'My steps were no longer safe. Thankfully Oasis Construction came and put the whole thing back like new.',
   'william-2025-05':
-    'Clean, fast, very professional work. The result is beyond what we expected — I recommend them without hesitation.',
+    'Clean, fast, very professional work. The result is beyond what we expected - I recommend them without hesitation.',
 };
 
 export function formatReviewDate(date: string, locale: Locale): string {

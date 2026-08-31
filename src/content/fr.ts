@@ -2,42 +2,42 @@ export const fr = {
   meta: {
     siteName: 'Oasis Construction',
     home: {
-      title: 'Oasis Construction — Pavé uni Laval et Rive-Nord',
+      title: 'Oasis Construction - Pavé uni Laval et Rive-Nord',
       description:
         'Réparation et aménagement de pavé uni à Laval et sur la Rive-Nord. Évaluation gratuite. Appelez (438) 505-4846.',
     },
     services: {
-      title: 'Nos services — Pavé uni, murets, drainage | Oasis Construction',
+      title: 'Nos services - Pavé uni, murets, drainage | Oasis Construction',
       description:
         'Pavé uni, murets, margelles, drainage, lavage sous pression et aménagement extérieur à Laval et sur la Rive-Nord. Évaluation gratuite.',
     },
     projects: {
-      title: 'Projets — Oasis Construction Laval',
+      title: 'Projets - Oasis Construction Laval',
       description:
         'Nos projets de pavé uni et aménagement extérieur à Laval et sur la Rive-Nord, avec transformations avant/après.',
     },
     about: {
-      title: 'À propos — Oasis Construction',
+      title: 'À propos - Oasis Construction',
       description:
         'Oasis Construction : spécialiste en pavé uni et aménagement extérieur à Laval et sur la Rive-Nord.',
     },
     contact: {
-      title: 'Contact — Oasis Construction',
+      title: 'Contact - Oasis Construction',
       description:
         'Contactez Oasis Construction pour un devis gratuit. (438) 505-4846. Laval et Rive-Nord.',
     },
     areas: {
-      title: 'Secteurs desservis — Laval et Rive-Nord | Oasis Construction',
+      title: 'Secteurs desservis - Laval et Rive-Nord | Oasis Construction',
       description:
         'Oasis Construction dessert Laval et la Rive-Nord de Montréal. Voyez les secteurs couverts et demandez une évaluation gratuite.',
     },
     photo: {
-      title: 'Envoyez-nous une photo — Oasis Construction',
+      title: 'Envoyez-nous une photo - Oasis Construction',
       description:
         'Pas sûr de ce qui se passe avec votre pavé, votre muret ou vos marches? Envoyez une photo et obtenez une première impression. Sans frais.',
     },
     privacy: {
-      title: 'Politique de confidentialité — Oasis Construction',
+      title: 'Politique de confidentialité - Oasis Construction',
       description:
         'Comment Oasis Construction recueille et utilise les renseignements transmis par les formulaires de son site web.',
     },
@@ -126,7 +126,7 @@ export const fr = {
   servicesSection: {
     eyebrow: 'Services',
     title: 'Nos services',
-    lede: 'Des travaux ciblés sur ce qui bouge, ce qui s’use et ce qui retient mal l’eau — plutôt que sur ce qui paraît bien en photo.',
+    lede: 'Des travaux ciblés sur ce qui bouge, ce qui s’use et ce qui retient mal l’eau - plutôt que sur ce qui paraît bien en photo.',
   },
 
   processSection: {
@@ -341,11 +341,11 @@ export const fr = {
       lede: 'Pavé qui bouge, creux qui se forment, joints qui se vident. On trouve ce qui cause le problème sous la surface, on le corrige, et on repose. Évaluation gratuite à Laval et sur la Rive-Nord.',
       points: [
         'Diagnostic de la fondation et du drainage avant tout devis',
-        'Réparation ciblée quand c’est possible — pas de remplacement inutile',
+        'Réparation ciblée quand c’est possible - pas de remplacement inutile',
         'Sable polymère neuf et bordures reprises',
         'Conçu pour les cycles de gel-dégel d’ici',
       ],
-      metaTitle: 'Réparation de pavé uni — Évaluation gratuite | Oasis Construction',
+      metaTitle: 'Réparation de pavé uni - Évaluation gratuite | Oasis Construction',
       metaDescription:
         'Pavé uni affaissé à Laval ou sur la Rive-Nord? Évaluation gratuite et devis transparent. Appelez (438) 505-4846.',
     },
@@ -358,7 +358,7 @@ export const fr = {
         'Pierre nette et membrane derrière le mur',
         'On vous dit si le mur relève de l’ingénierie',
       ],
-      metaTitle: 'Réparation de muret — Évaluation gratuite | Oasis Construction',
+      metaTitle: 'Réparation de muret - Évaluation gratuite | Oasis Construction',
       metaDescription:
         'Muret qui penche ou qui fissure à Laval ou sur la Rive-Nord? Évaluation gratuite et devis transparent. Appelez (438) 505-4846.',
     },
@@ -395,7 +395,7 @@ export const fr = {
       },
     ],
     teamTitle: 'L’équipe',
-    teamBody: '{founderName} — {founderBio}',
+    teamBody: '{founderName} - {founderBio}',
     teamPending:
       'Les photos de l’équipe et la présentation des fondateurs seront ajoutées ici dès que l’entreprise les aura fournies. En attendant, Hugo et Guillaume répondent tous les deux au téléphone.',
     credentialsTitle: 'Licences et assurances',
@@ -416,7 +416,7 @@ export const fr = {
   contactPage: {
     eyebrow: 'Contact',
     title: 'Contactez Oasis Construction',
-    lede: 'Remplissez le formulaire ou appelez directement. Plus vous décrivez la situation — et plus vous ajoutez de photos — plus la réponse sera précise.',
+    lede: 'Remplissez le formulaire ou appelez directement. Plus vous décrivez la situation - et plus vous ajoutez de photos - plus la réponse sera précise.',
     detailsTitle: 'Coordonnées',
     formTitle: 'Écrivez-nous',
     guidedTitle: 'Demandez votre évaluation gratuite',

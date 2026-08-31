@@ -16,8 +16,8 @@ import { pagePath, projectPath, servicePath } from '@/lib/routes';
 /**
  * A project detail page.
  *
- * The layout has slots for everything the brief asks for — location, duration,
- * the problem, the solution, the scope — but a slot only renders when the
+ * The layout has slots for everything the brief asks for - location, duration,
+ * the problem, the solution, the scope - but a slot only renders when the
  * business has actually supplied that fact. Where they have not, one labelled
  * note says so once, rather than a page of confident sentences reverse
  * engineered from a photograph.

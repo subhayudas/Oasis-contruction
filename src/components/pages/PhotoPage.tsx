@@ -14,7 +14,7 @@ import { pagePath } from '@/lib/routes';
  * A dedicated page as well as a modal: it can be linked from an ad, from a
  * text message and from the pinned thumb bar, it survives a page reload, and
  * it gets its own analytics view. The modal on the rest of the site runs the
- * same component, so there is one flow and one lead schema — the photograph
+ * same component, so there is one flow and one lead schema - the photograph
  * is step 5 of the guided form, not a funnel of its own.
  *
  * The disclaimer is above the form as well as inside the photo step. Setting

@@ -1,13 +1,12 @@
 /**
  * Business facts that Oasis Construction has not supplied yet.
  *
- * Every one of these is a claim a visitor could act on — a licence number, an
+ * Every one of these is a claim a visitor could act on - a licence number, an
  * insurer, a warranty, a review score. None of them is invented. Until the
  * business confirms a value, the site renders the bracketed token so the gap
  * is impossible to miss in QA and trivial to find with a global search.
  *
- * TO FILL ONE IN: set the value below. Nothing else in the codebase changes —
- * every component reads through `fact()` and `hasFact()`.
+ * TO FILL ONE IN: set the value below. Nothing else in the codebase changes -  * every component reads through `fact()` and `hasFact()`.
  *
  *   rbqNumber: null            →  rbqNumber: '5812-3456-01',
  *
@@ -33,7 +32,7 @@ export const PLACEHOLDER_TOKENS = {
 export type FactKey = keyof typeof PLACEHOLDER_TOKENS;
 
 /**
- * Confirmed values. `null` means "not supplied by the business yet" — never
+ * Confirmed values. `null` means "not supplied by the business yet" - never
  * "zero", never "unknown but probably". A value here must come from the
  * client in writing.
  */
@@ -63,7 +62,7 @@ export function hasFact(key: FactKey): boolean {
   return businessFacts[key] !== null;
 }
 
-/** Every fact still outstanding — used by the QA script and the build check. */
+/** Every fact still outstanding - used by the QA script and the build check. */
 export function outstandingFacts(): FactKey[] {
   return (Object.keys(businessFacts) as FactKey[]).filter((key) => !hasFact(key));
 }
@@ -86,7 +85,7 @@ export function fill(text: string): string {
  * The credentials the site is allowed to display right now.
  *
  * A licence number and an insurer are the strongest trust signals a
- * contractor has — and `RBQ [RBQ NUMBER]` is the weakest, because it reads to
+ * contractor has - and `RBQ [RBQ NUMBER]` is the weakest, because it reads to
  * a homeowner as an unfinished website. So the credential strips ask this
  * what they may show rather than printing a token, and they grow on their own
  * the day the business supplies a fact.
@@ -130,7 +129,7 @@ export function credentialLine(locale: 'fr' | 'en'): string {
  * Content that would render as "Notre numéro RBQ est [RBQ NUMBER]" is worse
  * than absent content: it answers a homeowner's trust question with evidence
  * that the site is unfinished. Render points use this to leave the item out
- * entirely until the fact exists — and because the FAQ's structured data is
+ * entirely until the fact exists - and because the FAQ's structured data is
  * built from the same filtered list, the schema can never claim an answer the
  * page does not show.
  */

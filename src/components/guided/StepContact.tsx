@@ -30,7 +30,7 @@ type Props = {
  *
  * Two fields are required, and they are the two the business actually works
  * from: a name and a number. Email is offered and never demanded, because
- * Oasis calls people — requiring an address here would cost submissions to
+ * Oasis calls people - requiring an address here would cost submissions to
  * collect a field nobody uses.
  *
  * The recap above the fields is deliberate: after five taps the visitor has
@@ -61,7 +61,7 @@ export function StepContact({
 
   useEffect(() => {
     // Autofocus the first field so the keyboard is already up when the
-    // screen settles — on a phone that is one fewer tap on the last step,
+    // screen settles - on a phone that is one fewer tap on the last step,
     // which is the step where abandonment is most expensive.
     nameRef.current?.focus({ preventScroll: true });
   }, []);

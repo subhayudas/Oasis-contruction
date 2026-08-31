@@ -2,8 +2,8 @@ import type { Locale } from '@/lib/i18n';
 
 /**
  * Two technical cross-sections drawn for this site. They stand in for
- * photographs the client does not have — a drain trench and a paver build-up
- * are almost always buried by the time anyone takes a picture — and they say
+ * photographs the client does not have - a drain trench and a paver build-up
+ * are almost always buried by the time anyone takes a picture - and they say
  * only what the service pages already say in words.
  */
 

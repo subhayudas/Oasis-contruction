@@ -14,7 +14,7 @@ type Filter = { value: ServiceKey | 'all'; label: string };
  *
  * Every project stays in the DOM and is hidden with `hidden` rather than
  * unmounted, so the whole gallery is still crawlable and still findable with
- * the browser's own find-in-page — a filter that empties the document is a
+ * the browser's own find-in-page - a filter that empties the document is a
  * filter that costs the page its indexable content.
  */
 export function ProjectFilters({

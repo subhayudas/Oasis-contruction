@@ -20,7 +20,7 @@ export type Project = {
    * renders a labelled gap rather than a plausible-sounding invention.
    *
    * A photograph shows what a surface looks like. It cannot tell you where it
-   * is, when it was built, or what the customer's problem was — so none of
+   * is, when it was built, or what the customer's problem was - so none of
    * that is written here from looking at the frame.
    */
   location: Copy | null;
@@ -46,7 +46,7 @@ export type BeforeAfter = {
   altAfter: Copy;
   /** Which services the transformation demonstrates. */
   tags: ServiceKey[];
-  /** Unverified detail-page metadata — see the note on Project above. */
+  /** Unverified detail-page metadata - see the note on Project above. */
   location: Copy | null;
   completedAt: Copy | null;
   duration: Copy | null;
@@ -57,7 +57,7 @@ export type BeforeAfter = {
 
 /**
  * Every entry below is one of the client's own photographs. Titles and captions
- * describe only what is visible in the frame — no client names, no addresses,
+ * describe only what is visible in the frame - no client names, no addresses,
  * no dates, no budgets, and no claims about scope that the photo cannot show.
  */
 export const projects: Project[] = [

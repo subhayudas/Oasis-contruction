@@ -3,8 +3,8 @@
  *
  * Everything here is confirmed by the client: the two mobile numbers, the
  * shared inbox, the street address, the social pages and the service area.
- * Anything NOT confirmed — licence number, insurer, warranty, review score,
- * project count, years in business, response time — lives in
+ * Anything NOT confirmed - licence number, insurer, warranty, review score,
+ * project count, years in business, response time - lives in
  * `placeholders.ts` as a bracketed token and is never guessed here.
  */
 

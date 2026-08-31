@@ -105,7 +105,7 @@ export const amenagementExterieur: Service = {
       faq: [
         {
           q: 'Qu’est-ce que le pavé uni chauffant?',
-          a: 'C’est un système de chauffage installé sous le pavé uni qui fait fondre la neige et la glace automatiquement. Plus de déneigement, plus de sel, plus de glissade. Il s’installe pendant la construction de la surface, pas après — c’est pour ça qu’il faut en parler au moment du plan.',
+          a: 'C’est un système de chauffage installé sous le pavé uni qui fait fondre la neige et la glace automatiquement. Plus de déneigement, plus de sel, plus de glissade. Il s’installe pendant la construction de la surface, pas après - c’est pour ça qu’il faut en parler au moment du plan.',
         },
         {
           q: 'Combien coûte un pavé uni chauffant?',
@@ -113,7 +113,7 @@ export const amenagementExterieur: Service = {
         },
         {
           q: 'Peut-on faire le projet en plusieurs phases?',
-          a: 'Oui, et c’est souvent la bonne façon de faire. On planifie l’ensemble dès le départ — surtout le drainage, les niveaux et tout ce qui passe sous terre — puis on réalise par étapes, sur une ou plusieurs saisons. Ce qu’il ne faut pas faire, c’est construire une phase sans savoir ce que la suivante exigera.',
+          a: 'Oui, et c’est souvent la bonne façon de faire. On planifie l’ensemble dès le départ - surtout le drainage, les niveaux et tout ce qui passe sous terre - puis on réalise par étapes, sur une ou plusieurs saisons. Ce qu’il ne faut pas faire, c’est construire une phase sans savoir ce que la suivante exigera.',
         },
         {
           q: 'Est-ce que vous faites la plantation et le gazon?',
@@ -226,7 +226,7 @@ export const amenagementExterieur: Service = {
       faq: [
         {
           q: 'What are heated pavers?',
-          a: 'A heating system installed under the pavers that melts snow and ice automatically. No shovelling, no salt, no slipping. It goes in while the surface is being built, not afterwards — which is why it has to be raised at the planning stage.',
+          a: 'A heating system installed under the pavers that melts snow and ice automatically. No shovelling, no salt, no slipping. It goes in while the surface is being built, not afterwards - which is why it has to be raised at the planning stage.',
         },
         {
           q: 'What do heated pavers cost?',
@@ -234,7 +234,7 @@ export const amenagementExterieur: Service = {
         },
         {
           q: 'Can the project be done in phases?',
-          a: 'Yes, and it is often the right way to do it. We plan the whole thing up front — especially drainage, levels and everything that goes underground — then build in stages over one or more seasons. What you should not do is build a phase without knowing what the next one will require.',
+          a: 'Yes, and it is often the right way to do it. We plan the whole thing up front - especially drainage, levels and everything that goes underground - then build in stages over one or more seasons. What you should not do is build a phase without knowing what the next one will require.',
         },
         {
           q: 'Do you do planting and lawns?',

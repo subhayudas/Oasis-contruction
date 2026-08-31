@@ -10,7 +10,7 @@ import { pagePath, type ServiceKey } from '@/lib/routes';
 
 /**
  * The last thing on every page except the contact page itself: three ways to
- * convert, in descending order of how much the visitor has to commit — call,
+ * convert, in descending order of how much the visitor has to commit - call,
  * send a photo, or answer six questions by tapping. The photo button and the
  * form are the same flow: the photograph is step 5 of it, so a visitor who
  * arrives wanting to send a picture lands on the question that asks for one

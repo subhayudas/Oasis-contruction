@@ -9,7 +9,7 @@ import { translatePath } from '@/lib/routes';
 
 type Props = {
   locale: Locale;
-  /** "Langue" / "Language" — labels the group for assistive tech. */
+  /** "Langue" / "Language" - labels the group for assistive tech. */
   groupLabel: string;
   /** Description of what switching does, e.g. "Voir cette page en anglais". */
   switchLabel: string;

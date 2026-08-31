@@ -39,7 +39,7 @@ export async function generateMetadata({
   return {
     ...buildMetadata({
       locale,
-      title: `${entry.title[locale]} — ${t.meta.siteName}`,
+      title: `${entry.title[locale]} - ${t.meta.siteName}`,
       description: entry.caption[locale].slice(0, 300),
       path: projectPath(locale, entry.id),
       alternates: alternatesForProject(entry.id),

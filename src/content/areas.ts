@@ -14,7 +14,7 @@ export type AreaGroup = {
  * The service area, as the business states it: Laval and the North Shore.
  *
  * The municipalities listed under each group are the ones that make up those
- * two territories — they are geography, not a claim about where work has been
+ * two territories - they are geography, not a claim about where work has been
  * completed. The page says so in as many words, and there is no separate page
  * per city: one honest service-area page beats a dozen doorway pages, and
  * Google treats the latter as spam.

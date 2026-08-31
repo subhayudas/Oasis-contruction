@@ -61,7 +61,7 @@ export default async function LocaleLayout({
       <head>
         {/* Runs before the first paint so a visitor who dismissed the
             announcement never sees it flash in and shove the page down.
-            Deliberately tiny, synchronous and dependency-free — anything
+            Deliberately tiny, synchronous and dependency-free - anything
             slower than this would delay the paint it exists to protect. */}
         <script
           dangerouslySetInnerHTML={{
@@ -124,7 +124,7 @@ export default async function LocaleLayout({
 
         <script
           type="application/ld+json"
-          // JSON-LD built entirely from src/content/site.ts — verified facts only.
+          // JSON-LD built entirely from src/content/site.ts - verified facts only.
           dangerouslySetInnerHTML={{
             __html: JSON.stringify([localBusinessJsonLd(locale), websiteJsonLd(locale)]),
           }}

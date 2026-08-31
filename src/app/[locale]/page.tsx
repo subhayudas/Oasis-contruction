@@ -51,7 +51,7 @@ export async function generateMetadata({
  *   7  projects       can they actually do this
  *   8  testimonials   what do other people say
  *   9  FAQ            my remaining objections
- *  10  final CTA      right — how do I start
+ *  10  final CTA      right - how do I start
  *  11  footer         (in the layout)
  *
  * The credentials strip that used to sit between the hero and the problem is

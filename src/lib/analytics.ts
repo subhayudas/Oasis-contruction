@@ -17,7 +17,7 @@ export type FormType = 'general' | 'photo' | 'contact' | 'guided';
  * The guided form's funnel.
  *
  * The six steps are measured individually because the only useful question
- * about a multi-step form is *where* people leave it — a single submit rate
+ * about a multi-step form is *where* people leave it - a single submit rate
  * tells you it is leaking without telling you which screen is the hole.
  * `form_abandon` carries the furthest step seen for exactly that reason.
  *

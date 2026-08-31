@@ -13,8 +13,7 @@ import { pagePath, type ServiceKey } from '@/lib/routes';
 export function ProjectsPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
-  // Only offer a filter for a service that actually has a project behind it —
-  // a chip that yields an empty grid reads as a broken site.
+  // Only offer a filter for a service that actually has a project behind it -   // a chip that yields an empty grid reads as a broken site.
   const used = new Set(projectEntries.flatMap((entry) => entry.tags));
   const filters = [
     { value: 'all' as const, label: t.projectsPage.filterAll },

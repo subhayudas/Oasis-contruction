@@ -22,7 +22,7 @@ export const dynamic = 'force-dynamic';
 
 /**
  * Best-effort, in-process throttle: enough to stop a bored bot, and honest
- * about its limits — it resets on deploy and is per-instance. Put a real
+ * about its limits - it resets on deploy and is per-instance. Put a real
  * rate limiter in front of the site if you need a guarantee.
  */
 const WINDOW_MS = 10 * 60 * 1000;
@@ -62,7 +62,7 @@ function escapeHtml(value: string): string {
 
 function serviceLabel(key: string): string {
   if (key === 'other') return 'Autre / non précisé';
-  if (!isServiceKey(key)) return key || '—';
+  if (!isServiceKey(key)) return key || ' - ';
   return services.find((s) => s.key === key)?.copy.fr.name ?? key;
 }
 
@@ -70,21 +70,21 @@ function subjectLabel(value: string): string {
   if (value === 'quote') return 'Devis';
   if (value === 'question') return 'Question';
   if (value === 'other') return 'Autre';
-  return '—';
+  return ' - ';
 }
 
 function renderEmail(payload: ContactPayload, fileNames: string[]): string {
   const rows: [string, string][] = [
     ['Nom', payload.name],
-    ['Téléphone', payload.phone || '—'],
-    ['Courriel', payload.email || '—'],
+    ['Téléphone', payload.phone || ' - '],
+    ['Courriel', payload.email || ' - '],
     ['Service', serviceLabel(payload.service)],
     ['Sujet', subjectLabel(payload.subject)],
-    ['Ville', payload.city || '—'],
-    ['Depuis quand', payload.duration || '—'],
+    ['Ville', payload.city || ' - '],
+    ['Depuis quand', payload.duration || ' - '],
     ['Contact préféré', payload.preferred],
     ['Langue du site', payload.locale],
-    ['Photos', fileNames.length ? fileNames.join(', ') : '—'],
+    ['Photos', fileNames.length ? fileNames.join(', ') : ' - '],
   ];
 
   return `<!doctype html><html lang="fr"><body style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#221c16;background:#f3efe1;padding:24px;">
@@ -136,7 +136,7 @@ type GuidedFields = {
 
 /** Urgent leads are called first, so the email says so above the fold. */
 const TIMELINE_RANK: Record<string, string> = {
-  asap: 'PRESSANT — à rappeler en premier',
+  asap: 'PRESSANT - à rappeler en premier',
   weeks: 'Dans les prochaines semaines',
   months: 'Dans 1 à 3 mois',
   exploring: 'Explore ses options',
@@ -149,22 +149,22 @@ function renderGuidedEmail(
 ): string {
   const rows: [string, string][] = [
     ['Nom', payload.name],
-    ['Téléphone', payload.phone || '—'],
-    ['Courriel', payload.email || '—'],
+    ['Téléphone', payload.phone || ' - '],
+    ['Courriel', payload.email || ' - '],
     ['Service', guided.serviceLabel || serviceLabel(payload.service)],
-    ['Problème', guided.problemLabel || guided.problem || '—'],
-    ['Secteur', payload.city || '—'],
-    ['Échéancier', guided.timelineLabel || '—'],
-    ['Priorité', TIMELINE_RANK[guided.timeline] ?? '—'],
-    ['Photos', fileNames.length ? `${fileNames.length} — ${fileNames.join(', ')}` : 'aucune'],
-    ['Page d’origine', guided.source || '—'],
+    ['Problème', guided.problemLabel || guided.problem || ' - '],
+    ['Secteur', payload.city || ' - '],
+    ['Échéancier', guided.timelineLabel || ' - '],
+    ['Priorité', TIMELINE_RANK[guided.timeline] ?? ' - '],
+    ['Photos', fileNames.length ? `${fileNames.length} - ${fileNames.join(', ')}` : 'aucune'],
+    ['Page d’origine', guided.source || ' - '],
     ['Langue du site', payload.locale],
   ];
 
   const urgent = guided.timeline === 'asap';
 
   return `<!doctype html><html lang="fr"><body style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#1a1a1a;background:#f5f5f5;padding:24px;">
-<h1 style="font-size:18px;margin:0 0 4px;">Nouvelle demande — ${escapeHtml(
+<h1 style="font-size:18px;margin:0 0 4px;">Nouvelle demande - ${escapeHtml(
     guided.serviceLabel || serviceLabel(payload.service),
   )}</h1>
 <p style="margin:0 0 20px;color:#6b6b6b;font-size:13px;">Formulaire guidé · oasis-construction.ca</p>
@@ -176,7 +176,7 @@ ${
 <p style="margin:0 0 20px;">
   <a href="tel:${escapeHtml(guided.phoneNormalized)}" style="display:inline-block;padding:11px 18px;background:#1a1a1a;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;">Appeler ${escapeHtml(
     payload.name,
-  )} — ${escapeHtml(payload.phone)}</a>
+  )} - ${escapeHtml(payload.phone)}</a>
 </p>
 <table style="border-collapse:collapse;width:100%;max-width:640px;background:#ffffff;">
 ${rows
@@ -190,7 +190,7 @@ ${rows
   )
   .join('')}
 </table>
-<p style="margin:20px 0 0;color:#6b6b6b;font-size:12px;max-width:640px;line-height:1.6;">Les photos, s’il y en a, sont jointes à ce courriel. Elles donnent une première impression seulement — le diagnostic se fait sur place.</p>
+<p style="margin:20px 0 0;color:#6b6b6b;font-size:12px;max-width:640px;line-height:1.6;">Les photos, s’il y en a, sont jointes à ce courriel. Elles donnent une première impression seulement - le diagnostic se fait sur place.</p>
 </body></html>`;
 }
 
@@ -206,10 +206,10 @@ async function deliver(
   const webhook = process.env.CONTACT_WEBHOOK_URL;
 
   const subject = guided
-    ? `Nouvelle demande — ${guided.serviceLabel || serviceLabel(payload.service)} — ${
-        payload.city || '—'
-      }${guided.timeline === 'asap' ? ' — PRESSANT' : ''}`
-    : `${FORM_LABEL[variant]} — ${payload.name}${payload.city ? ` (${payload.city})` : ''}`;
+    ? `Nouvelle demande - ${guided.serviceLabel || serviceLabel(payload.service)} - ${
+        payload.city || ' - '
+      }${guided.timeline === 'asap' ? ' - PRESSANT' : ''}`
+    : `${FORM_LABEL[variant]} - ${payload.name}${payload.city ? ` (${payload.city})` : ''}`;
 
   const html = guided
     ? renderGuidedEmail(

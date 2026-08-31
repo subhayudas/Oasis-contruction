@@ -2,7 +2,7 @@
   "name": "oasis-construction",
   "version": "1.0.0",
   "private": true,
-  "description": "Site web bilingue d'Oasis Construction — aménagement extérieur et pavé uni, Laval et Rive-Nord.",
+  "description": "Site web bilingue d'Oasis Construction - aménagement extérieur et pavé uni, Laval et Rive-Nord.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

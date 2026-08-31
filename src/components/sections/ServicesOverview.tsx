@@ -12,7 +12,7 @@ import { pagePath, servicePath } from '@/lib/routes';
 
 /**
  * Six cut samples on a board. Each tile is one clickable card with a single
- * link — the whole surface is the target, but only the heading is the anchor,
+ * link - the whole surface is the target, but only the heading is the anchor,
  * which keeps the accessibility tree clean.
  *
  * The square frame at the head of each card shows the trade rather than a

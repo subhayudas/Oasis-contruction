@@ -65,7 +65,7 @@ def content_box(im: Image.Image, threshold: float = 26.0) -> tuple[int, int, int
 class Tone:
     """Per-photo finishing parameters. Defaults suit sunny phone captures."""
 
-    chroma_denoise: float = 1.1  # radius, px — removes JPEG chroma mottling
+    chroma_denoise: float = 1.1  # radius, px - removes JPEG chroma mottling
     white_balance: float = 0.55  # 0 = untouched, 1 = full grey-world neutral
     black_pct: float = 0.35  # percentile mapped to black
     white_pct: float = 99.72  # percentile mapped to white

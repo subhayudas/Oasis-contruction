@@ -68,7 +68,7 @@ export function buildMetadata({
 
 /**
  * Only verified facts are emitted. No aggregate rating, no review count, no
- * founding date, no price range, no municipality or postal code — the intake
+ * founding date, no price range, no municipality or postal code - the intake
  * gives a street address without either, and neither is invented here.
  */
 export function localBusinessJsonLd(locale: Locale) {
@@ -138,7 +138,7 @@ export function serviceJsonLd(locale: Locale, key: ServiceKey) {
 /**
  * FAQPage structured data.
  *
- * Only ever built from the same strings the page renders — Google treats
+ * Only ever built from the same strings the page renders - Google treats
  * structured data that does not match the visible page as a manual-action
  * offence, and there is no version of this site where the two can drift.
  */

@@ -34,8 +34,7 @@ export function ServicesMenu({ label, href, openLabel, items }: Props) {
   const pathname = usePathname();
 
   /* Close whenever navigation actually happens. React documents this
-     render-phase comparison as the way to adjust state from a changed prop —
-     an effect that calls setState would render the open menu once first. */
+     render-phase comparison as the way to adjust state from a changed prop -      an effect that calls setState would render the open menu once first. */
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);

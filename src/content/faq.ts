@@ -6,7 +6,7 @@ export type FaqItem = { q: string; a: string };
  * The homepage FAQ.
  *
  * Answers that depend on a business fact carry a {placeholder} hole rather
- * than a guess — `fill()` in placeholders.ts resolves them at render time, so
+ * than a guess - `fill()` in placeholders.ts resolves them at render time, so
  * an unanswered question reads as an obvious gap rather than as an invented
  * promise. Every one of these is also emitted as FAQPage structured data,
  * which is exactly why none of them may be fiction.
@@ -39,7 +39,7 @@ export const homeFaq: Record<Locale, FaqItem[]> = {
     },
     {
       q: 'Est-ce que je dois être présent pour l’évaluation?',
-      a: 'C’est préférable. On peut regarder le terrain sans vous, mais l’évaluation sert autant à comprendre ce que vous voulez obtenir qu’à voir ce qui ne va pas — et c’est le moment où vous pouvez poser vos questions directement.',
+      a: 'C’est préférable. On peut regarder le terrain sans vous, mais l’évaluation sert autant à comprendre ce que vous voulez obtenir qu’à voir ce qui ne va pas - et c’est le moment où vous pouvez poser vos questions directement.',
     },
     {
       q: 'Acceptez-vous les petits projets?',
@@ -66,7 +66,7 @@ export const homeFaq: Record<Locale, FaqItem[]> = {
     },
     {
       q: 'What areas do you serve?',
-      a: 'Laval and Montreal’s North Shore. If you are not sure whether you are in the area, call — the answer takes thirty seconds.',
+      a: 'Laval and Montreal’s North Shore. If you are not sure whether you are in the area, call - the answer takes thirty seconds.',
     },
     {
       q: 'What does it cost?',
@@ -74,7 +74,7 @@ export const homeFaq: Record<Locale, FaqItem[]> = {
     },
     {
       q: 'Do I need to be there for the assessment?',
-      a: 'It is better if you are. We can look at the site without you, but the assessment is as much about understanding what you want as about seeing what is wrong — and it is your chance to ask questions directly.',
+      a: 'It is better if you are. We can look at the site without you, but the assessment is as much about understanding what you want as about seeing what is wrong - and it is your chance to ask questions directly.',
     },
     {
       q: 'Do you take on small jobs?',
