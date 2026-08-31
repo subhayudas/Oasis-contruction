@@ -101,6 +101,7 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mountedAt = useRef<number | null>(null);
   const honeypot = useRef('');
+  const rootRef = useRef<HTMLDivElement>(null);
   const liveRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const submitted = useRef(false);
@@ -114,16 +115,57 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   /* Stamped in an effect rather than during render: reading the clock while
      rendering is impure, and a re-render would move the start of the window
      the server uses to tell a human from a script. */
-  const viewed = useRef(false);
   useEffect(() => {
     mountedAt.current = Date.now();
-    // Guarded because a mount effect is the classic way to send one
-    // analytics event twice — React's development double-invoke, and any
-    // future remount, would otherwise double-count every form open.
+  }, []);
+
+  /**
+   * `form_view` means the form was seen, not that the page loaded.
+   *
+   * In the modal, mounting *is* being seen — it only exists because someone
+   * pressed a key to open it. Embedded at the foot of a page it is not:
+   * counting a view on every homepage load would put the whole funnel's
+   * denominator at "everyone who arrived", and a real 70% completion rate
+   * would read as 3%. So the embedded copy waits until it is actually on
+   * screen. The ref guard keeps it to one event either way — a mount effect
+   * is the classic way to send an event twice.
+   */
+  const viewed = useRef(false);
+  const isModal = onClose !== undefined;
+  useEffect(() => {
     if (viewed.current) return;
-    viewed.current = true;
-    trackGuidedView(currentPageUrl(), source);
-  }, [source]);
+
+    const fire = () => {
+      if (viewed.current) return;
+      viewed.current = true;
+      trackGuidedView(currentPageUrl(), source);
+    };
+
+    if (isModal) {
+      fire();
+      return;
+    }
+
+    const node = rootRef.current;
+    // No observer (or no node) should not cost the event entirely — an
+    // uncounted view is a hole in the funnel, so fall back to the mount.
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      fire();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          fire();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isModal, source]);
 
   useEffect(
     () => () => {
@@ -314,7 +356,7 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
   const showBack = state.step > STEP.service && state.step <= STEP.contact;
 
   return (
-    <div className={`flex min-h-0 flex-1 flex-col ${className}`}>
+    <div ref={rootRef} className={`flex min-h-0 flex-1 flex-col ${className}`}>
       {/* Bot trap: never rendered to a reader, never reachable by tab. */}
       <div aria-hidden="true" className="sr-only">
         <label htmlFor="guided-website">Website</label>
