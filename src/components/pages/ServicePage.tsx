@@ -11,7 +11,7 @@ import { ProcessSteps } from '@/components/sections/Process';
 import { FinalCta } from '@/components/sections/FinalCta';
 import { CheckList, Eyebrow, NoteCard } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
-import { fill } from '@/content/placeholders';
+import { fillOrNull } from '@/content/placeholders';
 import { projectEntries } from '@/content/projects';
 import { services } from '@/content/services';
 import { sceneById } from '@/content/imagery';
@@ -51,7 +51,10 @@ export function ServicePage({
   // renders nothing rather than a grid of unrelated photographs.
   const related = projectEntries.filter((entry) => entry.tags.includes(serviceKey)).slice(0, 3);
 
-  const faqItems = copy.faq.map((item) => ({ q: item.q, a: fill(item.a) }));
+  const faqItems = copy.faq
+    .map((item) => ({ q: item.q, a: fillOrNull(item.a) }))
+    .filter((item): item is { q: string; a: string } => item.a !== null);
+  const warranty = fillOrNull(copy.warranty);
 
   return (
     <>
@@ -311,10 +314,16 @@ export function ServicePage({
           <div className="reveal lg:col-span-5">
             <div className="s-plaque px-6 py-6">
               <div className="relative z-10">
-                <h2 className="u-h3 text-[1.125rem]">{copy.warrantyTitle}</h2>
-                <p className="u-body mt-3 text-[0.9375rem]">{fill(copy.warranty)}</p>
+                {warranty ? (
+                  <>
+                    <h2 className="u-h3 text-[1.125rem]">{copy.warrantyTitle}</h2>
+                    <p className="u-body mt-3 text-[0.9375rem]">{warranty}</p>
+                  </>
+                ) : null}
 
-                <h2 className="u-h3 mt-8 text-[1.125rem]">{t.servicePage.areaTitle}</h2>
+                <h2 className={`u-h3 text-[1.125rem] ${warranty ? 'mt-8' : ''}`}>
+                  {t.servicePage.areaTitle}
+                </h2>
                 <p className="u-body mt-3 text-[0.9375rem]">{copy.local}</p>
                 <Link
                   href={pagePath(locale, 'areas')}

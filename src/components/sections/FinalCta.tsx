@@ -4,7 +4,7 @@ import { QuoteForm } from '@/components/QuoteForm';
 import { IconCamera, IconPhone } from '@/components/icons';
 import { Eyebrow } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
-import { fill } from '@/content/placeholders';
+import { credentialLine } from '@/content/placeholders';
 import { services } from '@/content/services';
 import { site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
@@ -80,7 +80,7 @@ export function FinalCta({
             </p>
 
             <p className="u-label text-dust-2 mt-10 max-w-sm text-[0.5625rem] leading-[1.8] tracking-[0.14em]">
-              {fill(t.finalCta.trustLine)}
+              {[t.finalCta.trustLine, credentialLine(locale)].filter(Boolean).join(' ')}
             </p>
           </div>
 

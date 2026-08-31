@@ -13,7 +13,7 @@ import { site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
 import { pagePath, servicePath } from '@/lib/routes';
-import { fill, hasFact } from '@/content/placeholders';
+import { fill, fillOrNull, hasFact } from '@/content/placeholders';
 
 export function AboutPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -21,6 +21,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
   const area = locale === 'fr' ? 'Laval & Rive-Nord' : 'Laval & North Shore';
   const portrait = sceneById('scene-equipe-chantier');
   const wide = sceneById('scene-terrasse-finie');
+  const credentials = fillOrNull(t.aboutPage.credentialsBody);
 
   return (
     <>
@@ -158,7 +159,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
           <div className="reveal">
             <h2 className="u-h2">{t.aboutPage.credentialsTitle}</h2>
-            <p className="u-body mt-5 max-w-xl">{fill(t.aboutPage.credentialsBody)}</p>
+            {credentials ? (
+              <p className="u-body mt-5 max-w-xl">{credentials}</p>
+            ) : (
+              <NoteCard label={t.common.toBeConfirmed} className="mt-6 max-w-xl">
+                {t.aboutPage.credentialsPending}
+              </NoteCard>
+            )}
           </div>
         </div>
       </section>

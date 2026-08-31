@@ -79,3 +79,66 @@ export function fill(text: string): string {
     key in PLACEHOLDER_TOKENS ? fact(key as FactKey) : match,
   );
 }
+
+/* --------------------------------------------------------- credential lines */
+
+/**
+ * The credentials the site is allowed to display right now.
+ *
+ * A licence number and an insurer are the strongest trust signals a
+ * contractor has — and `RBQ [RBQ NUMBER]` is the weakest, because it reads to
+ * a homeowner as an unfinished website. So the credential strips ask this
+ * what they may show rather than printing a token, and they grow on their own
+ * the day the business supplies a fact.
+ *
+ * The two entries at the end are always included: they are things the
+ * business states about itself that need no external verification.
+ */
+export function verifiedCredentials(locale: 'fr' | 'en'): string[] {
+  const fr = locale === 'fr';
+  const out: string[] = [];
+
+  if (hasFact('rbqNumber')) out.push(`RBQ ${fact('rbqNumber')}`);
+  if (hasFact('insuranceProvider')) {
+    out.push(`${fr ? 'Assuré' : 'Insured'} ${fact('insuranceProvider')}`);
+  }
+  if (hasFact('yearsInBusiness')) {
+    out.push(`${fact('yearsInBusiness')} ${fr ? 'ans d’expérience' : 'years in business'}`);
+  }
+  if (hasFact('projectCount')) {
+    out.push(`${fact('projectCount')} ${fr ? 'projets complétés' : 'projects completed'}`);
+  }
+
+  out.push(fr ? 'Évaluation gratuite' : 'Free assessment');
+  out.push(fr ? 'Laval et Rive-Nord' : 'Laval and the North Shore');
+  return out;
+}
+
+/** The one-line version for the footer. Empty until something is verified. */
+export function credentialLine(locale: 'fr' | 'en'): string {
+  const parts: string[] = [];
+  if (hasFact('rbqNumber')) parts.push(`RBQ ${fact('rbqNumber')}`);
+  if (hasFact('insuranceProvider')) {
+    parts.push(`${locale === 'fr' ? 'Assuré' : 'Insured'} ${fact('insuranceProvider')}`);
+  }
+  return parts.join(' · ');
+}
+
+/**
+ * True when a string still carries a hole nobody has filled.
+ *
+ * Content that would render as "Notre numéro RBQ est [RBQ NUMBER]" is worse
+ * than absent content: it answers a homeowner's trust question with evidence
+ * that the site is unfinished. Render points use this to leave the item out
+ * entirely until the fact exists — and because the FAQ's structured data is
+ * built from the same filtered list, the schema can never claim an answer the
+ * page does not show.
+ */
+export function hasUnresolved(text: string): boolean {
+  return /\{(\w+)\}/.test(text) && /\[[A-Z][A-Z ]+\]/.test(fill(text));
+}
+
+/** Fills a string, or returns null when it still has an unfilled hole. */
+export function fillOrNull(text: string): string | null {
+  return hasUnresolved(text) ? null : fill(text);
+}

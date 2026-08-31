@@ -103,14 +103,6 @@ export const fr = {
       'Entrée résidentielle en pavé uni au crépuscule, avec muret de blocs, marches de pierre et porte d’entrée éclairée.',
   },
 
-  trustBar: {
-    label: 'Nos garanties',
-    rbq: 'RBQ {rbqNumber}',
-    insured: 'Assuré {insuranceProvider}',
-    projects: '{projectCount} projets complétés',
-    area: 'Laval + Rive-Nord',
-  },
-
   problemSection: {
     eyebrow: 'Le problème',
     title: 'Votre pavé s’affaisse? Votre muret penche? L’eau s’accumule?',
@@ -197,8 +189,7 @@ export const fr = {
     eyebrow: 'Contact',
     title: 'Prêt à parler de votre projet?',
     body: 'L’évaluation est gratuite. Appelez-nous, envoyez-nous une photo de votre problème, ou remplissez le formulaire. On vous répond rapidement.',
-    trustLine:
-      'Évaluation gratuite, sans obligation. RBQ {rbqNumber}. Assuré {insuranceProvider}.',
+    trustLine: 'Évaluation gratuite, sans obligation.',
     orCall: 'Ou appelez directement',
   },
 
@@ -220,7 +211,6 @@ export const fr = {
     servicesTitle: 'Services',
     contactTitle: 'Coordonnées',
     followTitle: 'Suivez les chantiers',
-    credentials: 'RBQ {rbqNumber} · Assuré {insuranceProvider}',
     privacy: 'Politique de confidentialité',
     rights: 'Tous droits réservés.',
     credit: 'Site conçu pour Oasis Construction.',
@@ -342,7 +332,7 @@ export const fr = {
   },
 
   landing: {
-    trustLine: 'Évaluation gratuite · RBQ {rbqNumber} · Laval et Rive-Nord',
+    trustLine: 'Évaluation gratuite · Laval et Rive-Nord',
     formTitle: 'Demandez une évaluation gratuite',
     formLede: 'Deux champs obligatoires. On vous rappelle.',
     backToSite: 'Voir le site complet',
@@ -411,6 +401,8 @@ export const fr = {
     credentialsTitle: 'Licences et assurances',
     credentialsBody:
       'Oasis Construction détient la licence RBQ {rbqNumber} et est assurée auprès de {insuranceProvider} ({insuranceCoverage}).',
+    credentialsPending:
+      'Le numéro de licence RBQ et les informations d’assurance seront affichés ici dès que l’entreprise les aura fournis. Vous pouvez les demander directement par téléphone en attendant.',
     servicesTitle: 'Ce qu’on réalise',
     servicesLede:
       'Pavé uni, murets, margelles, drainage, lavage sous pression et aménagement extérieur complet.',

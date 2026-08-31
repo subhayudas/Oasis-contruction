@@ -24,7 +24,7 @@ import {
   type SimplePageKey,
 } from '@/lib/routes';
 import { breadcrumbJsonLd, buildMetadata, faqJsonLd, serviceJsonLd } from '@/lib/seo';
-import { fill } from '@/content/placeholders';
+import { fillOrNull } from '@/content/placeholders';
 
 /**
  * One route for every single-segment page in a language, because French
@@ -106,8 +106,9 @@ export default async function LocalePage({
   const serviceKey = serviceKeyFromSlug(locale, slug);
   if (serviceKey) {
     const service = services.find((s) => s.key === serviceKey);
-    const faqItems =
-      service?.copy[locale].faq.map((item) => ({ q: item.q, a: fill(item.a) })) ?? [];
+    const faqItems = (service?.copy[locale].faq ?? [])
+      .map((item) => ({ q: item.q, a: fillOrNull(item.a) }))
+      .filter((item): item is { q: string; a: string } => item.a !== null);
 
     return (
       <>

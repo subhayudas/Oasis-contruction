@@ -105,14 +105,6 @@ export const en: Dictionary = {
       'Residential paver entrance at dusk, with a block retaining wall, stone steps and a lit front door.',
   },
 
-  trustBar: {
-    label: 'Our credentials',
-    rbq: 'RBQ {rbqNumber}',
-    insured: 'Insured with {insuranceProvider}',
-    projects: '{projectCount} projects completed',
-    area: 'Laval + North Shore',
-  },
-
   problemSection: {
     eyebrow: 'The problem',
     title: 'Pavers sinking? Wall leaning? Water collecting?',
@@ -199,8 +191,7 @@ export const en: Dictionary = {
     eyebrow: 'Contact',
     title: 'Ready to talk about your project?',
     body: 'The assessment is free. Call us, send a photo of the problem, or fill in the form. We get back to you quickly.',
-    trustLine:
-      'Free assessment, no obligation. RBQ {rbqNumber}. Insured with {insuranceProvider}.',
+    trustLine: 'Free assessment, no obligation.',
     orCall: 'Or call directly',
   },
 
@@ -222,7 +213,6 @@ export const en: Dictionary = {
     servicesTitle: 'Services',
     contactTitle: 'Contact',
     followTitle: 'Follow the work',
-    credentials: 'RBQ {rbqNumber} · Insured with {insuranceProvider}',
     privacy: 'Privacy policy',
     rights: 'All rights reserved.',
     credit: 'Site built for Oasis Construction.',
@@ -344,7 +334,7 @@ export const en: Dictionary = {
   },
 
   landing: {
-    trustLine: 'Free assessment · RBQ {rbqNumber} · Laval and the North Shore',
+    trustLine: 'Free assessment · Laval and the North Shore',
     formTitle: 'Request a free assessment',
     formLede: 'Two required fields. We call you back.',
     backToSite: 'See the full site',
@@ -413,6 +403,8 @@ export const en: Dictionary = {
     credentialsTitle: 'Licence and insurance',
     credentialsBody:
       'Oasis Construction holds RBQ licence {rbqNumber} and is insured with {insuranceProvider} ({insuranceCoverage}).',
+    credentialsPending:
+      'The RBQ licence number and insurance details will be shown here as soon as the business supplies them. You can ask for them by phone in the meantime.',
     servicesTitle: 'What we build',
     servicesLede:
       'Interlocking pavers, retaining walls, steps and coping, drainage, pressure washing and complete landscape construction.',

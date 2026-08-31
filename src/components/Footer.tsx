@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { getDictionary } from '@/content/dictionary';
-import { fill } from '@/content/placeholders';
+import { credentialLine } from '@/content/placeholders';
 import { services } from '@/content/services';
 import { phones, site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
@@ -13,6 +13,7 @@ export function Footer({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const year = 2026;
   const hours = locale === 'fr' ? site.hours.displayFr : site.hours.displayEn;
+  const credentials = credentialLine(locale);
 
   const navItems = [
     { href: pagePath(locale, 'home'), label: t.common.home },
@@ -42,9 +43,11 @@ export function Footer({ locale }: { locale: Locale }) {
               <p className="u-body text-dust mt-5 max-w-sm text-[0.9375rem]">
                 {t.footer.description}
               </p>
-              <p className="u-label text-dust-2 mt-5 text-[0.5625rem] tracking-[0.16em]">
-                {fill(t.footer.credentials)}
-              </p>
+              {credentials ? (
+                <p className="u-label text-dust-2 mt-5 text-[0.5625rem] tracking-[0.16em]">
+                  {credentials}
+                </p>
+              ) : null}
 
               <div className="mt-6 flex items-center gap-2.5">
                 <a

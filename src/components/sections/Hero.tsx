@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Picture } from '@/components/Picture';
 import { IconCamera } from '@/components/icons';
 import { getDictionary } from '@/content/dictionary';
-import { fact } from '@/content/placeholders';
+import { verifiedCredentials } from '@/content/placeholders';
 import { sceneById } from '@/content/imagery';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
@@ -26,11 +26,9 @@ export function Hero({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
   const scene = sceneById('scene-entree-crepuscule');
 
-  const badges = [
-    `RBQ ${fact('rbqNumber')}`,
-    locale === 'fr' ? 'Assuré' : 'Insured',
-    `${fact('projectCount')} ${locale === 'fr' ? 'projets complétés' : 'projects completed'}`,
-  ];
+  /* Only what can actually be stood behind today. The licence number and the
+     insurer join this line the moment they are filled in. */
+  const badges = verifiedCredentials(locale);
 
   return (
     <section className="s-ink on-ink relative isolate overflow-hidden">

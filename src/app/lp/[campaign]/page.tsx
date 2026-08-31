@@ -10,7 +10,7 @@ import { TestimonialGrid } from '@/components/Testimonials';
 import { IconCheck, IconPhone } from '@/components/icons';
 import { getDictionary } from '@/content/dictionary';
 import { sceneById } from '@/content/imagery';
-import { fill } from '@/content/placeholders';
+import { credentialLine } from '@/content/placeholders';
 import { services } from '@/content/services';
 import { site } from '@/content/site';
 import { defaultLocale } from '@/lib/i18n';
@@ -134,7 +134,7 @@ export default async function LandingPage({
                 </a>
 
                 <p className="u-label text-dust-2 mt-8 text-[0.5625rem] leading-[1.8] tracking-[0.14em]">
-                  {fill(t.landing.trustLine)}
+                  {[credentialLine(locale), t.landing.trustLine].filter(Boolean).join(' · ')}
                 </p>
 
                 <div className="mt-10">
