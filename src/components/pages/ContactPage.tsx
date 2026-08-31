@@ -1,5 +1,6 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Picture } from '@/components/Picture';
+import { GuidedForm } from '@/components/guided/GuidedForm';
 import { QuoteForm } from '@/components/QuoteForm';
 import {
   IconCamera,
@@ -18,7 +19,6 @@ import { phones, site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 import { source } from '@/lib/images';
 import { pagePath } from '@/lib/routes';
-import Link from 'next/link';
 
 export function ContactPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -73,15 +73,18 @@ export function ContactPage({ locale }: { locale: Locale }) {
                 </li>
               ))}
               <li>
-                <Link
-                  href={pagePath(locale, 'photo')}
+                {/* The guided form is already on this page, and its step 5
+                    is the photograph — so this scrolls to it rather than
+                    opening a second copy of it in a modal. */}
+                <a
+                  href="#demande"
                   data-cta={t.common.photoCta}
                   data-cta-location="contact-page"
                   className="btn btn-quarry w-full justify-start"
                 >
                   <IconCamera className="h-4.5 w-4.5" />
                   {t.common.photoCta}
-                </Link>
+                </a>
               </li>
             </ul>
 
@@ -173,7 +176,24 @@ export function ContactPage({ locale }: { locale: Locale }) {
           </div>
 
           <div className="lg:col-span-7">
-            <h2 className="u-h3 text-[1.25rem]">{t.contactPage.formTitle}</h2>
+            {/* The guided form is the primary path: a homeowner with a
+                problem should never have to compose a paragraph to report
+                it. The message form stays underneath for the enquiries that
+                are genuinely correspondence — a question about an invoice, a
+                supplier, a job already done — which the six questions above
+                would only get in the way of. */}
+            <h2 id="demande" className="u-h3 scroll-mt-28 text-[1.25rem]">
+              {t.contactPage.guidedTitle}
+            </h2>
+            <p className="u-meta mt-2">{t.contactPage.guidedNote}</p>
+            <div className="glass-panel mt-5 py-2">
+              <GuidedForm locale={locale} source="contact-page" />
+            </div>
+
+            <hr className="u-rule mt-14" />
+
+            <h2 className="u-h3 mt-12 text-[1.25rem]">{t.contactPage.formTitle}</h2>
+            <p className="u-meta mt-2">{t.contactPage.writeNote}</p>
             <div className="glass-panel mt-5 p-6 lg:p-8">
               <QuoteForm
                 locale={locale}

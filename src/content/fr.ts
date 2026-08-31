@@ -419,6 +419,10 @@ export const fr = {
     lede: 'Remplissez le formulaire ou appelez directement. Plus vous décrivez la situation — et plus vous ajoutez de photos — plus la réponse sera précise.',
     detailsTitle: 'Coordonnées',
     formTitle: 'Écrivez-nous',
+    guidedTitle: 'Demandez votre évaluation gratuite',
+    guidedNote: 'Six questions, presque toutes à cocher. Environ 60 secondes, sans obligation.',
+    writeNote:
+      'Vous avez une question qui n’est pas une demande de soumission? Écrivez-nous ici.',
     directTitle: 'Vous préférez parler à quelqu’un?',
     directBody: 'Le téléphone reste le moyen le plus rapide d’obtenir une réponse.',
     hoursNote: 'Tous les jours, 9 h à 20 h.',

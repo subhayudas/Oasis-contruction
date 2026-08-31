@@ -1,6 +1,5 @@
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { PhotoForm } from '@/components/PhotoForm';
-import { TestimonialGrid } from '@/components/Testimonials';
+import { GuidedForm } from '@/components/guided/GuidedForm';
 import { ProcessSteps } from '@/components/sections/Process';
 import { IconCheck, IconPhone } from '@/components/icons';
 import { Eyebrow, NoteCard } from '@/components/ui';
@@ -12,14 +11,15 @@ import { pagePath } from '@/lib/routes';
 /**
  * The photo funnel.
  *
- * A dedicated page rather than a modal: it can be linked from an ad, from a
- * text message, and from the pinned thumb bar, it survives a page reload with
- * a half-filled form, and it gets its own analytics view. A modal would have
- * had none of that.
+ * A dedicated page as well as a modal: it can be linked from an ad, from a
+ * text message and from the pinned thumb bar, it survives a page reload, and
+ * it gets its own analytics view. The modal on the rest of the site runs the
+ * same component, so there is one flow and one lead schema — the photograph
+ * is step 5 of the guided form, not a funnel of its own.
  *
- * The disclaimer is above the form, not below it. Setting the expectation that
- * a photo is a first read and not a quote is the whole reason this funnel
- * builds trust instead of spending it.
+ * The disclaimer is above the form as well as inside the photo step. Setting
+ * the expectation that a photo is a first read and not a quote is the whole
+ * reason this funnel builds trust instead of spending it.
  */
 export function PhotoPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -52,22 +52,8 @@ export function PhotoPage({ locale }: { locale: Locale }) {
               {t.photoPage.disclaimer}
             </NoteCard>
 
-            <div className="glass-panel p-6 lg:p-8">
-              <PhotoForm
-                locale={locale}
-                privacyHref={pagePath(locale, 'privacy')}
-                phone={{ href: site.phone.href, display: site.phone.display }}
-                email={{ href: site.email.href, display: site.email.display }}
-                t={t}
-                confirmationExtra={
-                  <>
-                    <h2 className="u-h3 text-[1.0625rem]">
-                      {t.photoPage.confirmTestimonialsTitle}
-                    </h2>
-                    <TestimonialGrid locale={locale} className="mt-5 sm:grid-cols-1" />
-                  </>
-                }
-              />
+            <div className="glass-panel py-2">
+              <GuidedForm locale={locale} source="photo-page" />
             </div>
           </div>
 

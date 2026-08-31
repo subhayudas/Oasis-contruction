@@ -4,14 +4,13 @@ import Link from 'next/link';
 
 import { BrandMark } from '@/components/BrandMark';
 import { Picture } from '@/components/Picture';
-import { QuoteForm } from '@/components/QuoteForm';
+import { GuidedForm } from '@/components/guided/GuidedForm';
 import { Recaptcha } from '@/components/Recaptcha';
 import { TestimonialGrid } from '@/components/Testimonials';
 import { IconCheck, IconPhone } from '@/components/icons';
 import { getDictionary } from '@/content/dictionary';
 import { sceneById } from '@/content/imagery';
 import { credentialLine } from '@/content/placeholders';
-import { services } from '@/content/services';
 import { site } from '@/content/site';
 import { defaultLocale } from '@/lib/i18n';
 import { source } from '@/lib/images';
@@ -146,19 +145,13 @@ export default async function LandingPage({
                 <div className="glass-panel p-6 lg:p-8">
                   <h2 className="u-h3 text-[1.25rem]">{t.landing.formTitle}</h2>
                   <p className="u-meta mt-2">{t.landing.formLede}</p>
-                  <QuoteForm
+                  {/* The campaign already told the visitor which service
+                      this is about, so step 1 opens with that card lit. */}
+                  <GuidedForm
                     className="mt-6"
                     locale={locale}
-                    variant="general"
+                    source={`lp-${campaign}`}
                     defaultService={config.service}
-                    serviceOptions={services.map((s) => ({
-                      value: s.key,
-                      label: s.copy[locale].name,
-                    }))}
-                    privacyHref={pagePath(locale, 'privacy')}
-                    phone={{ href: site.phone.href, display: site.phone.display }}
-                    email={{ href: site.email.href, display: site.email.display }}
-                    t={t}
                   />
                 </div>
               </div>

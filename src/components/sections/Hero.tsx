@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
 import { Picture } from '@/components/Picture';
+import { OpenGuidedForm } from '@/components/guided/OpenGuidedForm';
 import { IconCamera } from '@/components/icons';
 import { getDictionary } from '@/content/dictionary';
 import { verifiedCredentials } from '@/content/placeholders';
@@ -99,23 +98,23 @@ export function Hero({ locale }: { locale: Locale }) {
             className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
             style={{ ['--rise-delay' as string]: '280ms' }}
           >
-            <Link
+            {/* Both keys open the same six questions. The photo is step 5 of
+                that flow, so "envoyez-nous une photo" is a description of
+                where the visitor lands, not a second funnel. */}
+            <OpenGuidedForm
               href={pagePath(locale, 'contact')}
-              data-cta={t.common.quote}
-              data-cta-location="hero"
+              label={t.common.quote}
+              location="hero-quote"
               className="btn btn-brass"
-            >
-              {t.common.quote}
-            </Link>
-            <Link
+            />
+            <OpenGuidedForm
               href={pagePath(locale, 'photo')}
-              data-cta={t.common.photoCta}
-              data-cta-location="hero"
+              label={t.common.photoCta}
+              location="hero-photo"
               className="btn btn-quarry"
             >
               <IconCamera className="h-4.5 w-4.5" />
-              {t.common.photoCta}
-            </Link>
+            </OpenGuidedForm>
           </div>
 
           <ul

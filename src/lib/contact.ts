@@ -3,6 +3,15 @@ import { serviceKeys, type ServiceKey } from './routes';
 export const MAX_FILES = 3;
 export const MAX_FILE_BYTES = 5 * 1024 * 1024;
 
+/**
+ * The guided form is allowed more, and larger, photographs than the classic
+ * forms: it asks for them at the point where the visitor has already told us
+ * what is wrong, so a fifth photograph is context rather than noise, and a
+ * modern phone camera clears 5 Mo on a single unedited shot.
+ */
+export const GUIDED_MAX_FILES = 5;
+export const GUIDED_MAX_FILE_BYTES = 10 * 1024 * 1024;
+
 export const ACCEPTED_IMAGE_TYPES = [
   'image/jpeg',
   'image/png',
@@ -53,13 +62,22 @@ export type ContactPayload = {
 };
 
 /**
- * The three forms on the site:
+ * The forms on the site:
  *
- *   general  homepage and service pages — name + phone required, the rest optional
+ *   general  the classic quote form — name + phone required, the rest optional
  *   photo    the photo funnel — at least one photograph plus name and phone
  *   contact  the contact page — a fuller enquiry with a subject
+ *   guided   the six-step tap-through form — name + phone, everything else
+ *            arrives as structured selections the visitor never typed
  */
-export type ContactVariant = 'general' | 'photo' | 'contact';
+export type ContactVariant = 'general' | 'photo' | 'contact' | 'guided';
+
+/** What a given form is allowed to upload. */
+export function fileLimits(variant?: ContactVariant): { maxFiles: number; maxBytes: number } {
+  return variant === 'guided'
+    ? { maxFiles: GUIDED_MAX_FILES, maxBytes: GUIDED_MAX_FILE_BYTES }
+    : { maxFiles: MAX_FILES, maxBytes: MAX_FILE_BYTES };
+}
 
 export function isSubject(value: string): value is ContactSubject {
   return value === 'quote' || value === 'question' || value === 'other';
@@ -117,9 +135,10 @@ export function validateContact(
 
 export function validateFiles(files: File[], variant?: ContactVariant): ContactErrorKey[] {
   const errors: ContactErrorKey[] = [];
+  const { maxFiles, maxBytes } = fileLimits(variant);
   if (variant === 'photo' && files.length === 0) errors.push('fileRequired');
-  if (files.length > MAX_FILES) errors.push('fileCount');
-  if (files.some((f) => f.size > MAX_FILE_BYTES)) errors.push('fileSize');
+  if (files.length > maxFiles) errors.push('fileCount');
+  if (files.some((f) => f.size > maxBytes)) errors.push('fileSize');
   if (files.some((f) => !(ACCEPTED_IMAGE_TYPES as readonly string[]).includes(f.type))) {
     errors.push('fileType');
   }

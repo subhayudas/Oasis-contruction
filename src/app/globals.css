@@ -831,6 +831,29 @@
     border-color: #ffffff;
   }
 
+  /* A light panel standing on a dark band is not part of that band.
+     `.on-ink` inverts type, outlines and focus rings for a dark ground; the
+     moment one of those lands inside a frosted white card the inversion is
+     backwards and the control disappears into the panel. So the island
+     takes the light-ground treatment back. */
+  .on-ink .glass-panel .btn-quarry {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .on-ink .glass-panel .btn-quarry:hover {
+    background: color-mix(in oklab, var(--color-ink) 6%, transparent);
+    border-color: #000000;
+  }
+
+  .on-ink .glass-panel .link-rule:hover {
+    color: var(--color-brass-deep);
+  }
+
+  .on-ink .glass-panel :focus-visible {
+    outline-color: var(--color-brass-deep);
+  }
+
   /* Phone: solid gold. `brass-deep` rather than the display gold, because
      white type on #c4a45c is 2.1:1 and unreadable. */
   .btn-brass {
@@ -1705,6 +1728,245 @@
     background: transparent;
     border: 0;
   }
+
+  /* ==================================================================
+     Guided form — the tap-through lead flow.
+
+     Every screen is one question and a column of keys. The keys are the
+     whole interface, so they are built like keys: raised, warm, with a
+     press state that answers the thumb before the screen changes. The
+     300ms selected state below is not decoration — it is the receipt
+     for the tap, shown before the next question replaces it.
+     ================================================================== */
+
+  .g-card {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.875rem;
+    min-height: 3.75rem;
+    padding: 0.9375rem 1.125rem;
+    border-radius: 0.75rem;
+    text-align: left;
+    cursor: pointer;
+    background: linear-gradient(178deg, #ffffff 0%, #fbfaf7 100%);
+    border: 1px solid color-mix(in oklab, var(--color-ink) 14%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      0 1px 2px rgb(var(--sh) / 0.06),
+      0 6px 14px -12px rgb(var(--sh) / 0.4);
+    transition:
+      transform 150ms var(--ease-material),
+      border-color 150ms var(--ease-material),
+      box-shadow 150ms var(--ease-material),
+      background-color 150ms var(--ease-material);
+  }
+
+  @media (hover: hover) {
+    .g-card:hover {
+      border-color: color-mix(in oklab, var(--color-brass-deep) 55%, transparent);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.95),
+        0 2px 5px rgb(var(--sh) / 0.09),
+        0 14px 24px -14px rgb(var(--sh) / 0.45);
+    }
+  }
+
+  .g-card:active {
+    transform: translateY(1px);
+  }
+
+  /* The receipt. Held for 300ms, then the screen changes under it. */
+  .g-card[data-selected='true'] {
+    border: 2px solid var(--color-brass-deep);
+    background: linear-gradient(178deg, #fffdf7 0%, #faf6ea 100%);
+    padding: calc(0.9375rem - 1px) calc(1.125rem - 1px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.95),
+      0 2px 6px rgb(var(--sh) / 0.1),
+      0 16px 28px -16px rgb(122 95 34 / 0.4);
+  }
+
+  .g-card[data-selected='true'] .g-card-tick {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .g-card-tick {
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity 180ms var(--ease-material),
+      transform 220ms var(--ease-material);
+  }
+
+  .g-card-icon {
+    display: flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    color: var(--color-brass-deep);
+    background: linear-gradient(178deg, #f7f2e4 0%, #efe7d3 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8);
+  }
+
+  .g-card[data-selected='true'] .g-card-icon {
+    color: #ffffff;
+    background: linear-gradient(178deg, #7a5f22 0%, #5d481a 100%);
+  }
+
+  /* ------------------------------------------------------ progress bar */
+
+  .g-progress {
+    height: 4px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-ink) 12%, transparent);
+  }
+
+  .g-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #7a5f22 0%, #c4a45c 100%);
+    transition: width 320ms var(--ease-material);
+  }
+
+  /* ------------------------------------------------------ step motion */
+
+  /* Each question arrives from the direction the visitor is travelling, so
+     going back does not look like going forward. */
+  .g-step {
+    animation: g-step-in 220ms var(--ease-material) both;
+  }
+
+  .g-step[data-direction='back'] {
+    animation-name: g-step-in-back;
+  }
+
+  @keyframes g-step-in {
+    from {
+      opacity: 0;
+      transform: translate3d(10px, 0, 0);
+    }
+  }
+
+  @keyframes g-step-in-back {
+    from {
+      opacity: 0;
+      transform: translate3d(-10px, 0, 0);
+    }
+  }
+
+  /* -------------------------------------------------------- photo step */
+
+  .g-drop {
+    position: relative;
+    display: flex;
+    min-height: 11.25rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 2px dashed color-mix(in oklab, var(--color-ink) 22%, transparent);
+    background: linear-gradient(180deg, #faf8f4 0%, #ffffff 60%);
+    transition:
+      border-color var(--dur) var(--ease-material),
+      background-color var(--dur) var(--ease-material);
+  }
+
+  .g-drop[data-compact='true'] {
+    min-height: 6.5rem;
+  }
+
+  .g-drop:hover,
+  .g-drop[data-dragging='true'] {
+    border-color: var(--color-brass-deep);
+    background: linear-gradient(180deg, #f7f1e2 0%, #ffffff 60%);
+  }
+
+  .g-drop[data-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+
+  .g-drop:focus-within {
+    border-color: var(--color-brass-deep);
+    box-shadow: 0 0 0 3px rgb(var(--blue) / 0.18);
+  }
+
+  .g-drop-input {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* ------------------------------------------------------------ modal */
+
+  .g-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  @media (min-width: 40rem) {
+    .g-modal {
+      align-items: center;
+      padding: 1.5rem;
+    }
+  }
+
+  .g-modal-veil {
+    position: absolute;
+    inset: 0;
+    background: rgb(18 18 18 / 0.55);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+    animation: gate-veil-in 240ms var(--ease-material) both;
+  }
+
+  /* Full height on a phone: a modal that leaves a strip of page behind it
+     invites a mis-tap onto the page and out of the form. */
+  .g-modal-panel {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 38rem;
+    max-height: 100dvh;
+    height: 100dvh;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--color-paper);
+    animation: g-sheet-in 300ms var(--ease-material) both;
+  }
+
+  @media (min-width: 40rem) {
+    .g-modal-panel {
+      height: auto;
+      max-height: min(46rem, calc(100dvh - 3rem));
+      border-radius: 1rem;
+      box-shadow:
+        0 2px 6px rgb(var(--sh) / 0.2),
+        0 40px 70px -30px rgb(var(--sh) / 0.6);
+      animation-name: gate-panel-in;
+    }
+  }
+
+  @keyframes g-sheet-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+  }
 }
 
 @layer utilities {
@@ -1855,6 +2117,20 @@
   .flow-water,
   .flow-dash {
     animation: none;
+  }
+
+  /* The guided form's screens simply replace one another. The 300ms
+     selected state is kept — it is feedback, not decoration. */
+  .g-step,
+  .g-modal-veil,
+  .g-modal-panel {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .g-card:active {
+    transform: none;
   }
 }
 

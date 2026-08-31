@@ -3,9 +3,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { services } from '@/content/services';
 import { site } from '@/content/site';
 import {
-  MAX_FILES,
-  MAX_FILE_BYTES,
   ACCEPTED_IMAGE_TYPES,
+  fileLimits,
   isServiceKey,
   validateContact,
   validateFiles,
@@ -114,21 +113,114 @@ const FORM_LABEL: Record<ContactVariant, string> = {
   general: 'Demande de devis',
   photo: 'Envoi de photo',
   contact: 'Page contact',
+  guided: 'Demande guidée',
 };
+
+/**
+ * What the six-step form adds on top of a name and a number.
+ *
+ * Both the key and the label travel: the key is what a CRM sorts and reports
+ * on, the label is what a human reads in the email at seven in the morning
+ * without having to look anything up.
+ */
+type GuidedFields = {
+  serviceLabel: string;
+  problem: string;
+  problemLabel: string;
+  locationKey: string;
+  timeline: string;
+  timelineLabel: string;
+  phoneNormalized: string;
+  source: string;
+};
+
+/** Urgent leads are called first, so the email says so above the fold. */
+const TIMELINE_RANK: Record<string, string> = {
+  asap: 'PRESSANT — à rappeler en premier',
+  weeks: 'Dans les prochaines semaines',
+  months: 'Dans 1 à 3 mois',
+  exploring: 'Explore ses options',
+};
+
+function renderGuidedEmail(
+  payload: ContactPayload,
+  guided: GuidedFields,
+  fileNames: string[],
+): string {
+  const rows: [string, string][] = [
+    ['Nom', payload.name],
+    ['Téléphone', payload.phone || '—'],
+    ['Courriel', payload.email || '—'],
+    ['Service', guided.serviceLabel || serviceLabel(payload.service)],
+    ['Problème', guided.problemLabel || guided.problem || '—'],
+    ['Secteur', payload.city || '—'],
+    ['Échéancier', guided.timelineLabel || '—'],
+    ['Priorité', TIMELINE_RANK[guided.timeline] ?? '—'],
+    ['Photos', fileNames.length ? `${fileNames.length} — ${fileNames.join(', ')}` : 'aucune'],
+    ['Page d’origine', guided.source || '—'],
+    ['Langue du site', payload.locale],
+  ];
+
+  const urgent = guided.timeline === 'asap';
+
+  return `<!doctype html><html lang="fr"><body style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#1a1a1a;background:#f5f5f5;padding:24px;">
+<h1 style="font-size:18px;margin:0 0 4px;">Nouvelle demande — ${escapeHtml(
+    guided.serviceLabel || serviceLabel(payload.service),
+  )}</h1>
+<p style="margin:0 0 20px;color:#6b6b6b;font-size:13px;">Formulaire guidé · oasis-construction.ca</p>
+${
+  urgent
+    ? `<p style="margin:0 0 16px;padding:10px 14px;background:#7a5f22;color:#ffffff;font-size:13px;font-weight:600;">Le client indique que c’est pressant.</p>`
+    : ''
+}
+<p style="margin:0 0 20px;">
+  <a href="tel:${escapeHtml(guided.phoneNormalized)}" style="display:inline-block;padding:11px 18px;background:#1a1a1a;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;">Appeler ${escapeHtml(
+    payload.name,
+  )} — ${escapeHtml(payload.phone)}</a>
+</p>
+<table style="border-collapse:collapse;width:100%;max-width:640px;background:#ffffff;">
+${rows
+  .map(
+    ([label, value]) =>
+      `<tr><th align="left" style="padding:8px 12px;border-bottom:1px solid #e9e6df;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#7a5f22;width:150px;">${escapeHtml(
+        label,
+      )}</th><td style="padding:8px 12px;border-bottom:1px solid #e9e6df;font-size:14px;">${escapeHtml(
+        value,
+      )}</td></tr>`,
+  )
+  .join('')}
+</table>
+<p style="margin:20px 0 0;color:#6b6b6b;font-size:12px;max-width:640px;line-height:1.6;">Les photos, s’il y en a, sont jointes à ce courriel. Elles donnent une première impression seulement — le diagnostic se fait sur place.</p>
+</body></html>`;
+}
 
 async function deliver(
   payload: ContactPayload,
   attachments: Attachment[],
   variant: ContactVariant,
+  guided: GuidedFields | null,
 ): Promise<'sent' | 'not_configured' | 'failed'> {
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL;
   const resendKey = process.env.RESEND_API_KEY;
   const webhook = process.env.CONTACT_WEBHOOK_URL;
 
-  const subject = `${FORM_LABEL[variant]} — ${payload.name}${
-    payload.city ? ` (${payload.city})` : ''
-  }`;
+  const subject = guided
+    ? `Nouvelle demande — ${guided.serviceLabel || serviceLabel(payload.service)} — ${
+        payload.city || '—'
+      }${guided.timeline === 'asap' ? ' — PRESSANT' : ''}`
+    : `${FORM_LABEL[variant]} — ${payload.name}${payload.city ? ` (${payload.city})` : ''}`;
+
+  const html = guided
+    ? renderGuidedEmail(
+        payload,
+        guided,
+        attachments.map((a) => a.filename),
+      )
+    : renderEmail(
+        payload,
+        attachments.map((a) => a.filename),
+      );
 
   if (resendKey && to && from) {
     try {
@@ -143,10 +235,7 @@ async function deliver(
           to: to.split(',').map((address) => address.trim()),
           subject,
           reply_to: payload.email || undefined,
-          html: renderEmail(
-            payload,
-            attachments.map((a) => a.filename),
-          ),
+          html,
           attachments: attachments.map((a) => ({
             filename: a.filename,
             content: a.content,
@@ -171,6 +260,7 @@ async function deliver(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...payload,
+          ...(guided ? { guided } : {}),
           subject,
           formSubject: payload.subject,
           form: variant,
@@ -255,17 +345,36 @@ export async function POST(request: NextRequest) {
   }
 
   const requested = read('variant');
-  const variant: ContactVariant = (['general', 'photo', 'contact'] as const).includes(
+  const variant: ContactVariant = (['general', 'photo', 'contact', 'guided'] as const).includes(
     requested as ContactVariant,
   )
     ? (requested as ContactVariant)
     : 'general';
+
+  /* The guided form's structured answers. Read only for that variant, so a
+     crafted post cannot smuggle a different email template onto the other
+     three forms. Every value is capped: these end up in an email body. */
+  const guided: GuidedFields | null =
+    variant === 'guided'
+      ? {
+          serviceLabel: read('serviceLabel').slice(0, 80),
+          problem: read('problem').slice(0, 40),
+          problemLabel: read('problemLabel').slice(0, 120),
+          locationKey: read('locationKey').slice(0, 40),
+          timeline: read('timeline').slice(0, 40),
+          timelineLabel: read('timelineLabel').slice(0, 80),
+          phoneNormalized: read('phoneNormalized').replace(/\D/g, '').slice(0, 11),
+          source: read('source').slice(0, 200),
+        }
+      : null;
+
   const errors = validateContact(payload, variant);
 
+  const limits = fileLimits(variant);
   const files = form
     .getAll('photos')
     .filter((entry): entry is File => entry instanceof File && entry.size > 0)
-    .slice(0, MAX_FILES + 1);
+    .slice(0, limits.maxFiles + 1);
   errors.push(...validateFiles(files, variant));
 
   if (errors.length > 0) {
@@ -274,7 +383,7 @@ export async function POST(request: NextRequest) {
 
   const attachments: Attachment[] = [];
   for (const file of files) {
-    if (file.size > MAX_FILE_BYTES) continue;
+    if (file.size > limits.maxBytes) continue;
     if (!(ACCEPTED_IMAGE_TYPES as readonly string[]).includes(file.type)) continue;
     const buffer = Buffer.from(await file.arrayBuffer());
     attachments.push({
@@ -285,7 +394,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const result = await deliver(payload, attachments, variant);
+  const result = await deliver(payload, attachments, variant, guided);
 
   if (result === 'not_configured') {
     console.warn(

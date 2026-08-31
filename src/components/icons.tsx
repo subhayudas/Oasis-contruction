@@ -251,6 +251,56 @@ export function IconStar({ className }: IconProps) {
   );
 }
 
+/** A question mark in a ring — the "I am not sure" card. */
+export function IconQuestion(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.3 9.2a2.7 2.7 0 1 1 3.2 3.1v1.4" />
+      <path d="M12.5 17.1h.01" strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+/** A bolt — the urgent timeline. */
+export function IconBolt(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M13.5 3 5.5 13.5h5L10 21l8-10.5h-5z" />
+    </Svg>
+  );
+}
+
+/** A wall calendar — the planned timelines. */
+export function IconCalendar(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 6h16v14H4z" />
+      <path d="M4 10h16M8.5 3.5V6M15.5 3.5V6" />
+    </Svg>
+  );
+}
+
+/** An open eye — the visitor who is only looking. */
+export function IconEye(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="2.6" />
+    </Svg>
+  );
+}
+
+/** A left-pointing chevron with a tail — the back link. */
+export function IconBack(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M20 12H4.5" />
+      <path d="M10 5.5 3.5 12l6.5 6.5" />
+    </Svg>
+  );
+}
+
 /** A plus that becomes a minus, for the FAQ accordion. */
 export function IconPlus(props: IconProps) {
   return (

@@ -22,8 +22,12 @@ type ServiceOption = { value: string; label: string };
 
 type Props = {
   locale: string;
-  /** 'general' on the homepage and service pages, 'contact' on /contact. */
-  variant: Exclude<ContactVariant, 'photo'>;
+  /**
+   * 'contact' on /contact — the written-enquiry form. 'general' is the older
+   * name-and-number quote form, kept working but no longer placed anywhere:
+   * the guided form replaced it everywhere it used to sit.
+   */
+  variant: Extract<ContactVariant, 'general' | 'contact'>;
   serviceOptions: ServiceOption[];
   /** Pre-selects the service on a service page. */
   defaultService?: string;

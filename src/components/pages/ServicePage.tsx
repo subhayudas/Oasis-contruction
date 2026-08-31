@@ -6,6 +6,7 @@ import { FaqAccordion } from '@/components/FaqAccordion';
 import { Picture } from '@/components/Picture';
 import { ProjectCard } from '@/components/ProjectCard';
 import { TestimonialGrid } from '@/components/Testimonials';
+import { OpenGuidedForm } from '@/components/guided/OpenGuidedForm';
 import { IconArrow, IconCamera, IconCheck, IconPhone, serviceIcons } from '@/components/icons';
 import { ProcessSteps } from '@/components/sections/Process';
 import { FinalCta } from '@/components/sections/FinalCta';
@@ -101,15 +102,15 @@ export function ServicePage({
                   {t.common.quote}
                 </Link>
                 {service.photoFirst ? (
-                  <Link
+                  <OpenGuidedForm
                     href={pagePath(locale, 'photo')}
-                    data-cta={t.common.photoCta}
-                    data-cta-location={`service-hero-${serviceKey}`}
+                    label={t.common.photoCta}
+                    location={`service-hero-${serviceKey}`}
+                    service={serviceKey}
                     className="btn btn-quarry"
                   >
                     <IconCamera className="h-4.5 w-4.5" />
-                    {t.common.photoCta}
-                  </Link>
+                  </OpenGuidedForm>
                 ) : (
                   <a
                     href={site.phone.href}

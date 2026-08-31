@@ -1,11 +1,9 @@
-import Link from 'next/link';
-
-import { QuoteForm } from '@/components/QuoteForm';
+import { GuidedForm } from '@/components/guided/GuidedForm';
+import { OpenGuidedForm } from '@/components/guided/OpenGuidedForm';
 import { IconCamera, IconPhone } from '@/components/icons';
 import { Eyebrow } from '@/components/ui';
 import { getDictionary } from '@/content/dictionary';
 import { credentialLine } from '@/content/placeholders';
-import { services } from '@/content/services';
 import { site } from '@/content/site';
 import type { Locale } from '@/lib/i18n';
 import { pagePath, type ServiceKey } from '@/lib/routes';
@@ -13,8 +11,10 @@ import { pagePath, type ServiceKey } from '@/lib/routes';
 /**
  * The last thing on every page except the contact page itself: three ways to
  * convert, in descending order of how much the visitor has to commit — call,
- * send a photo, or write. The form sits on the right on desktop and last on a
- * phone, where the two buttons above it are the ones a thumb can reach.
+ * send a photo, or answer six questions by tapping. The photo button and the
+ * form are the same flow: the photograph is step 5 of it, so a visitor who
+ * arrives wanting to send a picture lands on the question that asks for one
+ * rather than in a second funnel with its own lead schema.
  *
  * The extra bottom padding is not decoration: the pinned thumb bar is 60px
  * tall and would otherwise cover the submit button.
@@ -29,11 +29,6 @@ export function FinalCta({
   className?: string;
 }) {
   const t = getDictionary(locale);
-
-  const serviceOptions = services.map((service) => ({
-    value: service.key,
-    label: service.copy[locale].name,
-  }));
 
   return (
     <section
@@ -61,15 +56,15 @@ export function FinalCta({
                 <IconPhone className="h-4.5 w-4.5" />
                 {t.common.callNow}
               </a>
-              <Link
+              <OpenGuidedForm
                 href={pagePath(locale, 'photo')}
-                data-cta={t.common.photoCta}
-                data-cta-location="final-cta"
+                label={t.common.photoCta}
+                location="final-cta-photo"
+                service={defaultService}
                 className="btn btn-quarry"
               >
                 <IconCamera className="h-4.5 w-4.5" />
-                {t.common.photoCta}
-              </Link>
+              </OpenGuidedForm>
             </div>
 
             <p className="u-meta text-dust-2 mt-5">
@@ -84,16 +79,11 @@ export function FinalCta({
             </p>
           </div>
 
-          <div className="glass-panel reveal reveal-r p-6 lg:p-8">
-            <QuoteForm
+          <div className="glass-panel reveal reveal-r py-2">
+            <GuidedForm
               locale={locale}
-              variant="general"
-              serviceOptions={serviceOptions}
-              defaultService={defaultService ?? ''}
-              privacyHref={pagePath(locale, 'privacy')}
-              phone={{ href: site.phone.href, display: site.phone.display }}
-              email={{ href: site.email.href, display: site.email.display }}
-              t={t}
+              source={`final-cta:${defaultService ?? 'general'}`}
+              defaultService={defaultService}
             />
           </div>
         </div>

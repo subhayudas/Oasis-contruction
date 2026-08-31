@@ -7,6 +7,7 @@ import { Analytics, GtmNoScript } from '@/components/Analytics';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Footer } from '@/components/Footer';
+import { GuidedFormProvider } from '@/components/guided/GuidedFormProvider';
 import { Header } from '@/components/Header';
 import { MobileContactBar } from '@/components/MobileContactBar';
 import { Recaptcha } from '@/components/Recaptcha';
@@ -87,21 +88,24 @@ export default async function LocaleLayout({
           className="pointer-events-none absolute top-0 left-0 h-2 w-px"
         />
 
-        <AnnouncementBar
-          text={t.announcement.text}
-          cta={t.announcement.cta}
-          href={pagePath(locale, 'contact')}
-          dismissLabel={t.announcement.dismiss}
-        />
+        <GuidedFormProvider locale={locale}>
+          <AnnouncementBar
+            text={t.announcement.text}
+            cta={t.announcement.cta}
+            href={pagePath(locale, 'contact')}
+            dismissLabel={t.announcement.dismiss}
+          />
 
-        <Header locale={locale} />
+          <Header locale={locale} />
 
-        <main id="main" tabIndex={-1}>
-          {children}
-        </main>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
 
-        <Footer locale={locale} />
-        <MobileContactBar locale={locale} />
+          <Footer locale={locale} />
+          <MobileContactBar locale={locale} />
+        </GuidedFormProvider>
+
         <RevealScript />
         <Analytics />
         <Recaptcha />

@@ -11,9 +11,73 @@
  * email, no message text, no photograph. Only which button, on which page.
  */
 
+export type FormType = 'general' | 'photo' | 'contact' | 'guided';
+
+/**
+ * The guided form's funnel.
+ *
+ * The six steps are measured individually because the only useful question
+ * about a multi-step form is *where* people leave it — a single submit rate
+ * tells you it is leaking without telling you which screen is the hole.
+ * `form_abandon` carries the furthest step seen for exactly that reason.
+ *
+ * Nothing that identifies a person is sent here either: a step records which
+ * option key was tapped, never the name, the number or the photograph.
+ */
 export type AnalyticsEvent =
-  | { event: 'form_submit'; form_type: 'general' | 'photo' | 'contact'; page_url: string }
-  | { event: 'form_start'; form_type: 'general' | 'photo' | 'contact'; page_url: string }
+  | { event: 'form_submit'; form_type: FormType; page_url: string }
+  | { event: 'form_start'; form_type: FormType; page_url: string }
+  | {
+      event: 'form_view';
+      form_type: FormType;
+      source_page: string;
+      cta_text: string;
+      page_url: string;
+    }
+  | {
+      event: 'form_step_complete';
+      form_type: FormType;
+      step_number: number;
+      step_name: string;
+      selected_value: string;
+      page_url: string;
+    }
+  | {
+      event: 'form_step_back';
+      form_type: FormType;
+      from_step: number;
+      to_step: number;
+      page_url: string;
+    }
+  | { event: 'form_photo_upload'; form_type: FormType; photo_count: number; page_url: string }
+  | { event: 'form_photo_skip'; form_type: FormType; page_url: string }
+  | { event: 'form_contact_started'; form_type: FormType; page_url: string }
+  | {
+      event: 'form_abandon';
+      form_type: FormType;
+      last_step_seen: number;
+      time_on_form: number;
+      page_url: string;
+    }
+  | {
+      event: 'form_error';
+      form_type: FormType;
+      step: number;
+      field: string;
+      error_type: string;
+      page_url: string;
+    }
+  | {
+      event: 'form_lead';
+      form_type: FormType;
+      service: string;
+      problem: string;
+      location: string;
+      timeline: string;
+      photo_count: number;
+      time_to_complete: number;
+      page_url: string;
+    }
   | { event: 'phone_click'; phone_number: string; page_url: string }
   | { event: 'photo_upload'; photo_count: number; page_url: string }
   | { event: 'cta_click'; cta_text: string; cta_location: string; page_url: string }
@@ -64,12 +128,83 @@ export function trackPhone(phoneNumber: string): void {
   track({ event: 'phone_click', phone_number: phoneNumber });
 }
 
-export function trackFormStart(formType: 'general' | 'photo' | 'contact'): void {
+export function trackFormStart(formType: FormType): void {
   track({ event: 'form_start', form_type: formType });
 }
 
-export function trackFormSubmit(formType: 'general' | 'photo' | 'contact'): void {
+export function trackFormSubmit(formType: FormType): void {
   track({ event: 'form_submit', form_type: formType });
+}
+
+/* ------------------------------------------------------- guided form funnel */
+
+export function trackGuidedView(sourcePage: string, ctaText: string): void {
+  track({
+    event: 'form_view',
+    form_type: 'guided',
+    source_page: sourcePage,
+    cta_text: ctaText,
+  });
+}
+
+export function trackGuidedStep(stepNumber: number, stepName: string, value: string): void {
+  track({
+    event: 'form_step_complete',
+    form_type: 'guided',
+    step_number: stepNumber,
+    step_name: stepName,
+    selected_value: value,
+  });
+}
+
+export function trackGuidedBack(from: number, to: number): void {
+  track({ event: 'form_step_back', form_type: 'guided', from_step: from, to_step: to });
+}
+
+export function trackGuidedPhotos(count: number): void {
+  track({ event: 'form_photo_upload', form_type: 'guided', photo_count: count });
+}
+
+export function trackGuidedPhotoSkip(): void {
+  track({ event: 'form_photo_skip', form_type: 'guided' });
+}
+
+export function trackGuidedContactStarted(): void {
+  track({ event: 'form_contact_started', form_type: 'guided' });
+}
+
+export function trackGuidedAbandon(lastStep: number, seconds: number): void {
+  track({
+    event: 'form_abandon',
+    form_type: 'guided',
+    last_step_seen: lastStep,
+    time_on_form: seconds,
+  });
+}
+
+export function trackGuidedError(step: number, field: string, errorType: string): void {
+  track({ event: 'form_error', form_type: 'guided', step, field, error_type: errorType });
+}
+
+/** The qualified-lead event: everything the sales team sorts a callback by. */
+export function trackGuidedLead(lead: {
+  service: string;
+  problem: string;
+  location: string;
+  timeline: string;
+  photoCount: number;
+  seconds: number;
+}): void {
+  track({
+    event: 'form_lead',
+    form_type: 'guided',
+    service: lead.service,
+    problem: lead.problem,
+    location: lead.location,
+    timeline: lead.timeline,
+    photo_count: lead.photoCount,
+    time_to_complete: lead.seconds,
+  });
 }
 
 export function trackPhotoUpload(count: number): void {
