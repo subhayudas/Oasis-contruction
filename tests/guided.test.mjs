@@ -17,6 +17,10 @@ const guided = readFileSync(new URL('../src/content/guided.ts', import.meta.url)
 const lib = readFileSync(new URL('../src/lib/guided.ts', import.meta.url), 'utf8');
 const route = readFileSync(new URL('../src/app/api/contact/route.ts', import.meta.url), 'utf8');
 const contact = readFileSync(new URL('../src/lib/contact.ts', import.meta.url), 'utf8');
+const form = readFileSync(
+  new URL('../src/components/guided/GuidedForm.tsx', import.meta.url),
+  'utf8',
+);
 
 const SERVICES = [
   'pave-uni',
@@ -186,5 +190,37 @@ test('the six steps are the six the progress bar counts', () => {
   assert.match(lib, /GUIDED_TOTAL_STEPS = 6/);
   for (const name of ['service', 'problem', 'location', 'timeline', 'photos', 'contact']) {
     assert.ok(lib.includes(`${name}:`), `step ${name} is missing from the router`);
+  }
+});
+
+/**
+ * The conversion has to happen at a URL. An accepted submission hands the
+ * lead over and loads the thank-you page; if that turns back into a panel
+ * swapped in place, or into a client-side transition, the campaign pointed at
+ * /merci silently stops recording anything and nobody finds out from the site.
+ */
+test('an accepted submission lands on the thank-you URL', () => {
+  const success = form.slice(form.indexOf('if (data.ok) {'));
+  assert.ok(success.includes('stashLead('), 'the lead is no longer handed off');
+  assert.ok(
+    success.includes("pagePath(locale, 'thanks')"),
+    'the confirmation URL is no longer built from the route map',
+  );
+  assert.match(
+    success,
+    /window\.location\.assign/,
+    'a client-side transition would not load the conversion URL',
+  );
+});
+
+test('the confirmation greeting survives a missing name', () => {
+  for (const [name, block] of [
+    ['fr', fr],
+    ['en', en],
+  ]) {
+    assert.ok(
+      member(block, 'confirmation').includes('titlePlain'),
+      `the nameless greeting is gone from ${name}`,
+    );
   }
 });

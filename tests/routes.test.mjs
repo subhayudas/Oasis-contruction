@@ -9,6 +9,11 @@ import { readFileSync } from 'node:fs';
  * with another in the same language, and every service must exist in both.
  */
 const source = readFileSync(new URL('../src/lib/routes.ts', import.meta.url), 'utf8');
+const sitemap = readFileSync(new URL('../src/app/sitemap.ts', import.meta.url), 'utf8');
+const slugRoute = readFileSync(
+  new URL('../src/app/[locale]/[slug]/page.tsx', import.meta.url),
+  'utf8',
+);
 
 function slugMap(name) {
   const start = source.indexOf(`export const ${name} = {`);
@@ -72,4 +77,30 @@ test('slugs are URL-safe and unaccented', () => {
       assert.match(slug, /^[a-z0-9-]+$/, `not URL-safe: ${slug}`);
     }
   }
+});
+
+/**
+ * The thank-you page is the conversion URL an ad platform is pointed at. Two
+ * things about it are easy to undo by accident and expensive to notice: it
+ * must exist in both languages, and it must stay out of the index. A campaign
+ * whose goal URL 404s reports nothing, and an indexed confirmation page
+ * thanks strangers for requests nobody sent.
+ */
+test('the thank-you page exists in both languages', () => {
+  assert.ok(pages.thanks, 'the thank-you page is gone from the route map');
+  assert.equal(pages.thanks.fr, 'merci');
+  assert.equal(pages.thanks.en, 'thank-you');
+});
+
+test('the thank-you page is noindex and absent from the sitemap', () => {
+  assert.match(
+    sitemap,
+    /const EXCLUDED: readonly PageKey\[\] = \[[^\]]*'thanks'/,
+    'the thank-you page is no longer excluded from the sitemap',
+  );
+  assert.match(
+    slugRoute,
+    /pageKey === 'thanks'[\s\S]{0,200}robots: \{ index: false/,
+    'the thank-you page no longer sets robots noindex',
+  );
 });

@@ -8,6 +8,7 @@ import { PhotoPage } from '@/components/pages/PhotoPage';
 import { PrivacyPage } from '@/components/pages/PrivacyPage';
 import { ProjectsPage } from '@/components/pages/ProjectsPage';
 import { ServicePage } from '@/components/pages/ServicePage';
+import { ThanksPage } from '@/components/pages/ThanksPage';
 import { getDictionary } from '@/content/dictionary';
 import { services } from '@/content/services';
 import { isLocale, locales, type Locale } from '@/lib/i18n';
@@ -76,13 +77,21 @@ export async function generateMetadata({
     title: string;
     description: string;
   };
-  return buildMetadata({
+  const metadata = buildMetadata({
     locale,
     title: meta.title,
     description: meta.description,
     path: pagePath(locale, pageKey),
     alternates: alternatesForPage(pageKey),
   });
+
+  // The thank-you page is a conversion URL, not a landing page. Indexing it
+  // would put "Merci! On a bien reçu votre demande." in a search result and
+  // let a stranger arrive at a confirmation of nothing.
+  if (pageKey === 'thanks') {
+    return { ...metadata, robots: { index: false, follow: false, nocache: true } };
+  }
+  return metadata;
 }
 
 const PAGES: Record<SimplePageKey, (props: { locale: Locale }) => React.JSX.Element> = {
@@ -92,6 +101,7 @@ const PAGES: Record<SimplePageKey, (props: { locale: Locale }) => React.JSX.Elem
   areas: AreasPage,
   photo: PhotoPage,
   privacy: PrivacyPage,
+  thanks: ThanksPage,
 };
 
 export default async function LocalePage({
@@ -140,6 +150,12 @@ export default async function LocalePage({
   if (!pageKey) notFound();
 
   const Page = PAGES[pageKey];
+
+  // A dead end reached after a submission, and noindex. There is no trail to
+  // describe, and breadcrumb markup for a page that must never be indexed is
+  // structured data about nothing.
+  if (pageKey === 'thanks') return <Page locale={locale} />;
+
   const label = pageLabel(pageKey, t);
 
   return (
@@ -174,5 +190,9 @@ function pageLabel(key: SimplePageKey, t: ReturnType<typeof getDictionary>): str
       return t.photoPage.title;
     case 'privacy':
       return t.footer.privacy;
+    // Unreachable: the thank-you page returns above, before any breadcrumb is
+    // built. The case exists so the switch stays exhaustive over SimplePageKey.
+    case 'thanks':
+      return t.meta.thanks.title;
   }
 }

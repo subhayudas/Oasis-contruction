@@ -1,0 +1,17 @@
+# The repository is stored with LF endings and Prettier is configured with the
+# default `endOfLine: "lf"`, so a Windows checkout that converts to CRLF fails
+# `npm run format:check` on every file in the project - including files nobody
+# touched. Pinning the working tree to LF is what keeps the gate runnable on
+# both platforms.
+* text=auto eol=lf
+
+# Binary assets are never line-ending converted.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary

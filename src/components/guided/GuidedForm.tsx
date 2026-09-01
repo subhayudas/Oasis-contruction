@@ -32,6 +32,7 @@ import {
   GUIDED_TOTAL_STEPS,
   STEP,
   STEP_NAMES,
+  firstNameOf,
   guidedFileLimits,
   guidedReducer,
   initialGuidedState,
@@ -40,6 +41,7 @@ import {
   type GuidedFieldError,
 } from '@/lib/guided';
 import type { Locale } from '@/lib/i18n';
+import { stashLead } from '@/lib/lead-handoff';
 import { recaptchaToken } from '@/lib/recaptcha';
 import { pagePath } from '@/lib/routes';
 import { IconBack, IconClose } from '@/components/icons';
@@ -316,16 +318,41 @@ export function GuidedForm({ locale, source, defaultService, onClose, className 
         const seconds = mountedAt.current
           ? Math.round((Date.now() - mountedAt.current) / 1000)
           : 0;
-        trackFormSubmit('guided');
-        trackGuidedLead({
+        const lead = {
           service: state.service ?? 'unknown',
           problem: state.problem ?? 'unknown',
           location: state.location ?? 'unknown',
           timeline: state.timeline ?? 'unknown',
           photoCount: state.photos.length,
           seconds,
+        };
+
+        /* The confirmation now lives at its own URL, because that is the only
+           thing an ad platform can count as a conversion. The lead is handed
+           over in sessionStorage and the events fire on the far side, so the
+           conversion URL and the lead events belong to the same page view. */
+        const handed = stashLead({
+          formType: 'guided',
+          firstName: firstNameOf(state.name),
+          lead,
         });
+
+        // Painted before the navigation, so the visitor is never looking at
+        // the submit button wondering whether it took.
         dispatch({ type: 'SUBMIT_SUCCESS' });
+
+        if (handed) {
+          /* A document navigation, not router.push: a tag firing on a URL
+             needs that URL to actually load. */
+          window.location.assign(pagePath(locale, 'thanks'));
+          return;
+        }
+
+        /* Storage refused - a locked-down or private browsing session. Keep
+           the visitor on the confirmation they already have and count the
+           lead here: an unattributed conversion beats a broken promise. */
+        trackFormSubmit('guided');
+        trackGuidedLead(lead);
         return;
       }
 
