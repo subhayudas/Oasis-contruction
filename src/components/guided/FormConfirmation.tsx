@@ -27,11 +27,17 @@ export function FormConfirmation({
   locale,
   firstName,
   onClose,
+  titleAs: Title = 'h2',
 }: {
   copy: GuidedCopy;
   locale: Locale;
   firstName: string;
   onClose?: () => void;
+  /**
+   * `h2` inside the form, where the sheet already has a heading above it.
+   * `h1` on the thank-you page, where this is the page.
+   */
+  titleAs?: 'h1' | 'h2';
 }) {
   const review = testimonials.find((entry) => entry.id === 'william-2025-05');
 
@@ -44,9 +50,11 @@ export function FormConfirmation({
         <IconCheck className="check-draw h-8 w-8" />
       </span>
 
-      <h2 className="text-ink mt-6 text-center text-[clamp(1.375rem,4.6vw,1.75rem)] leading-[1.2] font-[700] tracking-[-0.022em]">
-        {copy.confirmation.title(firstName)}
-      </h2>
+      {/* The name is a courtesy, not a requirement: reloaded as a page there
+          may not be one, and "Merci, !" is not a thing to show a customer. */}
+      <Title className="text-ink mt-6 text-center text-[clamp(1.375rem,4.6vw,1.75rem)] leading-[1.2] font-[700] tracking-[-0.022em]">
+        {firstName ? copy.confirmation.title(firstName) : copy.confirmation.titlePlain}
+      </Title>
       <p className="u-body mx-auto mt-4 max-w-[32rem] text-center text-[0.9375rem]">
         {fill(copy.confirmation.body)}
       </p>

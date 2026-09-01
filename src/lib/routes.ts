@@ -21,6 +21,11 @@ export const pageSlugs = {
   areas: { fr: 'secteurs-desservis', en: 'service-areas' },
   photo: { fr: 'envoyer-une-photo', en: 'send-a-photo' },
   privacy: { fr: 'confidentialite', en: 'privacy' },
+  /* The page a lead lands on after the server accepted the submission. Every
+     conversion goal an ad platform offers is URL-based, so the lead has to
+     end at a URL of its own rather than at a panel swapped in place. It is
+     noindex and kept out of the sitemap. */
+  thanks: { fr: 'merci', en: 'thank-you' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type PageKey = keyof typeof pageSlugs;
@@ -33,6 +38,7 @@ export const simplePages = [
   'areas',
   'photo',
   'privacy',
+  'thanks',
 ] as const;
 export type SimplePageKey = (typeof simplePages)[number];
 

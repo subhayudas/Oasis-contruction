@@ -41,6 +41,13 @@ export const fr = {
       description:
         'Comment Oasis Construction recueille et utilise les renseignements transmis par les formulaires de son site web.',
     },
+    /* The page a lead lands on after submitting. Noindex, so this description
+       is for the browser tab and nothing else. */
+    thanks: {
+      title: 'Merci - Oasis Construction',
+      description:
+        'Votre demande d’évaluation gratuite a bien été reçue. Un membre de l’équipe Oasis Construction communiquera avec vous.',
+    },
   },
 
   common: {

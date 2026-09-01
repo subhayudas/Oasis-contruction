@@ -43,6 +43,11 @@ export const en: Dictionary = {
       description:
         'How Oasis Construction collects and uses the information submitted through the forms on this site.',
     },
+    thanks: {
+      title: 'Thank you - Oasis Construction',
+      description:
+        'Your request for a free assessment has been received. Someone from the Oasis Construction team will be in touch.',
+    },
   },
 
   common: {

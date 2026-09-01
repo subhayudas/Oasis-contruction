@@ -24,7 +24,18 @@ const PRIORITY: Record<PageKey, number> = {
   about: 0.6,
   areas: 0.5,
   privacy: 0.2,
+  // Never listed - see EXCLUDED below. It only appears here because PageKey
+  // is exhaustive, which is the point: a new page cannot be forgotten.
+  thanks: 0,
 };
+
+/**
+ * Pages that are deliberately absent from the sitemap. Listing a noindex URL
+ * is a contradiction crawlers report, and the thank-you page is noindex: it
+ * exists so a converted visitor lands on a URL an ad platform can count, not
+ * to be found in a search result.
+ */
+const EXCLUDED: readonly PageKey[] = ['thanks'];
 
 function languagesFor(alternates: Record<string, string>) {
   return Object.fromEntries(
@@ -38,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const locale of locales) {
     for (const key of Object.keys(pageSlugs) as PageKey[]) {
+      if (EXCLUDED.includes(key)) continue;
       entries.push({
         url: absolute(pagePath(locale, key)),
         lastModified,

@@ -14,7 +14,11 @@ import {
   type ContactResponse,
   type ContactVariant,
 } from '@/lib/contact';
+import { firstNameOf } from '@/lib/guided';
+import { isLocale, defaultLocale } from '@/lib/i18n';
+import { stashLead } from '@/lib/lead-handoff';
 import { recaptchaToken } from '@/lib/recaptcha';
+import { pagePath } from '@/lib/routes';
 import { IconAlert, IconCheck } from './icons';
 import { PhotoDropzone } from './PhotoDropzone';
 
@@ -161,12 +165,27 @@ export function QuoteForm({
 
       if (data.ok) {
         if (files.length > 0) trackPhotoUpload(files.length);
-        trackFormSubmit(formType);
+
+        /* Every lead the site produces lands on the same confirmation URL,
+           whichever form made it, so an ad platform has one page to count.
+           See lib/lead-handoff.ts for why it travels in sessionStorage. */
+        const handed = stashLead({ formType, firstName: firstNameOf(values.name) });
+
         setStatus({ kind: 'success' });
         setValues({ ...EMPTY, locale, service: defaultService });
         setFiles([]);
         setShowErrors(false);
         formRef.current?.reset();
+
+        if (handed) {
+          // A real load, not a client transition: the tag has to see the URL.
+          window.location.assign(pagePath(isLocale(locale) ? locale : defaultLocale, 'thanks'));
+          return;
+        }
+
+        // Storage refused. The inline success panel above is still the truth,
+        // so stay on it and count the lead here.
+        trackFormSubmit(formType);
       } else if (data.code === 'validation' && data.errors) {
         setErrors(data.errors);
         setStatus({ kind: 'idle' });

@@ -153,6 +153,12 @@ export type GuidedCopy = {
 
   confirmation: {
     title: (firstName: string) => string;
+    /**
+     * The same greeting with no name in it. The confirmation now also renders
+     * as its own page, and a page can be reloaded by someone whose first name
+     * we no longer hold - "Merci, !" is not a thing to show a customer.
+     */
+    titlePlain: string;
     body: string;
     nextTitle: string;
     next: [string, string, string];
@@ -161,6 +167,12 @@ export type GuidedCopy = {
     testimonialTitle: string;
     projectsCta: string;
     closeCta: string;
+    /**
+     * Shown at /merci to someone who did not just submit anything - a shared
+     * link, a bookmark, a crawler. The confirmation is a promise, so it is
+     * not made to a visitor whose request we never received.
+     */
+    direct: { title: string; body: string; cta: string };
   };
 };
 
@@ -481,6 +493,7 @@ const fr: GuidedCopy = {
 
   confirmation: {
     title: (firstName) => `Merci, ${firstName}! On a bien reçu votre demande.`,
+    titlePlain: 'Merci! On a bien reçu votre demande.',
     body: 'Un membre de l’équipe Oasis Construction communiquera avec vous dans les {responseTime} pour une première impression de votre projet.',
     nextTitle: 'Ce qui se passe maintenant',
     next: [
@@ -493,6 +506,11 @@ const fr: GuidedCopy = {
     testimonialTitle: 'Pendant que vous attendez',
     projectsCta: 'Voir nos projets',
     closeCta: 'Fermer',
+    direct: {
+      title: 'Aucune demande à confirmer',
+      body: 'Cette page s’affiche après l’envoi d’une demande d’évaluation gratuite. Si vous venez d’en envoyer une, elle est bien partie. Sinon, ça prend moins d’une minute.',
+      cta: 'Commencer ma demande',
+    },
   },
 };
 
@@ -788,6 +806,7 @@ const en: GuidedCopy = {
 
   confirmation: {
     title: (firstName) => `Thank you, ${firstName}! We have your request.`,
+    titlePlain: 'Thank you! We have your request.',
     body: 'Someone from the Oasis Construction team will get in touch within {responseTime} with a first impression of your project.',
     nextTitle: 'What happens now',
     next: [
@@ -800,6 +819,11 @@ const en: GuidedCopy = {
     testimonialTitle: 'While you wait',
     projectsCta: 'See our projects',
     closeCta: 'Close',
+    direct: {
+      title: 'Nothing to confirm here',
+      body: 'This page appears after you send a request for a free assessment. If you just sent one, it is on its way. If not, it takes less than a minute.',
+      cta: 'Start my request',
+    },
   },
 };
 
