@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import '../globals.css';
 
-import { Analytics, GtmNoScript } from '@/components/Analytics';
+import { Analytics, ConsentDefaults } from '@/components/Analytics';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Footer } from '@/components/Footer';
@@ -68,10 +68,12 @@ export default async function LocaleLayout({
             __html: `try{if(localStorage.getItem('oasis_announcement_dismissed')==='1')document.documentElement.dataset.announcement='hidden'}catch(e){}`,
           }}
         />
+
+        {/* Consent Mode v2 defaults. Must precede every measurement tag on the
+            page, which is why it lives here and not in <Analytics>. */}
+        <ConsentDefaults />
       </head>
       <body>
-        <GtmNoScript />
-
         <a
           href="#main"
           className="sr-only-focusable btn btn-stone absolute top-3 left-3 z-[70]"

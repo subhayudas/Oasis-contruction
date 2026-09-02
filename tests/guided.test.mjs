@@ -218,8 +218,8 @@ test('an accepted submission lands on the thank-you URL', () => {
 });
 
 test('paid landing pages load measurement and ask for consent', () => {
-  assert.match(landing, /<GtmNoScript \/>/, 'the GTM noscript fallback is missing');
-  assert.match(landing, /<Analytics \/>/, 'the GTM loader is missing');
+  assert.match(landing, /<ConsentDefaults \/>/, 'the consent defaults are missing');
+  assert.match(landing, /<Analytics \/>/, 'the measurement loader is missing');
   assert.match(landing, /<CookieBanner/, 'the consent choice is missing');
 });
 

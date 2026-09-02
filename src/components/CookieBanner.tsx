@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
+import { CONSENT_KEY } from '@/lib/analytics';
 import { useBrowserValue } from '@/lib/use-browser-value';
-
-const KEY = 'oasis_consent';
 
 export type ConsentValue = 'granted' | 'denied';
 
@@ -18,8 +17,9 @@ export type ConsentValue = 'granted' | 'denied';
  * two buttons carry equal visual weight - a decline button styled as an
  * afterthought is not a free choice, and Law 25 asks for a free choice.
  *
- * The answer is pushed to the dataLayer as a Consent Mode v2 update, so a GTM
- * container configured for consent mode does the right thing with no further
+ * The answer is pushed to the dataLayer as a Consent Mode v2 update and issued
+ * as the equivalent gtag command, so a GTM container configured for consent
+ * mode and a direct gtag.js install both do the right thing with no further
  * wiring. Until the visitor answers, consent is denied.
  */
 export function CookieBanner({
@@ -38,7 +38,7 @@ export function CookieBanner({
 }) {
   // 'pending' on the server pass: the banner is not in the HTML, so it cannot
   // flash for someone who answered months ago.
-  const [stored, write] = useBrowserValue(KEY, 'pending');
+  const [stored, write] = useBrowserValue(CONSENT_KEY, 'pending');
   const decided = stored === 'granted' || stored === 'denied';
 
   // Telling the tag container what the standing answer is *is* an external
@@ -84,6 +84,8 @@ export function CookieBanner({
 function pushConsent(value: ConsentValue) {
   if (typeof window === 'undefined') return;
   window.dataLayer = window.dataLayer ?? [];
+
+  // For a GTM container: the event a consent-mode trigger listens for.
   window.dataLayer.push({
     event: 'consent_update',
     analytics_storage: value,
@@ -91,4 +93,15 @@ function pushConsent(value: ConsentValue) {
     ad_user_data: value,
     ad_personalization: value,
   });
+
+  // For a direct gtag.js install there is no container to interpret that push,
+  // and a dataLayer entry named 'consent' is not the same thing as a consent
+  // update - only the command below actually moves the tag's state.
+  window.gtag?.('consent', 'update', {
+    analytics_storage: value,
+    ad_storage: value,
+    ad_user_data: value,
+    ad_personalization: value,
+  });
+  window.gtag?.('set', 'ads_data_redaction', value !== 'granted');
 }

@@ -90,12 +90,52 @@ export type AnalyticsEvent =
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    /** Defined by <ConsentDefaults>, ahead of any measurement script. */
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? '';
 export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? '';
 export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '';
+
+/**
+ * Google Ads conversion tracking.
+ *
+ * `NEXT_PUBLIC_GOOGLE_ADS_ID` is the account tag (AW-XXXXXXXXXX) and
+ * `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` the conversion label Google Ads hands
+ * over when the conversion action is created. Both are needed: the id alone
+ * loads the tag and records nothing, the label alone has nowhere to send.
+ *
+ * Kept separate from GA4_ID on purpose. The two are different products with
+ * different retention and different consent consequences, and the business
+ * may well run ads long before it wants analytics.
+ */
+// The production Google Ads account tag. An environment value remains
+// available for previews or a future account migration.
+export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? 'AW-18390225010';
+export const GOOGLE_ADS_LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL ?? '';
+
+/** The `send_to` Google Ads expects, or '' when either half is unconfigured. */
+export const ADS_LEAD_SEND_TO =
+  GOOGLE_ADS_ID && GOOGLE_ADS_LEAD_LABEL ? `${GOOGLE_ADS_ID}/${GOOGLE_ADS_LEAD_LABEL}` : '';
+
+/** Where the Law 25 banner stores the visitor's answer. */
+export const CONSENT_KEY = 'oasis_consent';
+
+/**
+ * The standing answer, read at the moment of the event rather than captured in
+ * a render. Nothing that reaches a third party may fire on a false here.
+ */
+export function hasConsent(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(CONSENT_KEY) === 'granted';
+  } catch {
+    // Private mode, or site data blocked. No stored answer is not an answer.
+    return false;
+  }
+}
 
 /** The path the visitor is actually on, never the query string. */
 export function currentPageUrl(): string {
@@ -134,6 +174,41 @@ export function trackFormStart(formType: FormType): void {
 
 export function trackFormSubmit(formType: FormType): void {
   track({ event: 'form_submit', form_type: formType });
+  trackAdsLead();
+}
+
+/**
+ * The Google Ads conversion.
+ *
+ * Every form on the site ends in `trackFormSubmit`, so hanging the conversion
+ * off that one call is what keeps the quote form, the contact form and the
+ * guided funnel from drifting apart - a new form is counted the day it is
+ * written, without anyone remembering to add a second line.
+ *
+ * Fired only on a delivered lead, never on a submit attempt: an Ads conversion
+ * that counts failures teaches Smart Bidding the wrong lesson and is worse
+ * than no conversion at all.
+ *
+ * The consent check has to be here and not only in the component that loads
+ * the tag. gtag.js is absent until the visitor accepts, so this call would
+ * merely sit in the dataLayer - and a later accept replays that queue, which
+ * would deliver a conversion the visitor had refused at the time it happened.
+ *
+ * Silent as well when the tag is unconfigured, or when a GTM container is in
+ * charge instead: there the `form_submit` push above is the trigger the
+ * container listens for, and firing here too would double-count the lead.
+ */
+export function trackAdsLead(): void {
+  if (typeof window === 'undefined') return;
+  if (GTM_ID || !ADS_LEAD_SEND_TO) return;
+  if (!hasConsent()) return;
+  window.gtag?.('event', 'conversion', {
+    // No value: a quote request is a lead, not a sale, and inventing a dollar
+    // figure here would put a made-up number into the bidding model. No
+    // form_type either - Google Ads drops parameters it was not configured
+    // for, and `form_submit` on the dataLayer already carries it.
+    send_to: ADS_LEAD_SEND_TO,
+  });
 }
 
 /* ------------------------------------------------------- guided form funnel */
