@@ -219,6 +219,7 @@ test('an accepted submission lands on the thank-you URL', () => {
 
 test('paid landing pages load measurement and ask for consent', () => {
   assert.match(landing, /<ConsentDefaults \/>/, 'the consent defaults are missing');
+  assert.match(landing, /<GoogleAdsTag \/>/, 'the Google Ads base tag is missing');
   assert.match(landing, /<Analytics \/>/, 'the measurement loader is missing');
   assert.match(landing, /<CookieBanner/, 'the consent choice is missing');
 });

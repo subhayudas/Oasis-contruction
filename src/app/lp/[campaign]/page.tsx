@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { Analytics, ConsentDefaults } from '@/components/Analytics';
+import { Analytics, ConsentDefaults, GoogleAdsTag } from '@/components/Analytics';
 import { BrandMark } from '@/components/BrandMark';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Picture } from '@/components/Picture';
@@ -89,6 +89,7 @@ export default async function LandingPage({
     <html lang="fr-CA" className={`${geist.variable} ${instrumentSerif.variable}`}>
       <head>
         <ConsentDefaults />
+        <GoogleAdsTag />
       </head>
       <body>
         <main id="main">

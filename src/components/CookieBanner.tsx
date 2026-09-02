@@ -12,10 +12,11 @@ export type ConsentValue = 'granted' | 'denied';
  * Quebec's Law 25 consent banner.
  *
  * The site is built so that declining costs the visitor nothing: the language
- * cookie is strictly necessary and is set either way, and every measurement
- * tag in the GTM container must require an explicit "accept". That is why the
- * two buttons carry equal visual weight - a decline button styled as an
- * afterthought is not a free choice, and Law 25 asks for a free choice.
+ * cookie is strictly necessary and is set either way. The Google tag begins
+ * with consent denied, so advertising and analytics storage remain off until
+ * an explicit "accept". That is why the two buttons carry equal visual weight
+ * - a decline button styled as an afterthought is not a free choice, and Law
+ * 25 asks for a free choice.
  *
  * The answer is pushed to the dataLayer as a Consent Mode v2 update and issued
  * as the equivalent gtag command, so a GTM container configured for consent

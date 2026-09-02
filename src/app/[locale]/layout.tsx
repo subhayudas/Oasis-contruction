@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import '../globals.css';
 
-import { Analytics, ConsentDefaults } from '@/components/Analytics';
+import { Analytics, ConsentDefaults, GoogleAdsTag } from '@/components/Analytics';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { CookieBanner } from '@/components/CookieBanner';
 import { Footer } from '@/components/Footer';
@@ -72,6 +72,7 @@ export default async function LocaleLayout({
         {/* Consent Mode v2 defaults. Must precede every measurement tag on the
             page, which is why it lives here and not in <Analytics>. */}
         <ConsentDefaults />
+        <GoogleAdsTag />
       </head>
       <body>
         <a

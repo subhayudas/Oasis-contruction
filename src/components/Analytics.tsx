@@ -17,38 +17,21 @@ import {
 import { useBrowserValue } from '@/lib/use-browser-value';
 
 /**
- * Loads the measurement container (if one is configured, and only once the
- * visitor has accepted) and wires the three things that are easier to observe
- * once, at the document level, than to thread through every component: scroll
- * depth, clicks on tel: links, and clicks on anything marked as a call to
- * action.
+ * Loads optional measurement integrations after a visitor accepts, and wires
+ * the three things that are easier to observe once, at the document level,
+ * than to thread through every component: scroll depth, clicks on tel: links,
+ * and clicks on anything marked as a call to action.
  *
- * With no NEXT_PUBLIC_GTM_ID / NEXT_PUBLIC_GA4_ID / NEXT_PUBLIC_GOOGLE_ADS_ID
- * set - which is the state this ships in - no third-party script is requested
- * at all. The dataLayer is still filled, so the events can be verified in the
- * console before the business hands over a container id.
+ * The Google Ads base tag itself is rendered separately in <GoogleAdsTag> so
+ * Google can verify the installation. Consent Mode runs before it and denies
+ * advertising and analytics storage until the visitor makes a choice.
  *
  * A GTM container, when there is one, is the only thing loaded: GA4 and Google
- * Ads are then configured inside it. Without a container, gtag.js is loaded
- * directly for whichever of the two has an id, which is the shorter path for a
- * site that only needs to count leads.
- *
- * Nothing here loads before an explicit accept. Consent Mode would let these
- * tags load under a denial and redact what they send, which is what Google
- * recommends and what earns the modelled conversions - but the banner tells
- * the visitor the measurement scripts are not loaded unless they say yes, so
- * they are not loaded. Deleting the `granted &&` guards below is all it takes
- * to switch to the modelling behaviour, along with the banner's copy.
+ * Ads are then configured inside it. GA4 and Meta remain optional and load
+ * only after consent.
  */
 
 const DEPTHS = [25, 50, 75, 90] as const;
-
-/**
- * gtag.js is loaded once, under whichever id is present. Google Ads first: if
- * the business is paying for clicks, the conversion tag is the one that must
- * not be missing.
- */
-const GTAG_ID = GOOGLE_ADS_ID || GA4_ID;
 
 export function Analytics() {
   const pathname = usePathname();
@@ -172,27 +155,10 @@ export function Analytics() {
         </Script>
       ) : null}
 
-      {granted && !GTM_ID && GTAG_ID ? (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="gtag" strategy="afterInteractive">
-            {[
-              `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}`,
-              `gtag('js',new Date());`,
-              GA4_ID ? `gtag('config','${GA4_ID}',{send_page_view:true});` : '',
-              // allow_enhanced_conversions is off: the forms collect a name,
-              // an email and a phone number, and hashing those into an ad
-              // platform is a separate decision for the business to make under
-              // Law 25, not a default this file should take on its behalf.
-              GOOGLE_ADS_ID ? `gtag('config','${GOOGLE_ADS_ID}');` : '',
-            ]
-              .filter(Boolean)
-              .join('')}
-          </Script>
-        </>
+      {granted && !GTM_ID && GA4_ID ? (
+        <Script id="ga4-config" strategy="afterInteractive">
+          {`gtag('config','${GA4_ID}',{send_page_view:true});`}
+        </Script>
       ) : null}
 
       {granted && META_PIXEL_ID ? (
@@ -200,6 +166,27 @@ export function Analytics() {
           {`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${META_PIXEL_ID}');fbq('track','PageView');`}
         </Script>
       ) : null}
+    </>
+  );
+}
+
+/**
+ * The Google Ads base tag, rendered in the initial document head.
+ *
+ * Google Ads' installation checker needs to find this exact script and config
+ * during its first request. ConsentDefaults appears immediately before it, so
+ * the tag still starts with all advertising and analytics storage denied.
+ */
+export function GoogleAdsTag() {
+  if (!GOOGLE_ADS_ID) return null;
+  return (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GOOGLE_ADS_ID}');`,
+        }}
+      />
     </>
   );
 }
@@ -221,7 +208,7 @@ export function Analytics() {
  * so a lead submitted three pages in still attributes to the ad.
  */
 export function ConsentDefaults() {
-  if (!GTM_ID && !GTAG_ID) return null;
+  if (!GTM_ID && !GOOGLE_ADS_ID && !GA4_ID) return null;
   return (
     <script
       dangerouslySetInnerHTML={{
