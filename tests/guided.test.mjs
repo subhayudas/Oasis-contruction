@@ -133,16 +133,15 @@ test('the timeline step ranks urgency without rejecting anyone', () => {
   ]);
 });
 
-test('the confirmation never invents a callback time', () => {
+test('the confirmation does not promise a callback time', () => {
   for (const [name, block] of [
     ['fr', fr],
     ['en', en],
   ]) {
     const body = member(block, 'confirmation');
-    assert.ok(body.includes('{responseTime}'), `the placeholder is gone from ${name}`);
     assert.ok(
-      !/\b\d+\s*(h|heures?|hours?|jours?|days?)\b/i.test(body),
-      `a callback window has been invented on the ${name} confirmation screen`,
+      !/responseTime|callback time|dans les|within/i.test(body),
+      `a callback-time promise has returned on the ${name} confirmation screen`,
     );
   }
 });

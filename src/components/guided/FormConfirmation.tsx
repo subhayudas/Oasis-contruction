@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 import { IconArrow, IconCheck, IconPhone } from '@/components/icons';
 import type { GuidedCopy } from '@/content/guided';
-import { fill } from '@/content/placeholders';
 import { site } from '@/content/site';
 import { testimonials } from '@/content/testimonials';
 import type { Locale } from '@/lib/i18n';
@@ -15,9 +14,6 @@ import { pagePath } from '@/lib/routes';
  *
  * It answers the three questions a visitor has the moment they let go of a
  * lead: did it arrive, what happens next, and what if I do not want to wait.
- * The callback window is a `{responseTime}` hole rather than an invented
- * number - a promise the business has not made is not ours to make, and a
- * missed one costs more than the vagueness does.
  *
  * The testimonial is one of the two the business has actually published,
  * reproduced verbatim. There is no third and no aggregate score.
@@ -55,10 +51,6 @@ export function FormConfirmation({
       <Title className="text-ink mt-6 text-center text-[clamp(1.375rem,4.6vw,1.75rem)] leading-[1.2] font-[700] tracking-[-0.022em]">
         {firstName ? copy.confirmation.title(firstName) : copy.confirmation.titlePlain}
       </Title>
-      <p className="u-body mx-auto mt-4 max-w-[32rem] text-center text-[0.9375rem]">
-        {fill(copy.confirmation.body)}
-      </p>
-
       <h3 className="u-label text-ink-50 mt-9 text-[0.5625rem] tracking-[0.16em]">
         {copy.confirmation.nextTitle}
       </h3>

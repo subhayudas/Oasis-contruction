@@ -159,7 +159,6 @@ export type GuidedCopy = {
      * we no longer hold - "Merci, !" is not a thing to show a customer.
      */
     titlePlain: string;
-    body: string;
     nextTitle: string;
     next: [string, string, string];
     waitTitle: string;
@@ -494,7 +493,6 @@ const fr: GuidedCopy = {
   confirmation: {
     title: (firstName) => `Merci, ${firstName}! On a bien reçu votre demande.`,
     titlePlain: 'Merci! On a bien reçu votre demande.',
-    body: 'Un membre de l’équipe Oasis Construction communiquera avec vous dans les {responseTime} pour une première impression de votre projet.',
     nextTitle: 'Ce qui se passe maintenant',
     next: [
       'On regarde votre demande et vos photos, si vous en avez envoyées.',
@@ -807,7 +805,6 @@ const en: GuidedCopy = {
   confirmation: {
     title: (firstName) => `Thank you, ${firstName}! We have your request.`,
     titlePlain: 'Thank you! We have your request.',
-    body: 'Someone from the Oasis Construction team will get in touch within {responseTime} with a first impression of your project.',
     nextTitle: 'What happens now',
     next: [
       'We look at your request and your photos, if you sent any.',
