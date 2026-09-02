@@ -21,6 +21,10 @@ const form = readFileSync(
   new URL('../src/components/guided/GuidedForm.tsx', import.meta.url),
   'utf8',
 );
+const landing = readFileSync(
+  new URL('../src/app/lp/[campaign]/page.tsx', import.meta.url),
+  'utf8',
+);
 
 const SERVICES = [
   'pave-uni',
@@ -211,6 +215,12 @@ test('an accepted submission lands on the thank-you URL', () => {
     /window\.location\.assign/,
     'a client-side transition would not load the conversion URL',
   );
+});
+
+test('paid landing pages load measurement and ask for consent', () => {
+  assert.match(landing, /<GtmNoScript \/>/, 'the GTM noscript fallback is missing');
+  assert.match(landing, /<Analytics \/>/, 'the GTM loader is missing');
+  assert.match(landing, /<CookieBanner/, 'the consent choice is missing');
 });
 
 test('the confirmation greeting survives a missing name', () => {
