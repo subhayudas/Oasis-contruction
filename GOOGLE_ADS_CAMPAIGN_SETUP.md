@@ -169,6 +169,13 @@ production site.
 RESEND_API_KEY
 CONTACT_TO_EMAIL
 CONTACT_FROM_EMAIL
+
+# Optional: receive each accepted lead as an SMS. Use E.164 phone numbers,
+# for example +14385054846. Separate multiple recipient numbers with commas.
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_FROM_PHONE
+TWILIO_TO_PHONE
 ```
 
 5. Confirm `CONTACT_TO_EMAIL` is the inbox that the business actively reads.

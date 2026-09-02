@@ -13,7 +13,7 @@
     "format:check": "prettier --check .",
     "images": "python3 scripts/build-images.py",
     "images:generated": "python3 scripts/build-generated-images.py",
-    "test": "node --test tests/**/*.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
     "placeholders": "node scripts/check-placeholders.mjs",
     "qa": "node scripts/qa-crawl.mjs"

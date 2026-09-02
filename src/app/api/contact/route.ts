@@ -73,6 +73,30 @@ function subjectLabel(value: string): string {
   return ' - ';
 }
 
+/**
+ * The SMS is a compact notification for the business, not a second copy of
+ * the customer-facing form. Twilio caps a single message at 1,600 characters,
+ * so keep the free-text portion bounded even if a form field changes later.
+ */
+function renderSms(
+  payload: ContactPayload,
+  variant: ContactVariant,
+  guided: GuidedFields | null,
+): string {
+  const service = guided?.serviceLabel || serviceLabel(payload.service);
+  const priority = guided?.timeline === 'asap' ? ' — PRESSANT' : '';
+  const details = [
+    `Nouvelle demande Oasis${priority}`,
+    `${FORM_LABEL[variant]} · ${service}`,
+    `${payload.name} · ${payload.phone}`,
+    payload.city ? `Ville : ${payload.city}` : '',
+    payload.email ? `Courriel : ${payload.email}` : '',
+    payload.message ? `Message : ${payload.message.replace(/\s+/g, ' ').slice(0, 600)}` : '',
+  ].filter(Boolean);
+
+  return details.join('\n').slice(0, 1600);
+}
+
 function renderEmail(payload: ContactPayload, fileNames: string[]): string {
   const rows: [string, string][] = [
     ['Nom', payload.name],
@@ -204,6 +228,10 @@ async function deliver(
   const from = process.env.CONTACT_FROM_EMAIL;
   const resendKey = process.env.RESEND_API_KEY;
   const webhook = process.env.CONTACT_WEBHOOK_URL;
+  const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+  const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+  const twilioFromPhone = process.env.TWILIO_FROM_PHONE;
+  const twilioToPhones = process.env.TWILIO_TO_PHONE;
 
   const subject = guided
     ? `Nouvelle demande - ${guided.serviceLabel || serviceLabel(payload.service)} - ${
@@ -222,7 +250,11 @@ async function deliver(
         attachments.map((a) => a.filename),
       );
 
+  let attempted = false;
+  let delivered = false;
+
   if (resendKey && to && from) {
+    attempted = true;
     try {
       const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -244,16 +276,16 @@ async function deliver(
       });
       if (!response.ok) {
         console.error('[contact] Resend rejected the message', response.status);
-        return 'failed';
+      } else {
+        delivered = true;
       }
-      return 'sent';
     } catch (error) {
       console.error('[contact] Resend request failed', error);
-      return 'failed';
     }
   }
 
   if (webhook) {
+    attempted = true;
     try {
       const response = await fetch(webhook, {
         method: 'POST',
@@ -274,16 +306,58 @@ async function deliver(
       });
       if (!response.ok) {
         console.error('[contact] Webhook rejected the message', response.status);
-        return 'failed';
+      } else {
+        delivered = true;
       }
-      return 'sent';
     } catch (error) {
       console.error('[contact] Webhook request failed', error);
-      return 'failed';
     }
   }
 
-  return 'not_configured';
+  if (twilioAccountSid && twilioAuthToken && twilioFromPhone && twilioToPhones) {
+    attempted = true;
+    const authorization = Buffer.from(`${twilioAccountSid}:${twilioAuthToken}`).toString(
+      'base64',
+    );
+    const body = new URLSearchParams({
+      From: twilioFromPhone,
+      Body: renderSms(payload, variant, guided),
+    });
+
+    try {
+      const recipients = twilioToPhones
+        .split(',')
+        .map((phone) => phone.trim())
+        .filter(Boolean);
+      const responses = await Promise.all(
+        recipients.map((to) => {
+          const message = new URLSearchParams(body);
+          message.set('To', to);
+          return fetch(
+            `https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(twilioAccountSid)}/Messages.json`,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Basic ${authorization}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: message,
+            },
+          );
+        }),
+      );
+
+      if (responses.length === 0 || responses.some((response) => !response.ok)) {
+        console.error('[contact] Twilio rejected the SMS notification');
+      } else {
+        delivered = true;
+      }
+    } catch (error) {
+      console.error('[contact] Twilio SMS request failed', error);
+    }
+  }
+
+  return delivered ? 'sent' : attempted ? 'failed' : 'not_configured';
 }
 
 /* ----------------------------------------------------------------- route */
@@ -399,7 +473,8 @@ export async function POST(request: NextRequest) {
   if (result === 'not_configured') {
     console.warn(
       `[contact] No delivery provider configured. Set RESEND_API_KEY + CONTACT_TO_EMAIL + ` +
-        `CONTACT_FROM_EMAIL, or CONTACT_WEBHOOK_URL. The visitor was shown the ` +
+        `CONTACT_FROM_EMAIL, CONTACT_WEBHOOK_URL, or TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN + ` +
+        `TWILIO_FROM_PHONE + TWILIO_TO_PHONE. The visitor was shown the ` +
         `${site.phone.display} fallback instead of a false success.`,
     );
     return json({ ok: false, code: 'not_configured' }, 503);
