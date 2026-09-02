@@ -92,6 +92,8 @@ declare global {
     dataLayer?: Record<string, unknown>[];
     /** Defined by <ConsentDefaults>, ahead of any measurement script. */
     gtag?: (...args: unknown[]) => void;
+    /** Defined by <GoogleAdsTag>; reports a successful lead to Google Ads. */
+    gtag_report_conversion?: (url?: string) => boolean;
   }
 }
 
@@ -114,7 +116,8 @@ export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '';
 // The production Google Ads account tag. An environment value remains
 // available for previews or a future account migration.
 export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? 'AW-18390225010';
-export const GOOGLE_ADS_LEAD_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL ?? '';
+export const GOOGLE_ADS_LEAD_LABEL =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL ?? 'IgYQCIzj4ewcEPKgksFE';
 
 /** The `send_to` Google Ads expects, or '' when either half is unconfigured. */
 export const ADS_LEAD_SEND_TO =
@@ -194,21 +197,15 @@ export function trackFormSubmit(formType: FormType): void {
  * merely sit in the dataLayer - and a later accept replays that queue, which
  * would deliver a conversion the visitor had refused at the time it happened.
  *
- * Silent as well when the tag is unconfigured, or when a GTM container is in
- * charge instead: there the `form_submit` push above is the trigger the
- * container listens for, and firing here too would double-count the lead.
+ * The direct Google Ads conversion is intentionally issued even when GTM is
+ * configured: this conversion action was supplied as a direct gtag snippet.
+ * Keep this conversion out of GTM to avoid configuring it twice there.
  */
 export function trackAdsLead(): void {
   if (typeof window === 'undefined') return;
-  if (GTM_ID || !ADS_LEAD_SEND_TO) return;
+  if (!ADS_LEAD_SEND_TO) return;
   if (!hasConsent()) return;
-  window.gtag?.('event', 'conversion', {
-    // No value: a quote request is a lead, not a sale, and inventing a dollar
-    // figure here would put a made-up number into the bidding model. No
-    // form_type either - Google Ads drops parameters it was not configured
-    // for, and `form_submit` on the dataLayer already carries it.
-    send_to: ADS_LEAD_SEND_TO,
-  });
+  window.gtag_report_conversion?.();
 }
 
 /* ------------------------------------------------------- guided form funnel */
