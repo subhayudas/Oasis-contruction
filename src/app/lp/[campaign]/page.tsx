@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
+import { Analytics, GtmNoScript } from '@/components/Analytics';
 import { BrandMark } from '@/components/BrandMark';
+import { CookieBanner } from '@/components/CookieBanner';
 import { Picture } from '@/components/Picture';
 import { GuidedForm } from '@/components/guided/GuidedForm';
 import { Recaptcha } from '@/components/Recaptcha';
@@ -86,6 +88,8 @@ export default async function LandingPage({
   return (
     <html lang="fr-CA" className={`${geist.variable} ${instrumentSerif.variable}`}>
       <body>
+        <GtmNoScript />
+
         <main id="main">
           <section className="s-ink on-ink relative isolate overflow-hidden">
             <div className="absolute inset-0 -z-10">
@@ -172,7 +176,9 @@ export default async function LandingPage({
             </span>
           </footer>
         </main>
+        <Analytics />
         <Recaptcha />
+        <CookieBanner labels={t.cookies} privacyHref={pagePath(locale, 'privacy')} />
       </body>
     </html>
   );
